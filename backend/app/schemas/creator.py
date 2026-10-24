@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from app.models.entities import INITIAL_NICHES
 
 
@@ -18,21 +18,21 @@ class CreatorProfileBase(BaseModel):
     bio: Optional[str] = ""
     profile_image_url: Optional[str] = ""
     primary_niche: str
-    secondary_niches: List[str] = Field(default_factory=list)
-    content_niches: List[str] = Field(default_factory=list)
-    supported_platforms: List[str] = Field(default_factory=list)
-    platforms: Dict[str, Any] = Field(default_factory=dict)
-    language: str = "English"
-    collaboration_preferences: Dict[str, Any] = Field(default_factory=dict)
+    secondary_niches: Optional[List[str]] = Field(default_factory=list)
+    content_niches: Optional[List[str]] = Field(default_factory=list)
+    supported_platforms: Optional[List[str]] = Field(default_factory=list)
+    platforms: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    language: Optional[str] = "English"
+    collaboration_preferences: Optional[Dict[str, Any]] = Field(default_factory=dict)
 
     # Social Performance Metrics
-    total_followers: int = 0
+    total_followers: Optional[int] = 0
     following_count: Optional[int] = None
     posts_count: Optional[int] = None
     avg_engagement_rate: Optional[float] = 0.0
-    audience_demographics: Dict[str, Any] = Field(default_factory=dict)
-    authenticity_score: float = 90.0
-    sample_content_keywords: List[str] = Field(default_factory=list)
+    audience_demographics: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    authenticity_score: Optional[float] = 90.0
+    sample_content_keywords: Optional[List[str]] = Field(default_factory=list)
 
     # Rich Influencer Profile (Phase 2)
     profile_url: Optional[str] = None
@@ -47,12 +47,97 @@ class CreatorProfileBase(BaseModel):
     delivery_history: Optional[List[Dict[str, Any]]] = Field(default_factory=list)
 
     # Provenance & Platform Verification Status
-    data_source: str = "user_manual"
+    data_source: Optional[str] = "user_manual"
     last_fetched_at: Optional[datetime] = None
-    freshness_status: str = "manual"
-    is_verified: bool = False
-    is_platform_verified: bool = False
-    connected_platforms: Dict[str, Any] = Field(default_factory=dict)
+    freshness_status: Optional[str] = "manual"
+    is_verified: Optional[bool] = False
+    is_platform_verified: Optional[bool] = False
+    connected_platforms: Optional[Dict[str, Any]] = Field(default_factory=dict)
+
+    @field_validator(
+        "secondary_niches",
+        "content_niches",
+        "supported_platforms",
+        "sample_content_keywords",
+        "content_categories",
+        "delivery_history",
+        mode="before",
+    )
+    @classmethod
+    def coerce_none_to_list(cls, v: Any) -> List[Any]:
+        if v is None:
+            return []
+        return v
+
+    @field_validator(
+        "platforms",
+        "collaboration_preferences",
+        "audience_demographics",
+        "brand_suitability",
+        "connected_platforms",
+        mode="before",
+    )
+    @classmethod
+    def coerce_none_to_dict(cls, v: Any) -> Dict[str, Any]:
+        if v is None:
+            return {}
+        return v
+
+    @field_validator("profile_image_url", "bio", mode="before")
+    @classmethod
+    def coerce_none_to_str(cls, v: Any) -> str:
+        if v is None:
+            return ""
+        return str(v)
+
+    @field_validator("language", mode="before")
+    @classmethod
+    def coerce_none_to_language(cls, v: Any) -> str:
+        if not v:
+            return "English"
+        return str(v)
+
+    @field_validator("total_followers", "past_campaigns_count", mode="before")
+    @classmethod
+    def coerce_none_to_int_zero(cls, v: Any) -> int:
+        if v is None:
+            return 0
+        return int(v)
+
+    @field_validator("avg_engagement_rate", mode="before")
+    @classmethod
+    def coerce_none_to_float_zero(cls, v: Any) -> float:
+        if v is None:
+            return 0.0
+        return float(v)
+
+    @field_validator("authenticity_score", mode="before")
+    @classmethod
+    def coerce_authenticity(cls, v: Any) -> float:
+        if v is None:
+            return 90.0
+        return float(v)
+
+    @field_validator("data_source", mode="before")
+    @classmethod
+    def coerce_data_source(cls, v: Any) -> str:
+        if not v:
+            return "user_manual"
+        return str(v)
+
+    @field_validator("freshness_status", mode="before")
+    @classmethod
+    def coerce_freshness(cls, v: Any) -> str:
+        if not v:
+            return "manual"
+        return str(v)
+
+    @field_validator("is_verified", "is_platform_verified", mode="before")
+    @classmethod
+    def coerce_bool(cls, v: Any) -> bool:
+        if v is None:
+            return False
+        return bool(v)
 
 
 class CreatorProfileCreate(CreatorProfileBase):

@@ -619,6 +619,10 @@ class HybridRecommenderService:
                 creator.updated_at = now_utc
             if getattr(creator, "secondary_niches", None) is None:
                 creator.secondary_niches = []
+            if getattr(creator, "content_niches", None) is None:
+                creator.content_niches = []
+            if getattr(creator, "supported_platforms", None) is None:
+                creator.supported_platforms = []
             if getattr(creator, "platforms", None) is None:
                 creator.platforms = {}
             if getattr(creator, "language", None) is None:
