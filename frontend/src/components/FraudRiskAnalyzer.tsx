@@ -193,6 +193,16 @@ export const FraudRiskAnalyzer: React.FC<FraudRiskAnalyzerProps> = ({
             >
               @fashion_style
             </button>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery('@tech_marcus');
+                executeSearch('@tech_marcus');
+              }}
+              className="text-sky-600 hover:text-sky-800 hover:underline bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200 font-mono"
+            >
+              @tech_marcus
+            </button>
           </div>
         </form>
       </Card>
