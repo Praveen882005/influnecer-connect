@@ -225,20 +225,20 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
       </div>
 
       {/* Subsystem Navigation Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card
           orientation="vertical"
           padding="md"
           className="hover:border-sky-400 transition-colors cursor-pointer"
-          onClick={() => onNavigate('shortlists')}
+          onClick={() => onNavigate('discover')}
         >
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-sky-50 text-sky-600 rounded-lg">
-              <Icon name="Users" size="md" />
+              <Icon name="Zap" size="md" />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-sm">Campaign Shortlists</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Evaluate candidates and send direct brief invitations.</p>
+              <h3 className="font-semibold text-slate-900 text-sm">AI Brief Matching</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Semantic search with 4-signal ranking and suitability filters.</p>
             </div>
           </div>
         </Card>
@@ -246,16 +246,33 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         <Card
           orientation="vertical"
           padding="md"
-          className="hover:border-sky-400 transition-colors cursor-pointer"
-          onClick={() => onNavigate('invitations')}
+          className="hover:border-rose-400 transition-colors cursor-pointer"
+          onClick={() => onNavigate('discover')}
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-rose-50 text-rose-600 rounded-lg">
+              <Icon name="ShieldAlert" size="md" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 text-sm">Fraud Risk Auditor</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Audit bot signals, engagement asymmetry, and growth velocity.</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card
+          orientation="vertical"
+          padding="md"
+          className="hover:border-indigo-400 transition-colors cursor-pointer"
+          onClick={() => onNavigate('shortlists')}
         >
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-lg">
-              <Icon name="Mail" size="md" />
+              <Icon name="Star" size="md" />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-sm">Active Invitations</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Track creator acceptance decisions and terms.</p>
+              <h3 className="font-semibold text-slate-900 text-sm">Candidate Shortlists</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Review 5 trust indicators, delivery history &amp; send invites.</p>
             </div>
           </div>
         </Card>
@@ -263,16 +280,16 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         <Card
           orientation="vertical"
           padding="md"
-          className="hover:border-sky-400 transition-colors cursor-pointer"
+          className="hover:border-emerald-400 transition-colors cursor-pointer"
           onClick={() => onNavigate('analytics')}
         >
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg">
-              <Icon name="BarChart2" size="md" />
+              <Icon name="TrendingUp" size="md" />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-sm">Participation Funnel</h3>
-              <p className="text-xs text-slate-500 mt-0.5">5-stage conversion funnels, daily timelines &amp; CSV export.</p>
+              <h3 className="font-semibold text-slate-900 text-sm">Forecast &amp; Outcomes</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Conservative/Baseline/Optimistic ROI simulator &amp; actuals variance.</p>
             </div>
           </div>
         </Card>

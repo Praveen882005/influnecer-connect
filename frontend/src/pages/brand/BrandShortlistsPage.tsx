@@ -12,7 +12,8 @@ import {
   Modal,
 } from '../../design-system';
 import { ConfirmationModal } from '../../components/feedback';
-import type { Campaign, ShortlistItem, ShortlistStatus } from '../../types';
+import { RichInfluencerProfileModal } from '../../components/RichInfluencerProfileModal';
+import type { Campaign, CreatorProfile, ShortlistItem, ShortlistStatus } from '../../types';
 
 export const BrandShortlistsPage: React.FC = () => {
   const [items, setItems] = useState<ShortlistItem[]>([]);
@@ -22,6 +23,7 @@ export const BrandShortlistsPage: React.FC = () => {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [selectedProfileCreator, setSelectedProfileCreator] = useState<CreatorProfile | null>(null);
 
   // Edit Notes & Status Modal
   const [selectedItem, setSelectedItem] = useState<ShortlistItem | null>(null);
@@ -321,6 +323,16 @@ export const BrandShortlistsPage: React.FC = () => {
                     Remove
                   </Button>
                   <div className="flex items-center gap-2">
+                    {item.creator && (
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        leftIcon="Eye"
+                        onClick={() => setSelectedProfileCreator(item.creator!)}
+                      >
+                        Profile &amp; Trust
+                      </Button>
+                    )}
                     <Button
                       variant="outline"
                       size="sm"
@@ -507,6 +519,14 @@ export const BrandShortlistsPage: React.FC = () => {
         message="Are you sure you want to remove this creator from your shortlist? You can re-add them from the Creator Directory at any time."
         confirmLabel="Remove Creator"
         isDestructive
+      />
+
+      {/* Rich Influencer Profile Intelligence Modal */}
+      <RichInfluencerProfileModal
+        creator={selectedProfileCreator}
+        isOpen={!!selectedProfileCreator}
+        onClose={() => setSelectedProfileCreator(null)}
+        isShortlisted={true}
       />
     </div>
   );
