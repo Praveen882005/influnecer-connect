@@ -29,6 +29,8 @@ from app.schemas.matching import (
     CreatorRecommendation,
     MatchScoreExplanation,
     MatchSignalBreakdown,
+    NaturalLanguageMatchRequest,
+    ParsedMatchingCriteria,
     RecommendationFilterOptions,
     RecommendationResponse,
     RecommendationWeights,
@@ -301,18 +303,27 @@ class HybridRecommenderService:
             except Exception as e:
                 logger.warning(f"Failed to compute similarity from precomputed embedding: {e}")
 
-        # Fallback to text inference on creator profile
+        # Text inference on creator profile incorporating rich Phase 2 profile features
         creator_niches = []
         if creator.primary_niche:
             creator_niches.append(creator.primary_niche)
         if creator.content_niches and isinstance(creator.content_niches, list):
             creator_niches.extend(creator.content_niches)
 
+        suitability_tags = []
+        if creator.brand_suitability and isinstance(creator.brand_suitability, dict):
+            tags = creator.brand_suitability.get("suitability_tags")
+            if isinstance(tags, list):
+                suitability_tags.extend(tags)
+
         creator_text = compose_creator_text(
             display_name=creator.display_name,
             bio=creator.bio,
             niches=creator_niches,
             hashtags=creator.sample_content_keywords if isinstance(creator.sample_content_keywords, list) else None,
+            audience_description=getattr(creator, "audience_description", None),
+            content_categories=getattr(creator, "content_categories", None) if isinstance(getattr(creator, "content_categories", None), list) else None,
+            brand_suitability_tags=suitability_tags or None,
         )
 
         if not creator_text.strip():
@@ -626,6 +637,14 @@ class HybridRecommenderService:
                 creator.is_platform_verified = False
             if getattr(creator, "connected_platforms", None) is None:
                 creator.connected_platforms = {}
+            if getattr(creator, "brand_suitability", None) is None:
+                creator.brand_suitability = {}
+            if getattr(creator, "content_categories", None) is None:
+                creator.content_categories = []
+            if getattr(creator, "past_campaigns_count", None) is None:
+                creator.past_campaigns_count = 0
+            if getattr(creator, "delivery_history", None) is None:
+                creator.delivery_history = []
 
             creator_out = CreatorProfileOut.model_validate(creator)
 
@@ -686,6 +705,162 @@ class HybridRecommenderService:
             recommendations=recommendations,
             disclaimer=OPTIMALITY_DISCLAIMER,
         )
+
+    # -------------------------------------------------------------------------
+    # STEP 10: Natural Language Brief Processing (Phase 3)
+    # -------------------------------------------------------------------------
+    def parse_natural_language_brief(
+        self,
+        request: NaturalLanguageMatchRequest,
+    ) -> Tuple[Campaign, RecommendationFilterOptions, RecommendationWeights, ParsedMatchingCriteria]:
+        """
+        Converts a natural language brief request into structured matching criteria and ephemeral Campaign.
+        """
+        # 1. Determine Niche
+        niche = request.industry_or_niche.strip().lower() if request.industry_or_niche else None
+        if not niche:
+            combined_text = f"{request.brief_text} {request.product_or_service or ''}".lower()
+            niche_keywords = {
+                "technology": ["tech", "ai", "software", "developer", "hardware", "gadget", "cyber", "electronics", "app", "code"],
+                "beauty": ["skincare", "makeup", "cosmetics", "serum", "clean beauty", "aesthetic", "dermatology", "glow"],
+                "food": ["cooking", "recipe", "food", "culinary", "restaurant", "chef", "gourmet", "baking", "dining"],
+                "fitness": ["workout", "fitness", "gym", "exercise", "strength", "athlete", "cardio", "bodybuilding"],
+                "fashion": ["fashion", "apparel", "clothing", "streetwear", "style", "outfit", "wardrobe", "runway"],
+                "home": ["decor", "interior", "home", "furniture", "living", "renovation", "architecture"],
+                "parenting": ["parenting", "baby", "infant", "toddler", "kids", "children", "mother", "maternal", "family"],
+                "wellness": ["wellness", "mindfulness", "meditation", "mental health", "holistic", "self-care", "organic"],
+            }
+            for candidate_niche, keywords in niche_keywords.items():
+                if any(kw in combined_text for kw in keywords):
+                    niche = candidate_niche
+                    break
+            if not niche:
+                niche = "general"
+
+        # 2. Parse Demographic & Geographic Audience Signals
+        parsed_audience: Dict[str, Any] = {}
+        if request.target_audience:
+            aud_text = request.target_audience.upper()
+            country_codes = []
+            if "US" in aud_text or "USA" in aud_text or "UNITED STATES" in aud_text or "AMERICA" in aud_text:
+                country_codes.append("US")
+            if "UK" in aud_text or "UNITED KINGDOM" in aud_text or "BRITAIN" in aud_text or "LONDON" in aud_text:
+                country_codes.append("GB")
+            if "CANADA" in aud_text or "CA" in aud_text:
+                country_codes.append("CA")
+            if "INDIA" in aud_text or "IN" in aud_text:
+                country_codes.append("IN")
+            if "AUSTRALIA" in aud_text or "AU" in aud_text:
+                country_codes.append("AU")
+            if "GERMANY" in aud_text or "DE" in aud_text:
+                country_codes.append("DE")
+            if "FRANCE" in aud_text or "FR" in aud_text:
+                country_codes.append("FR")
+            if country_codes:
+                parsed_audience["countries"] = country_codes
+
+            age_groups = []
+            if "18-24" in aud_text or "GEN Z" in aud_text or "COLLEGE" in aud_text:
+                age_groups.append("18-24")
+            if "25-34" in aud_text or "MILLENNIAL" in aud_text or "YOUNG ADULT" in aud_text:
+                age_groups.append("25-34")
+            if "35-44" in aud_text:
+                age_groups.append("35-44")
+            if "45-54" in aud_text:
+                age_groups.append("45-54")
+            if age_groups:
+                parsed_audience["age_groups"] = age_groups
+
+            lowered_aud = request.target_audience.lower()
+            if "female" in lowered_aud or "women" in lowered_aud:
+                parsed_audience["target_gender"] = "female"
+            elif "male" in lowered_aud or "men" in lowered_aud:
+                parsed_audience["target_gender"] = "male"
+
+        # 3. Construct Required Criteria
+        required_criteria: Dict[str, Any] = {}
+        if request.preferred_platform:
+            required_criteria["platform"] = request.preferred_platform.strip().lower()
+        if request.preferred_language:
+            required_criteria["language"] = request.preferred_language.strip()
+        if request.min_authenticity is not None:
+            required_criteria["min_authenticity"] = request.min_authenticity
+        if request.strict_niche_match:
+            required_criteria["strict_niche"] = True
+
+        # 4. Synthesize Ephemeral Campaign
+        title = f"Brief: {request.product_or_service or (niche.capitalize() + ' Campaign')}"
+        campaign = Campaign(
+            id=0,
+            brand_id=0,
+            title=title,
+            niche=niche,
+            description=request.brief_text,
+            product_description=request.product_or_service or "",
+            objective=request.campaign_objective or "Brand Awareness & Discovery",
+            target_audience=parsed_audience,
+            min_followers=request.min_followers or 0,
+            min_engagement_rate=request.min_engagement_rate or 0.0,
+            required_criteria=required_criteria,
+            budget=request.budget,
+        )
+
+        filters = RecommendationFilterOptions(
+            strict_niche_match=request.strict_niche_match,
+            required_platform=request.preferred_platform,
+            min_followers_override=request.min_followers,
+            min_engagement_rate_override=request.min_engagement_rate,
+            min_authenticity_score_override=request.min_authenticity,
+            limit=request.limit,
+        )
+
+        weights = request.weights or RecommendationWeights()
+
+        parsed_criteria = ParsedMatchingCriteria(
+            brief_text=request.brief_text,
+            product_or_service=request.product_or_service,
+            target_audience=request.target_audience,
+            industry_or_niche=niche,
+            campaign_objective=request.campaign_objective or "Brand Awareness & Discovery",
+            preferred_platform=request.preferred_platform,
+            preferred_language=request.preferred_language or "English",
+            budget=request.budget,
+            min_followers=request.min_followers,
+            min_engagement_rate=request.min_engagement_rate,
+            min_authenticity=request.min_authenticity,
+            strict_niche_match=request.strict_niche_match,
+        )
+
+        return campaign, filters, weights, parsed_criteria
+
+    def match_natural_language_brief(
+        self,
+        request: NaturalLanguageMatchRequest,
+        creators: List[CreatorProfile],
+    ) -> RecommendationResponse:
+        """
+        Executes AI-based brand-to-influencer matching from a natural-language brief.
+        Guarantees use of genuine Sentence-Transformers embeddings.
+        """
+        # Ensure embedding service is operational
+        if not self._embedding_service.is_operational():
+            raise RuntimeError(
+                "Sentence-Transformers model is currently unavailable. "
+                "Refusing to execute matching without genuine neural embeddings."
+            )
+
+        campaign, filters, weights, parsed_criteria = self.parse_natural_language_brief(request)
+
+        response = self.generate_recommendations(
+            campaign=campaign,
+            creators=creators,
+            weights=weights,
+            filters=filters,
+        )
+
+        response.parsed_criteria = parsed_criteria
+        response.ai_model_used = f"sentence-transformers/{self._embedding_service.model_name} (384-dim dense vectors)"
+        return response
 
 
 # Singleton instance accessor

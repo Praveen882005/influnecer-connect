@@ -121,11 +121,15 @@ def compose_creator_text(
     niches: Optional[List[str]] = None,
     captions: Optional[List[str]] = None,
     hashtags: Optional[List[str]] = None,
+    audience_description: Optional[str] = None,
+    content_categories: Optional[List[str]] = None,
+    brand_suitability_tags: Optional[List[str]] = None,
     max_captions: int = 15,
 ) -> str:
     """
     Composes a unified semantic corpus for a creator profile.
-    Integrates bio, niche keywords, deduplicated post captions, and normalized hashtags.
+    Integrates bio, niche keywords, deduplicated post captions, normalized hashtags,
+    audience descriptions, content categories, and brand suitability tags.
     """
     sections: List[str] = []
 
@@ -143,6 +147,21 @@ def compose_creator_text(
         clean_niches = [clean_unicode_and_whitespace(n).lower() for n in niches if n]
         if clean_niches:
             sections.append(f"Niches: {', '.join(clean_niches)}")
+
+    if content_categories:
+        clean_cats = [clean_unicode_and_whitespace(c).lower() for c in content_categories if c]
+        if clean_cats:
+            sections.append(f"Content Categories: {', '.join(clean_cats)}")
+
+    if audience_description:
+        clean_aud = clean_unicode_and_whitespace(audience_description)
+        if clean_aud:
+            sections.append(f"Audience Profile: {clean_aud}")
+
+    if brand_suitability_tags:
+        clean_tags = [clean_unicode_and_whitespace(t).lower() for t in brand_suitability_tags if t]
+        if clean_tags:
+            sections.append(f"Brand Suitability: {', '.join(clean_tags)}")
 
     if captions:
         deduped = deduplicate_captions(captions)[:max_captions]
@@ -166,6 +185,8 @@ def compose_campaign_text(
     objective: Optional[str] = None,
     target_audience: Optional[Dict[str, Any]] = None,
     deliverables: Optional[List[str]] = None,
+    platform: Optional[str] = None,
+    language: Optional[str] = None,
 ) -> str:
     """
     Composes a unified semantic corpus for a marketing campaign brief.
@@ -193,6 +214,16 @@ def compose_campaign_text(
         clean_prod = clean_unicode_and_whitespace(product_description)
         if clean_prod:
             sections.append(f"Product Description: {clean_prod}")
+
+    if platform:
+        clean_plat = clean_unicode_and_whitespace(platform)
+        if clean_plat:
+            sections.append(f"Target Platform: {clean_plat}")
+
+    if language:
+        clean_lang = clean_unicode_and_whitespace(language)
+        if clean_lang:
+            sections.append(f"Content Language: {clean_lang}")
 
     if target_audience and isinstance(target_audience, dict):
         aud_parts = []

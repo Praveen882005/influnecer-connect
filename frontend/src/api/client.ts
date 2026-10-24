@@ -26,6 +26,7 @@ import type {
   ModelMetadata,
   NotificationItem,
   NotificationListResponse,
+  NaturalLanguageMatchRequest,
   Proposal,
   ProviderAdapterStatus,
   RecommendationResponse,
@@ -290,6 +291,8 @@ export const api = {
       apiClient.get<RecommendationResponse>(`/recommendations/campaign/${campaignId}`, {
         params: minScore !== undefined ? { min_score: minScore } : undefined,
       }),
+    matchBrief: (payload: NaturalLanguageMatchRequest) =>
+      apiClient.post<RecommendationResponse>('/recommendations/match-brief', payload),
     evaluateFit: (creatorId: number, campaignData: Partial<Campaign>) =>
       apiClient.post<CreatorRecommendation>(`/recommendations/creator/${creatorId}/fit`, campaignData),
   },

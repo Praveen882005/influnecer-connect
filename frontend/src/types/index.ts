@@ -204,6 +204,15 @@ export interface Proposal {
   brand_name?: string | null;
 }
 
+export interface SignalScoreDetail {
+  score: number;
+  raw_value?: any;
+  configured_weight: number;
+  active_weight: number;
+  is_available: boolean;
+  evidence: string[];
+}
+
 export interface MatchSignalBreakdown {
   content_relevance_score: number;
   audience_affinity_score: number;
@@ -211,13 +220,17 @@ export interface MatchSignalBreakdown {
   authenticity_heuristic_score: number;
   signals_used: string[];
   missing_metrics: string[];
+  signal_details?: Record<string, SignalScoreDetail>;
 }
 
 export interface MatchScoreExplanation {
   summary: string;
   strengths: string[];
   cautions: string[];
+  hard_constraints_satisfied?: string[];
+  unavailable_fields?: string[];
   authenticity_disclaimer: string;
+  optimality_disclaimer?: string;
 }
 
 export interface CreatorRecommendation {
@@ -228,11 +241,55 @@ export interface CreatorRecommendation {
   rank: number;
 }
 
+export interface ParsedMatchingCriteria {
+  brief_text: string;
+  product_or_service?: string;
+  target_audience?: string;
+  industry_or_niche?: string;
+  campaign_objective?: string;
+  preferred_platform?: string;
+  preferred_language?: string;
+  budget?: number;
+  min_followers?: number;
+  min_engagement_rate?: number;
+  min_authenticity?: number;
+  strict_niche_match: boolean;
+}
+
+export interface NaturalLanguageMatchRequest {
+  brief_text: string;
+  product_or_service?: string;
+  target_audience?: string;
+  industry_or_niche?: string;
+  campaign_objective?: string;
+  preferred_platform?: string;
+  preferred_language?: string;
+  budget?: number;
+  min_followers?: number;
+  min_engagement_rate?: number;
+  min_authenticity?: number;
+  strict_niche_match?: boolean;
+  limit?: number;
+  weights?: {
+    weight_semantic_content: number;
+    weight_engagement_quality: number;
+    weight_authenticity: number;
+    weight_audience_fit: number;
+  };
+}
+
 export interface RecommendationResponse {
   campaign_id?: number | null;
   brand_id?: number | null;
   total_analyzed: number;
+  eligible_count?: number;
+  disqualified_count?: number;
+  configured_weights?: Record<string, number>;
+  latency_ms?: number;
   recommendations: CreatorRecommendation[];
+  parsed_criteria?: ParsedMatchingCriteria;
+  ai_model_used?: string;
+  disclaimer?: string;
 }
 
 export interface AnalyticsOverview {

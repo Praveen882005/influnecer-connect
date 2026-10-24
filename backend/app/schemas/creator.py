@@ -40,11 +40,11 @@ class CreatorProfileBase(BaseModel):
     avg_likes: Optional[int] = None
     avg_comments: Optional[int] = None
     avg_views: Optional[int] = None
-    brand_suitability: Dict[str, Any] = Field(default_factory=dict)
-    content_categories: List[str] = Field(default_factory=list)
-    past_campaigns_count: int = 0
+    brand_suitability: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    content_categories: Optional[List[str]] = Field(default_factory=list)
+    past_campaigns_count: Optional[int] = 0
     on_time_delivery_rate: Optional[float] = None
-    delivery_history: List[Dict[str, Any]] = Field(default_factory=list)
+    delivery_history: Optional[List[Dict[str, Any]]] = Field(default_factory=list)
 
     # Provenance & Platform Verification Status
     data_source: str = "user_manual"

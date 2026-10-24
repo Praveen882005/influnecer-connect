@@ -8,10 +8,13 @@ Provides:
 - GET /recommendations/weights-schema: Engine weights schema and normalization rules.
 """
 
+import logging
 from typing import Any, Dict, List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+
+logger = logging.getLogger(__name__)
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
@@ -20,6 +23,8 @@ from app.schemas.matching import (
     CreatorRecommendation,
     MatchScoreExplanation,
     MatchSignalBreakdown,
+    NaturalLanguageMatchRequest,
+    ParsedMatchingCriteria,
     RecommendationFilterOptions,
     RecommendationRequest,
     RecommendationResponse,
@@ -242,6 +247,57 @@ async def evaluate_single_fit(
         )
 
     return response.recommendations[0]
+
+
+@router.post(
+    "/match-brief",
+    response_model=RecommendationResponse,
+    summary="Match influencers from natural-language campaign brief (Phase 3)",
+    description=(
+        "Converts natural-language campaign brief into structured matching criteria, "
+        "computes genuine 384-dimensional dense semantic similarity using Sentence-Transformers, "
+        "applies hard eligibility constraints, evaluates engagement, authenticity, and audience fit, "
+        "and returns ranked influencers with explainability and missing data warnings."
+    ),
+)
+async def match_creators_from_brief(
+    payload: NaturalLanguageMatchRequest,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+    recommender: HybridRecommenderService = Depends(get_recommender_service),
+) -> RecommendationResponse:
+    # 1. Role Guard: Only Brand and Admin users can access AI brief matching
+    if current_user.role not in (UserRole.BRAND, UserRole.ADMIN):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only brand accounts and administrators can request AI influencer matching.",
+        )
+
+    # 2. Verify AI Service Availability (No fake substitutions if model is offline)
+    if not recommender._embedding_service.is_operational():
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Sentence-Transformers embedding model 'all-MiniLM-L6-v2' is unavailable. "
+                   "AI semantic matching cannot execute without genuine latent vector embeddings.",
+        )
+
+    # 3. Fetch Creator Pool
+    creators_res = await db.execute(select(CreatorProfile))
+    creators = list(creators_res.scalars().all())
+
+    # 4. Execute AI Matching Pipeline
+    try:
+        response = recommender.match_natural_language_brief(
+            request=payload,
+            creators=creators,
+        )
+        return response
+    except Exception as e:
+        logger.error(f"AI matching pipeline error: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"AI matching pipeline failed: {str(e)}",
+        )
 
 
 @router.get(

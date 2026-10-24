@@ -378,6 +378,14 @@ class EmbeddingService:
 
         return top_niche, top_similarity, scores
 
+    def is_operational(self) -> bool:
+        """Verifies if model is loaded or can be loaded without error."""
+        try:
+            self.load_model()
+            return self._status == "loaded" and self._model is not None
+        except Exception:
+            return False
+
     def get_status(self) -> Dict[str, Any]:
         """Returns operational status, model configuration, and documented limits."""
         with self._cache_lock:

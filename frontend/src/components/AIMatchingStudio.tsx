@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api/client';
 import type { Campaign, CreatorProfile, CreatorRecommendation } from '../types';
+import { AICampaignBriefMatcher } from './AICampaignBriefMatcher';
+import { RichInfluencerProfileModal } from './RichInfluencerProfileModal';
 
 interface AIMatchingStudioProps {
   initialCampaign?: Campaign | null;
@@ -15,6 +17,8 @@ export const AIMatchingStudio: React.FC<AIMatchingStudioProps> = ({
   onToggleShortlist,
   shortlistedIds,
 }) => {
+  const [studioMode, setStudioMode] = useState<'brief_matcher' | 'saved_campaign'>('brief_matcher');
+  const [selectedProfileCreator, setSelectedProfileCreator] = useState<CreatorProfile | null>(null);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [selectedCampaignId, setSelectedCampaignId] = useState<number | null>(
     initialCampaign?.id || null
@@ -88,16 +92,60 @@ export const AIMatchingStudio: React.FC<AIMatchingStudioProps> = ({
 
   return (
     <section className="ai-matching-section" aria-labelledby="ai-studio-title">
-      <div className="catalog-header-bar">
+      <div className="catalog-header-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h2 id="ai-studio-title" className="section-heading">AI Brand-Creator Matching Studio</h2>
           <p className="section-subtext">
-            Multi-signal matching engine combining TF-IDF cosine similarity, demographic alignment, follower-tier normalized engagement, and authenticity anomaly heuristics.
+            Multi-signal matching engine combining 384-dimensional Sentence-Transformers cosine similarity, demographic alignment, follower-tier normalized engagement, and authenticity anomaly heuristics.
           </p>
+        </div>
+
+        {/* Studio Mode Switcher */}
+        <div style={{ display: 'flex', gap: '0.5rem', background: '#f1f5f9', padding: '4px', borderRadius: '8px' }}>
+          <button
+            type="button"
+            onClick={() => setStudioMode('brief_matcher')}
+            style={{
+              padding: '6px 14px',
+              fontSize: '12px',
+              fontWeight: 600,
+              borderRadius: '6px',
+              border: 'none',
+              cursor: 'pointer',
+              background: studioMode === 'brief_matcher' ? '#0284c7' : 'transparent',
+              color: studioMode === 'brief_matcher' ? '#ffffff' : '#475569',
+            }}
+          >
+            ⚡ Natural Language Brief (Phase 3)
+          </button>
+          <button
+            type="button"
+            onClick={() => setStudioMode('saved_campaign')}
+            style={{
+              padding: '6px 14px',
+              fontSize: '12px',
+              fontWeight: 600,
+              borderRadius: '6px',
+              border: 'none',
+              cursor: 'pointer',
+              background: studioMode === 'saved_campaign' ? '#0284c7' : 'transparent',
+              color: studioMode === 'saved_campaign' ? '#ffffff' : '#475569',
+            }}
+          >
+            Match Saved Campaign
+          </button>
         </div>
       </div>
 
-      {/* Campaign Selection Bar */}
+      {studioMode === 'brief_matcher' ? (
+        <AICampaignBriefMatcher
+          onViewProfile={setSelectedProfileCreator}
+          onToggleShortlist={(c) => onToggleShortlist(c.id)}
+          isCreatorShortlisted={(id) => shortlistedIds.has(id)}
+        />
+      ) : (
+        <>
+          {/* Campaign Selection Bar */}
       <div className="card campaign-select-bar">
         <label className="form-label" htmlFor="matching-campaign-select">
           Select Target Campaign Brief:
@@ -328,6 +376,17 @@ export const AIMatchingStudio: React.FC<AIMatchingStudioProps> = ({
           </div>
         </div>
       )}
+    </>
+  )}
+
+      {/* Rich Influencer Profile Intelligence Modal */}
+      <RichInfluencerProfileModal
+        creator={selectedProfileCreator}
+        isOpen={!!selectedProfileCreator}
+        onClose={() => setSelectedProfileCreator(null)}
+        onShortlistToggle={(c) => onToggleShortlist(c.id)}
+        isShortlisted={selectedProfileCreator ? shortlistedIds.has(selectedProfileCreator.id) : false}
+      />
     </section>
   );
 };

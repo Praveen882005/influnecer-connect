@@ -67,6 +67,92 @@ class RecommendationRequest(BaseModel):
     filters: Optional[RecommendationFilterOptions] = None
 
 
+class ParsedMatchingCriteria(BaseModel):
+    """Structured criteria parsed/extracted from natural language campaign brief."""
+    brief_text: str
+    product_or_service: Optional[str] = None
+    target_audience: Optional[str] = None
+    industry_or_niche: Optional[str] = None
+    campaign_objective: Optional[str] = None
+    preferred_platform: Optional[str] = None
+    preferred_language: Optional[str] = "English"
+    budget: Optional[float] = None
+    min_followers: Optional[int] = None
+    min_engagement_rate: Optional[float] = None
+    min_authenticity: Optional[float] = None
+    strict_niche_match: bool = False
+
+
+class NaturalLanguageMatchRequest(BaseModel):
+    """
+    Brand-to-Influencer Natural Language Campaign Matching Request (Phase 3).
+    Allows brands to enter a natural-language campaign brief with optional structured filters.
+    """
+    brief_text: str = Field(
+        ...,
+        min_length=5,
+        max_length=4000,
+        description="Natural-language campaign brief or concept description."
+    )
+    product_or_service: Optional[str] = Field(
+        default=None,
+        max_length=500,
+        description="Product or service being promoted."
+    )
+    target_audience: Optional[str] = Field(
+        default=None,
+        max_length=500,
+        description="Target audience description, age demographic, or geographic focus."
+    )
+    industry_or_niche: Optional[str] = Field(
+        default=None,
+        max_length=100,
+        description="Target industry or niche (e.g. 'technology', 'beauty', 'fitness', etc.)."
+    )
+    campaign_objective: Optional[str] = Field(
+        default=None,
+        max_length=200,
+        description="Campaign objective (e.g. 'Brand Awareness', 'Conversions', 'Product Launch')."
+    )
+    preferred_platform: Optional[str] = Field(
+        default=None,
+        max_length=50,
+        description="Preferred platform (e.g. 'instagram', 'youtube', 'tiktok')."
+    )
+    preferred_language: Optional[str] = Field(
+        default="English",
+        max_length=50,
+        description="Preferred content language."
+    )
+    budget: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        description="Campaign budget in USD."
+    )
+    min_followers: Optional[int] = Field(
+        default=None,
+        ge=0,
+        description="Minimum follower threshold."
+    )
+    min_engagement_rate: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        description="Minimum engagement rate percentage."
+    )
+    min_authenticity: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        le=100.0,
+        description="Minimum authenticity score required."
+    )
+    strict_niche_match: bool = Field(
+        default=False,
+        description="Require creator primary/content niche to match campaign industry."
+    )
+    limit: int = Field(default=10, ge=1, le=50, description="Top-K creators limit.")
+    weights: Optional[RecommendationWeights] = None
+
+
 class SignalScoreDetail(BaseModel):
     """Score, evidence, and active weight for a single scoring signal."""
     score: float = Field(..., ge=0.0, le=100.0, description="Normalized signal score on 0-100 scale.")
@@ -118,4 +204,6 @@ class RecommendationResponse(BaseModel):
     configured_weights: Optional[Dict[str, float]] = None
     latency_ms: Optional[float] = None
     recommendations: List[CreatorRecommendation] = Field(default_factory=list)
+    parsed_criteria: Optional[ParsedMatchingCriteria] = None
+    ai_model_used: Optional[str] = None
     disclaimer: str = Field(default=OPTIMALITY_DISCLAIMER)

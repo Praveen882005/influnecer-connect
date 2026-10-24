@@ -15,8 +15,10 @@ import {
 } from '../../design-system';
 import type { Campaign, CreatorProfile, ShortlistItem } from '../../types';
 import { RichInfluencerProfileModal } from '../../components/RichInfluencerProfileModal';
+import { AICampaignBriefMatcher } from '../../components/AICampaignBriefMatcher';
 
 export const BrandDiscoverPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'directory' | 'ai_matching'>('directory');
   const [creators, setCreators] = useState<CreatorProfile[]>([]);
   const [shortlistItems, setShortlistItems] = useState<ShortlistItem[]>([]);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -124,6 +126,33 @@ export const BrandDiscoverPage: React.FC = () => {
             Source verified creators evaluated across tier-normalized engagement benchmarks and authenticity signals.
           </p>
         </div>
+
+        {/* Discovery Mode Switcher */}
+        <div className="flex items-center p-1 bg-slate-100 rounded-lg border border-slate-200">
+          <button
+            type="button"
+            onClick={() => setActiveTab('directory')}
+            className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+              activeTab === 'directory'
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Directory Catalog
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('ai_matching')}
+            className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center gap-1.5 ${
+              activeTab === 'ai_matching'
+                ? 'bg-sky-600 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <span>⚡ AI Brief Matching</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-sky-500 text-white font-mono">Phase 3</span>
+          </button>
+        </div>
       </div>
 
       {feedback && (
@@ -138,8 +167,16 @@ export const BrandDiscoverPage: React.FC = () => {
         </Alert>
       )}
 
-      {/* Filter Bar */}
-      <Card padding="md">
+      {activeTab === 'ai_matching' ? (
+        <AICampaignBriefMatcher
+          onViewProfile={setSelectedProfileCreator}
+          onToggleShortlist={handleToggleShortlist}
+          isCreatorShortlisted={isCreatorShortlisted}
+        />
+      ) : (
+        <>
+          {/* Filter Bar */}
+          <Card padding="md">
         <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
           <div className="sm:col-span-5">
             <label className="block text-xs font-medium text-slate-700 mb-1">Search Keywords</label>
@@ -318,6 +355,8 @@ export const BrandDiscoverPage: React.FC = () => {
           })}
         </div>
       )}
+    </>
+  )}
 
       {/* Shortlist Confirmation Modal */}
       <Modal
