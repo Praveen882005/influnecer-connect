@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { api } from '../api';
 import {
   Alert,
@@ -86,6 +86,7 @@ export const AICampaignBriefMatcher: React.FC<AICampaignBriefMatcherProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [matchResult, setMatchResult] = useState<RecommendationResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const applySample = (sample: (typeof SAMPLE_BRIEFS)[0]) => {
     setBriefText(sample.brief);
@@ -134,6 +135,9 @@ export const AICampaignBriefMatcher: React.FC<AICampaignBriefMatcherProps> = ({
     try {
       const res = await api.recommendations.matchBrief(payload);
       setMatchResult(res);
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     } catch (err: any) {
       const msg = err.response?.data?.detail || err.message || 'AI matching execution failed.';
       setErrorMsg(msg);
@@ -505,7 +509,7 @@ export const AICampaignBriefMatcher: React.FC<AICampaignBriefMatcherProps> = ({
 
       {/* Match Results Display */}
       {matchResult && !isLoading && (
-        <div className="space-y-4">
+        <div ref={resultsRef} className="space-y-4">
           {/* Provenance Strip */}
           <div className="bg-slate-100 border border-slate-200 rounded-lg p-3.5 flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2 flex-wrap">

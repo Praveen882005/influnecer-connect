@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import asynccontextmanager
 from typing import Any, Dict, List
 from fastapi import FastAPI, HTTPException, Request, Response, status
@@ -37,6 +38,14 @@ async def lifespan(app: FastAPI):
             f"Production/managed mode ({settings.ENVIRONMENT}): Skipping automatic table creation on startup. "
             f"Database schema migrations must be applied using Alembic ('alembic upgrade head')."
         )
+
+    # Warm up AI Semantic Model in background at startup so user requests respond in ~15ms
+    try:
+        from app.services.semantic.embedding_service import EmbeddingService
+        asyncio.create_task(asyncio.to_thread(EmbeddingService.get_instance().load_model))
+        logger.info("AI semantic embedding engine warmup initiated in background task.")
+    except Exception as e:
+        logger.warning(f"AI embedding engine background warmup skipped: {e}")
 
     yield
 
