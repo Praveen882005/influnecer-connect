@@ -17,6 +17,10 @@ from app.schemas.workflow import (
     CampaignOpportunityOut,
     OpportunityInteractionRequest,
 )
+from app.services.matching.recommender import (
+    HybridRecommenderService,
+    get_recommender_service,
+)
 
 router = APIRouter()
 
@@ -107,13 +111,17 @@ def _calculate_opportunity_fit(campaign: Campaign, creator: CreatorProfile):
 async def list_campaign_opportunities(
     search: Optional[str] = None,
     niche: Optional[str] = None,
+    min_budget: Optional[float] = Query(None, ge=0.0, description="Minimum campaign budget filter"),
+    platform: Optional[str] = Query(None, description="Target platform requirement filter"),
+    only_eligible: bool = Query(False, description="Filter for campaigns where creator satisfies eligibility constraints"),
     include_dismissed: bool = Query(False, description="Whether to include dismissed briefs"),
     creator: CreatorProfile = Depends(get_current_creator_profile),
     db: AsyncSession = Depends(get_db),
+    recommender: HybridRecommenderService = Depends(get_recommender_service),
 ):
     """
     List open campaign opportunities for creators with deterministic match explanations,
-    saved/dismissed filtering, and direct invitation status.
+    saved/dismissed filtering, direct invitation status, and AI-based semantic fit ranking (Phase 4).
     """
     # Fetch active/published campaigns
     query = (
@@ -135,6 +143,9 @@ async def list_campaign_opportunities(
 
     if niche and niche.lower() != "all":
         query = query.where(Campaign.niche.ilike(f"%{niche.strip()}%"))
+
+    if min_budget is not None and min_budget > 0.0:
+        query = query.where(Campaign.budget >= min_budget)
 
     campaigns_res = await db.execute(query)
     campaigns = campaigns_res.scalars().all()
@@ -174,6 +185,15 @@ async def list_campaign_opportunities(
         if is_dismissed and not include_dismissed:
             continue
 
+        # Optional platform check
+        if platform and platform.lower() != "any":
+            plat_norm = platform.strip().lower()
+            camp_plat = None
+            if camp.required_criteria and isinstance(camp.required_criteria, dict):
+                camp_plat = camp.required_criteria.get("platform")
+            if camp_plat and camp_plat.lower() != plat_norm:
+                continue
+
         invitation = invites_map.get(camp.id)
         has_invitation = invitation is not None
         invitation_id = invitation.id if invitation else None
@@ -185,7 +205,12 @@ async def list_campaign_opportunities(
             else None
         )
 
-        fit_score, fit_summary, match_strengths = _calculate_opportunity_fit(camp, creator)
+        # Execute genuine Sentence-Transformers semantic & multi-signal matching
+        fit_eval = recommender.evaluate_campaign_fit_for_creator(camp, creator)
+
+        # Filter if creator requested only eligible campaigns
+        if only_eligible and not fit_eval["is_eligible"]:
+            continue
 
         brand_name = camp.brand.company_name if camp.brand else "Verified Brand"
 
@@ -212,14 +237,28 @@ async def list_campaign_opportunities(
                 has_invitation=has_invitation,
                 invitation_id=invitation_id,
                 invitation_status=invitation_status,
-                fit_score=fit_score,
-                fit_summary=fit_summary,
-                match_strengths=match_strengths,
+                fit_score=fit_eval["fit_score"],
+                fit_summary=fit_eval["fit_summary"],
+                match_strengths=fit_eval["match_strengths"],
+                match_cautions=fit_eval["match_cautions"],
+                hard_constraints_satisfied=fit_eval["hard_constraints_satisfied"],
+                is_eligible=fit_eval["is_eligible"],
+                disqualified_reasons=fit_eval["disqualified_reasons"],
+                signal_breakdown=fit_eval["signal_breakdown"],
+                ai_model_used=fit_eval["ai_model_used"],
             )
         )
 
-    # Sort opportunities: prioritized by fit_score descending
-    results.sort(key=lambda x: (x.has_invitation, x.fit_score or 0.0), reverse=True)
+    # Sort opportunities: prioritized by invitations, eligibility, fit_score, then budget
+    results.sort(
+        key=lambda x: (
+            1 if x.has_invitation else 0,
+            1 if x.is_eligible else 0,
+            x.fit_score or 0.0,
+            x.budget or 0.0,
+        ),
+        reverse=True,
+    )
     return results
 
 

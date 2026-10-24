@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../../api/client';
+import { api } from '../../api';
 import {
   Alert,
   Badge,
@@ -18,6 +18,9 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [nicheFilter, setNicheFilter] = useState('all');
+  const [minBudgetFilter, setMinBudgetFilter] = useState('all');
+  const [platformFilter, setPlatformFilter] = useState('all');
+  const [onlyEligible, setOnlyEligible] = useState(false);
   const [showDismissed, setShowDismissed] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submittedMessage, setSubmittedMessage] = useState<string | null>(null);
@@ -40,6 +43,9 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
       const data = await api.opportunities.list({
         search: searchQuery || undefined,
         niche: nicheFilter !== 'all' ? nicheFilter : undefined,
+        min_budget: minBudgetFilter !== 'all' ? Number(minBudgetFilter) : undefined,
+        platform: platformFilter !== 'all' ? platformFilter : undefined,
+        only_eligible: onlyEligible,
         include_dismissed: showDismissed,
       });
       setOpportunities(data);
@@ -52,7 +58,7 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
 
   useEffect(() => {
     loadOpportunities();
-  }, [nicheFilter, showDismissed]);
+  }, [nicheFilter, minBudgetFilter, platformFilter, onlyEligible, showDismissed]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -170,47 +176,91 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
 
       {/* Search and Filters */}
       <Card orientation="vertical" padding="sm" className="bg-white">
-        <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row items-center gap-3">
-          <div className="flex-1 w-full">
-            <Input
-              placeholder="Search briefs by title, objective or keyword..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              leftIcon={<Icon name="Search" size="sm" className="text-slate-400" />}
-            />
+        <form onSubmit={handleSearchSubmit} className="space-y-3">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="flex-1 w-full">
+              <Input
+                placeholder="Search briefs by title, objective or keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                leftIcon={<Icon name="Search" size="sm" className="text-slate-400" />}
+              />
+            </div>
+            <div className="w-full sm:w-48">
+              <Select
+                value={nicheFilter}
+                onChange={(e) => setNicheFilter(e.target.value)}
+                options={[
+                  { value: 'all', label: 'All Content Niches' },
+                  { value: 'technology', label: 'Technology' },
+                  { value: 'wellness', label: 'Wellness' },
+                  { value: 'fitness', label: 'Fitness' },
+                  { value: 'fashion', label: 'Fashion' },
+                  { value: 'beauty', label: 'Beauty' },
+                  { value: 'food', label: 'Food' },
+                  { value: 'home', label: 'Home' },
+                  { value: 'parenting', label: 'Parenting' },
+                ]}
+              />
+            </div>
+            <div className="w-full sm:w-36">
+              <Select
+                value={minBudgetFilter}
+                onChange={(e) => setMinBudgetFilter(e.target.value)}
+                options={[
+                  { value: 'all', label: 'Any Budget' },
+                  { value: '1000', label: '$1,000+' },
+                  { value: '2500', label: '$2,500+' },
+                  { value: '5000', label: '$5,000+' },
+                  { value: '10000', label: '$10,000+' },
+                ]}
+              />
+            </div>
+            <div className="w-full sm:w-36">
+              <Select
+                value={platformFilter}
+                onChange={(e) => setPlatformFilter(e.target.value)}
+                options={[
+                  { value: 'all', label: 'Any Platform' },
+                  { value: 'instagram', label: 'Instagram' },
+                  { value: 'youtube', label: 'YouTube' },
+                  { value: 'tiktok', label: 'TikTok' },
+                ]}
+              />
+            </div>
+            <Button variant="primary" size="sm" type="submit">
+              Search
+            </Button>
           </div>
-          <div className="w-full sm:w-56">
-            <Select
-              value={nicheFilter}
-              onChange={(e) => setNicheFilter(e.target.value)}
-              options={[
-                { value: 'all', label: 'All Content Niches' },
-                { value: 'technology', label: 'Technology' },
-                { value: 'wellness', label: 'Wellness' },
-                { value: 'fitness', label: 'Fitness' },
-                { value: 'fashion', label: 'Fashion' },
-                { value: 'beauty', label: 'Beauty' },
-                { value: 'food', label: 'Food' },
-                { value: 'home', label: 'Home' },
-                { value: 'parenting', label: 'Parenting' },
-              ]}
-            />
+
+          <div className="flex items-center justify-between border-t border-slate-100 pt-2 text-xs text-slate-600 flex-wrap gap-2">
+            <div className="flex items-center gap-4">
+              <label className="inline-flex items-center gap-1.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={onlyEligible}
+                  onChange={(e) => setOnlyEligible(e.target.checked)}
+                  className="rounded text-sky-600 focus:ring-sky-500"
+                />
+                <span className="font-medium text-slate-800">Only Qualified Opportunities (Hard Gates Met)</span>
+              </label>
+
+              <label className="inline-flex items-center gap-1.5 cursor-pointer select-none text-slate-500">
+                <input
+                  type="checkbox"
+                  id="show-dismissed"
+                  checked={showDismissed}
+                  onChange={(e) => setShowDismissed(e.target.checked)}
+                  className="rounded text-sky-600 focus:ring-sky-500"
+                />
+                <span>Show Dismissed ({opportunities.filter((o) => o.is_dismissed).length})</span>
+              </label>
+            </div>
+
+            <div className="text-[11px] text-slate-400 font-mono">
+              Engine: sentence-transformers/all-MiniLM-L6-v2 (384d)
+            </div>
           </div>
-          <div className="flex items-center gap-2 whitespace-nowrap text-xs text-slate-600">
-            <input
-              type="checkbox"
-              id="show-dismissed"
-              checked={showDismissed}
-              onChange={(e) => setShowDismissed(e.target.checked)}
-              className="rounded text-sky-600"
-            />
-            <label htmlFor="show-dismissed" className="cursor-pointer">
-              Show Dismissed ({opportunities.filter((o) => o.is_dismissed).length})
-            </label>
-          </div>
-          <Button variant="primary" size="sm" type="submit">
-            Search
-          </Button>
         </form>
       </Card>
 
@@ -252,7 +302,7 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                           {opp.brand_name}
                         </span>
@@ -261,6 +311,11 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
                             ★ Direct Invite Received
                           </Badge>
                         )}
+                        {opp.is_eligible === false && (
+                          <span className="text-[10px] px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-medium border border-rose-200">
+                            ✕ Unmet Criteria
+                          </span>
+                        )}
                       </div>
                       <h3 className="text-base font-bold text-slate-900 mt-0.5">{opp.title}</h3>
                     </div>
@@ -268,7 +323,7 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleOpenExplanation(opp)}
-                      className="cursor-pointer transition-transform hover:scale-105 rounded-[4px] focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none"
+                      className="cursor-pointer transition-transform hover:scale-105 rounded-[4px] focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none shrink-0"
                       aria-label={`View match compatibility explanation for ${opp.title} (${fitScore}% fit)`}
                     >
                       <Badge variant={badgeVariant}>
@@ -279,6 +334,38 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
                   </div>
 
                   <p className="text-xs text-slate-600 line-clamp-2 mb-3">{opp.description}</p>
+
+                  {/* 4-Signal Alignment Matrix */}
+                  {opp.signal_breakdown && (
+                    <div className="grid grid-cols-4 gap-1.5 py-1.5 px-2 bg-slate-50 rounded border border-slate-100 mb-3 text-center font-mono text-[10px]">
+                      <div>
+                        <span className="text-slate-400 block font-sans">Content</span>
+                        <span className="font-bold text-sky-800">
+                          {opp.signal_breakdown.content_relevance_score.toFixed(0)}%
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block font-sans">Engagement</span>
+                        <span className="font-bold text-indigo-800">
+                          {opp.signal_breakdown.engagement_quality_score.toFixed(0)}%
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block font-sans">Auth</span>
+                        <span className="font-bold text-emerald-800">
+                          {opp.signal_breakdown.authenticity_heuristic_score.toFixed(0)}%
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block font-sans">Audience</span>
+                        <span className="font-bold text-slate-800">
+                          {opp.signal_breakdown.audience_affinity_score > 0
+                            ? `${opp.signal_breakdown.audience_affinity_score.toFixed(0)}%`
+                            : '—'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
 
                   {opp.match_strengths.length > 0 && (
                     <div className="mb-3 px-2 py-1.5 bg-emerald-50/70 border border-emerald-100 rounded text-[11px] text-emerald-800 flex items-center justify-between">
@@ -362,13 +449,78 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
           <div className="space-y-4">
             <div className="p-4 bg-sky-50 rounded-[6px] border border-sky-100 flex items-center justify-between">
               <div>
-                <span className="text-xs text-sky-700 font-semibold uppercase">Overall Compatibility</span>
-                <div className="text-2xl font-bold text-sky-950 mt-0.5">{selectedOpp.fit_score}% Fit</div>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className="text-[10px] text-sky-700 font-semibold uppercase">Phase 4 AI Compatibility</span>
+                  {selectedOpp.is_eligible === false && (
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-200 text-rose-800 font-bold">
+                      ✕ Unmet Hard Gates
+                    </span>
+                  )}
+                </div>
+                <div className="text-2xl font-bold text-sky-950">{selectedOpp.fit_score}% Fit</div>
               </div>
-              <Badge variant="brand" size="md">
-                {selectedOpp.niche.toUpperCase()}
-              </Badge>
+              <div className="text-right">
+                <Badge variant="brand" size="md">
+                  {selectedOpp.niche.toUpperCase()}
+                </Badge>
+                <div className="text-[10px] text-slate-400 font-mono mt-1">
+                  all-MiniLM-L6-v2 (384d)
+                </div>
+              </div>
             </div>
+
+            {/* 4-Signal Breakdown Progress Bars */}
+            {selectedOpp.signal_breakdown && (
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-2 text-xs">
+                <span className="font-semibold text-slate-800 block mb-1">
+                  Multi-Signal Alignment Breakdown
+                </span>
+
+                <div>
+                  <div className="flex justify-between text-slate-600 mb-0.5">
+                    <span>Semantic Content Fit:</span>
+                    <strong className="text-sky-800">{selectedOpp.signal_breakdown.content_relevance_score.toFixed(1)}%</strong>
+                  </div>
+                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-sky-600 h-full rounded-full" style={{ width: `${selectedOpp.signal_breakdown.content_relevance_score}%` }} />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-slate-600 mb-0.5">
+                    <span>Follower-Tier Normalized Engagement:</span>
+                    <strong className="text-indigo-800">{selectedOpp.signal_breakdown.engagement_quality_score.toFixed(1)}%</strong>
+                  </div>
+                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-indigo-600 h-full rounded-full" style={{ width: `${selectedOpp.signal_breakdown.engagement_quality_score}%` }} />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-slate-600 mb-0.5">
+                    <span>Audience Authenticity Heuristics:</span>
+                    <strong className="text-emerald-800">{selectedOpp.signal_breakdown.authenticity_heuristic_score.toFixed(1)}%</strong>
+                  </div>
+                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-emerald-600 h-full rounded-full" style={{ width: `${selectedOpp.signal_breakdown.authenticity_heuristic_score}%` }} />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-slate-600 mb-0.5">
+                    <span>Audience Demographic &amp; Geo Alignment:</span>
+                    <strong className="text-slate-800">
+                      {selectedOpp.signal_breakdown.audience_affinity_score > 0
+                        ? `${selectedOpp.signal_breakdown.audience_affinity_score.toFixed(1)}%`
+                        : 'Unmonitored / Unavailable'}
+                    </strong>
+                  </div>
+                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-slate-700 h-full rounded-full" style={{ width: `${selectedOpp.signal_breakdown.audience_affinity_score}%` }} />
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div>
               <h4 className="text-xs font-semibold text-slate-900 mb-1">Assessment Summary</h4>
@@ -391,6 +543,32 @@ export const InfluencerOpportunitiesPage: React.FC = () => {
                 ))}
               </ul>
             </div>
+
+            {selectedOpp.hard_constraints_satisfied && selectedOpp.hard_constraints_satisfied.length > 0 && (
+              <div>
+                <h4 className="text-xs font-semibold text-slate-900 mb-1.5">Satisfied Hard Constraints</h4>
+                <ul className="space-y-1">
+                  {selectedOpp.hard_constraints_satisfied.map((sat, idx) => (
+                    <li key={idx} className="text-xs text-slate-600 flex items-center gap-1.5">
+                      <span className="text-emerald-600">✓</span> {sat}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {selectedOpp.match_cautions && selectedOpp.match_cautions.length > 0 && (
+              <div className="pt-2 border-t border-slate-100">
+                <h4 className="text-xs font-semibold text-amber-800 mb-1.5">Observed Cautions &amp; Eligibility</h4>
+                <ul className="space-y-1">
+                  {selectedOpp.match_cautions.map((caut, idx) => (
+                    <li key={idx} className="text-xs text-amber-700 flex items-center gap-1.5">
+                      <span>⚠</span> {caut}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="flex justify-end pt-3 border-t border-slate-100">
               <Button variant="outline" size="sm" onClick={() => setIsExplanationModalOpen(false)}>

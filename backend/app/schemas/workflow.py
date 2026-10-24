@@ -122,6 +122,12 @@ class CampaignOpportunityOut(BaseModel):
     fit_score: Optional[float] = None
     fit_summary: Optional[str] = None
     match_strengths: List[str] = Field(default_factory=list)
+    match_cautions: List[str] = Field(default_factory=list)
+    hard_constraints_satisfied: List[str] = Field(default_factory=list)
+    is_eligible: bool = True
+    disqualified_reasons: List[str] = Field(default_factory=list)
+    signal_breakdown: Optional[Dict[str, float]] = None
+    ai_model_used: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
 

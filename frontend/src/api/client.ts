@@ -328,7 +328,14 @@ export const api = {
   },
 
   opportunities: {
-    list: (params?: { search?: string; niche?: string; include_dismissed?: boolean }) =>
+    list: (params?: {
+      search?: string;
+      niche?: string;
+      min_budget?: number;
+      platform?: string;
+      only_eligible?: boolean;
+      include_dismissed?: boolean;
+    }) =>
       apiClient.get<CampaignOpportunity[]>('/opportunities', { params }),
     interact: (
       campaignId: number,

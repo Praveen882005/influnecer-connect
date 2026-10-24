@@ -862,6 +862,140 @@ class HybridRecommenderService:
         response.ai_model_used = f"sentence-transformers/{self._embedding_service.model_name} (384-dim dense vectors)"
         return response
 
+    # -------------------------------------------------------------------------
+    # STEP 11: Influencer-to-Brand Campaign Matching (Phase 4)
+    # -------------------------------------------------------------------------
+    def evaluate_campaign_fit_for_creator(
+        self,
+        campaign: Campaign,
+        creator: CreatorProfile,
+        weights: Optional[RecommendationWeights] = None,
+    ) -> Dict[str, Any]:
+        """
+        Calculates deterministic AI fit score between a brand campaign and an influencer (Phase 4).
+        Evaluates hard constraints, dense 384-dim semantic similarity, follower-tier normalized engagement,
+        authenticity anomaly index, and demographic/geographic overlap.
+        """
+        weights = weights or RecommendationWeights()
+
+        # Step 2: Hard eligibility constraints
+        is_eligible, satisfied, disqualified = self.evaluate_hard_constraints(
+            campaign,
+            creator,
+            RecommendationFilterOptions(limit=1),
+        )
+
+        all_unavailable: List[str] = []
+
+        # Step 4: Engagement
+        eng_score, raw_eng, eng_avail, eng_evidence, eng_unavail = self.compute_engagement_quality(creator)
+        all_unavailable.extend(eng_unavail)
+
+        # Step 5: Authenticity
+        auth_score, raw_auth, auth_avail, auth_evidence, auth_cautions = self.compute_authenticity_evidence(creator)
+
+        # Step 6: Semantic Content
+        sem_score, raw_sem, sem_avail, sem_evidence, sem_unavail = self.compute_semantic_similarity(campaign, creator)
+        all_unavailable.extend(sem_unavail)
+
+        # Step 7: Audience Fit
+        aud_score, raw_aud, aud_avail, aud_evidence, aud_unavail = self.compute_audience_fit(campaign, creator)
+        all_unavailable.extend(aud_unavail)
+
+        signal_details: Dict[str, SignalScoreDetail] = {
+            "semantic_content_similarity": SignalScoreDetail(
+                score=sem_score,
+                raw_value=raw_sem,
+                configured_weight=weights.weight_semantic_content,
+                active_weight=weights.weight_semantic_content,
+                is_available=sem_avail,
+                evidence=sem_evidence,
+            ),
+            "engagement_quality": SignalScoreDetail(
+                score=eng_score,
+                raw_value=raw_eng,
+                configured_weight=weights.weight_engagement_quality,
+                active_weight=weights.weight_engagement_quality,
+                is_available=eng_avail,
+                evidence=eng_evidence,
+            ),
+            "authenticity": SignalScoreDetail(
+                score=auth_score,
+                raw_value=raw_auth,
+                configured_weight=weights.weight_authenticity,
+                active_weight=weights.weight_authenticity,
+                is_available=auth_avail,
+                evidence=auth_evidence,
+            ),
+            "audience_fit": SignalScoreDetail(
+                score=aud_score,
+                raw_value=raw_aud,
+                configured_weight=weights.weight_audience_fit,
+                active_weight=weights.weight_audience_fit,
+                is_available=aud_avail,
+                evidence=aud_evidence,
+            ),
+        }
+
+        composite_score, _ = self.combine_signals(signal_details, weights)
+
+        # Synthesize explainable strengths
+        strengths: List[str] = []
+
+        # Niche alignment check
+        creator_niches = [
+            n.lower().strip()
+            for n in (creator.content_niches or ([creator.primary_niche] if creator.primary_niche else []))
+        ]
+        camp_niche = campaign.niche.lower().strip() if campaign.niche else ""
+        if camp_niche in creator_niches:
+            strengths.append(f"Niche Alignment: Matched '{campaign.niche}' content domain")
+        elif any(n in camp_niche or camp_niche in n for n in creator_niches):
+            strengths.append(f"Topical Niche Relevance: High overlap with '{campaign.niche}'")
+
+        if sem_avail and sem_score >= 50.0:
+            strengths.append(f"Semantic Brief Affinity: {sem_score:.1f}% thematic overlap with campaign deliverables")
+        if eng_avail and eng_score >= 50.0:
+            strengths.append(f"Engagement Quality: {creator.avg_engagement_rate:.2f}% meets/exceeds tier benchmark")
+        if (creator.total_followers or 0) >= (campaign.min_followers or 0):
+            strengths.append(f"Audience Reach: Follower count ({(creator.total_followers or 0):,}) satisfies requirements")
+        if auth_avail and auth_score >= 80.0:
+            strengths.append("Audience Authenticity: Organic interaction consistency verified")
+        if aud_avail and aud_score >= 50.0:
+            strengths.append("Demographic Fit: Primary creator region matches brand target market")
+
+        if not strengths:
+            strengths.extend(satisfied[:2] if satisfied else ["Meets basic eligibility criteria"])
+
+        cautions: List[str] = list(auth_cautions)
+        if not is_eligible and disqualified:
+            for d in disqualified:
+                cautions.append(f"Eligibility Warning: {d}")
+
+        if composite_score >= 80.0:
+            summary = f"Exceptional Brand Match ({composite_score:.1f}%): High semantic affinity ({sem_score:.1f}%) and qualified audience metrics."
+        elif composite_score >= 60.0:
+            summary = f"Favorable Match ({composite_score:.1f}%): Meets key engagement thresholds and content niche parameters."
+        else:
+            summary = f"Moderate Fit ({composite_score:.1f}%): Core audience criteria partially match campaign brief."
+
+        return {
+            "is_eligible": is_eligible,
+            "fit_score": composite_score,
+            "fit_summary": summary,
+            "match_strengths": strengths,
+            "match_cautions": cautions,
+            "hard_constraints_satisfied": satisfied,
+            "disqualified_reasons": disqualified,
+            "signal_breakdown": {
+                "content_relevance_score": sem_score,
+                "engagement_quality_score": eng_score,
+                "authenticity_heuristic_score": auth_score,
+                "audience_affinity_score": aud_score,
+            },
+            "ai_model_used": f"sentence-transformers/{self._embedding_service.model_name} (384d)",
+        }
+
 
 # Singleton instance accessor
 _matching_service_instance: Optional[HybridRecommenderService] = None

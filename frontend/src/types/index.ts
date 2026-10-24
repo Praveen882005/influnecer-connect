@@ -497,6 +497,17 @@ export interface CampaignOpportunity {
   fit_score?: number | null;
   fit_summary?: string | null;
   match_strengths: string[];
+  match_cautions?: string[];
+  hard_constraints_satisfied?: string[];
+  is_eligible?: boolean;
+  disqualified_reasons?: string[];
+  signal_breakdown?: {
+    content_relevance_score: number;
+    engagement_quality_score: number;
+    authenticity_heuristic_score: number;
+    audience_affinity_score: number;
+  };
+  ai_model_used?: string;
 }
 
 export interface NotificationItem {
