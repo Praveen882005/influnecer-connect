@@ -25,6 +25,7 @@ import type {
   EngagementMetrics,
   ForecastAssumptionsInput,
   ForecastCalculationResponse,
+  FraudAnalysisReport,
   FullAnalyticsReport,
   HistoricalBenchmark,
   ImportJob,
@@ -429,6 +430,15 @@ export const api = {
       apiClient.post<CampaignActualOutcome>(`/forecasting/campaign/${campaignId}/actual`, data),
     getActualOutcome: (campaignId: number) =>
       apiClient.get<CampaignActualOutcome | null>(`/forecasting/campaign/${campaignId}/actual`),
+  },
+
+  fraud: {
+    search: (query: string, campaignId?: number) =>
+      apiClient.post<FraudAnalysisReport>('/fraud/search', { query, campaign_id: campaignId }),
+    getReport: (creatorId: number, campaignId?: number) =>
+      apiClient.get<FraudAnalysisReport>(`/fraud/creator/${creatorId}`, {
+        params: campaignId ? { campaign_id: campaignId } : undefined,
+      }),
   },
 
   data: {

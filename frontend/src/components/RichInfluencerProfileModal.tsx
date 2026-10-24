@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import { Avatar, Badge, Button, Icon, Modal } from '../design-system';
 import type { CreatorProfile, TrustAnalysisReport } from '../types';
+import { FraudRiskAnalyzer } from './FraudRiskAnalyzer';
 
 interface RichInfluencerProfileModalProps {
   creator: CreatorProfile | null;
@@ -18,7 +19,7 @@ export const RichInfluencerProfileModal: React.FC<RichInfluencerProfileModalProp
   onShortlistToggle,
   isShortlisted = false,
 }) => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'audience' | 'performance' | 'trust'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'audience' | 'performance' | 'trust' | 'fraud'>('overview');
   const [trustReport, setTrustReport] = useState<TrustAnalysisReport | null>(null);
   const [loadingTrust, setLoadingTrust] = useState<boolean>(false);
 
@@ -131,6 +132,7 @@ export const RichInfluencerProfileModal: React.FC<RichInfluencerProfileModalProp
             { id: 'audience', label: 'Audience Insights', icon: 'Users' },
             { id: 'performance', label: 'Performance Matrix', icon: 'BarChart3' },
             { id: 'trust', label: 'Trust & Verification', icon: 'ShieldCheck' },
+            { id: 'fraud', label: 'Fraud Risk Audit', icon: 'ShieldAlert' },
           ].map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -605,6 +607,13 @@ export const RichInfluencerProfileModal: React.FC<RichInfluencerProfileModalProp
                 </span>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* TAB 5: FRAUD RISK AUDIT */}
+        {activeTab === 'fraud' && (
+          <div className="space-y-4">
+            <FraudRiskAnalyzer initialCreatorId={creator.id} />
           </div>
         )}
 

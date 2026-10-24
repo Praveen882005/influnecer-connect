@@ -16,9 +16,11 @@ import {
 import type { Campaign, CreatorProfile, ShortlistItem } from '../../types';
 import { RichInfluencerProfileModal } from '../../components/RichInfluencerProfileModal';
 import { AICampaignBriefMatcher } from '../../components/AICampaignBriefMatcher';
+import { FraudRiskAnalyzer } from '../../components/FraudRiskAnalyzer';
 
 export const BrandDiscoverPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'directory' | 'ai_matching'>('directory');
+  const [activeTab, setActiveTab] = useState<'directory' | 'ai_matching' | 'fraud_audit'>('directory');
+  const [fraudAuditCreatorId, setFraudAuditCreatorId] = useState<number | undefined>(undefined);
   const [creators, setCreators] = useState<CreatorProfile[]>([]);
   const [shortlistItems, setShortlistItems] = useState<ShortlistItem[]>([]);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -152,6 +154,18 @@ export const BrandDiscoverPage: React.FC = () => {
             <span>⚡ AI Brief Matching</span>
             <span className="text-[10px] px-1.5 py-0.2 rounded bg-sky-500 text-white font-mono">Phase 3</span>
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('fraud_audit')}
+            className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center gap-1.5 ${
+              activeTab === 'fraud_audit'
+                ? 'bg-rose-600 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <span>🛡️ Fraud Risk Audit</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-500 text-white font-mono">Phase 7</span>
+          </button>
         </div>
       </div>
 
@@ -167,7 +181,15 @@ export const BrandDiscoverPage: React.FC = () => {
         </Alert>
       )}
 
-      {activeTab === 'ai_matching' ? (
+      {activeTab === 'fraud_audit' ? (
+        <FraudRiskAnalyzer
+          initialCreatorId={fraudAuditCreatorId}
+          onViewCreatorProfile={(id) => {
+            const found = creators.find((c) => c.id === id);
+            if (found) setSelectedProfileCreator(found);
+          }}
+        />
+      ) : activeTab === 'ai_matching' ? (
         <AICampaignBriefMatcher
           onViewProfile={setSelectedProfileCreator}
           onToggleShortlist={handleToggleShortlist}
@@ -332,6 +354,18 @@ export const BrandDiscoverPage: React.FC = () => {
                     Source: {c.data_source || 'Catalog'}
                   </span>
                   <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setFraudAuditCreatorId(c.id);
+                        setActiveTab('fraud_audit');
+                      }}
+                      leftIcon={<Icon name="ShieldAlert" size="sm" />}
+                      className="text-slate-600 hover:text-rose-600"
+                    >
+                      Audit
+                    </Button>
                     <Button
                       variant="secondary"
                       size="sm"

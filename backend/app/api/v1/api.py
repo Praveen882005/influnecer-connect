@@ -16,6 +16,7 @@ from app.api.v1.endpoints import (
     opportunities,
     notifications,
     forecasting,
+    fraud,
 )
 
 api_router = APIRouter()
@@ -37,6 +38,7 @@ api_router.include_router(opportunities.router, prefix="/opportunities", tags=["
 api_router.include_router(notifications.router, prefix="/notifications", tags=["In-App Notifications"])
 api_router.include_router(analytics.router, prefix="/analytics", tags=["Platform Analytics"])
 api_router.include_router(forecasting.router, prefix="/forecasting", tags=["Sales Potential & Campaign Forecasting"])
+api_router.include_router(fraud.router, prefix="/fraud", tags=["Influencer Fraud Risk Detection"])
 api_router.include_router(data_import.router, prefix="/data", tags=["Data Import & Fixtures"])
 api_router.include_router(data_import.router, prefix="/import", tags=["Data Ingestion & Imports"])
 api_router.include_router(admin.router, prefix="/admin", tags=["Admin & Operations"])

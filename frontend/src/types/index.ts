@@ -939,5 +939,61 @@ export interface TrustAnalysisReport {
   calculated_at: string;
 }
 
+// ============================================================================
+// PHASE 7: INFLUENCER FRAUD-RISK AND ANOMALY DETECTION TYPES
+// ============================================================================
+
+export interface ObservedFact {
+  fact_key: string;
+  label: string;
+  value: any;
+  details: string;
+  timestamp?: string | null;
+  source: string;
+}
+
+export interface CalculatedIndicator {
+  indicator_key: string;
+  display_name: string;
+  formula: string;
+  observed_value: any;
+  benchmark: string;
+  is_outlier: boolean;
+}
+
+export interface AnomalyWarning {
+  anomaly_key: string;
+  category: 'engagement_anomaly' | 'interaction_pattern' | 'growth_velocity' | 'profile_inconsistency' | string;
+  display_name: string;
+  status: 'normal' | 'review_recommended' | 'anomaly_flagged' | 'insufficient_evidence' | string;
+  status_label: string;
+  observed_finding: string;
+  evidence: Record<string, any>;
+  limitations: string;
+  recommended_manual_checks: string[];
+}
+
+export interface FraudAnalysisReport {
+  creator_id: number;
+  handle: string;
+  display_name?: string | null;
+  profile_url?: string | null;
+  total_followers: number;
+  avatar_url?: string | null;
+  overall_risk_level: 'low_observed_risk' | 'moderate_observed_risk' | 'high_observed_risk' | 'insufficient_evidence' | string;
+  risk_score?: number | null;
+  evidence_coverage_pct: number;
+  observed_facts: ObservedFact[];
+  calculated_indicators: CalculatedIndicator[];
+  anomaly_warnings: AnomalyWarning[];
+  recommended_actions: string[];
+  manual_verification_checklist: string[];
+  disclaimer: string;
+  ml_classifier_status: string;
+  data_freshness_status: string;
+  analyzed_at: string;
+}
+
+
 
 
