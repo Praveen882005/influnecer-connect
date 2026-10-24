@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Avatar, Button, Icon, Modal } from '../design-system';
-import type { CreatorProfile } from '../types';
+import React, { useEffect, useState } from 'react';
+import { api } from '../api';
+import { Avatar, Badge, Button, Icon, Modal } from '../design-system';
+import type { CreatorProfile, TrustAnalysisReport } from '../types';
 
 interface RichInfluencerProfileModalProps {
   creator: CreatorProfile | null;
@@ -18,6 +19,31 @@ export const RichInfluencerProfileModal: React.FC<RichInfluencerProfileModalProp
   isShortlisted = false,
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'audience' | 'performance' | 'trust'>('overview');
+  const [trustReport, setTrustReport] = useState<TrustAnalysisReport | null>(null);
+  const [loadingTrust, setLoadingTrust] = useState<boolean>(false);
+
+  useEffect(() => {
+    let isCancelled = false;
+    if (creator && isOpen) {
+      setLoadingTrust(true);
+      api.analytics
+        .creatorTrust(creator.id)
+        .then((res) => {
+          if (!isCancelled) setTrustReport(res);
+        })
+        .catch(() => {
+          if (!isCancelled) setTrustReport(null);
+        })
+        .finally(() => {
+          if (!isCancelled) setLoadingTrust(false);
+        });
+    } else {
+      setTrustReport(null);
+    }
+    return () => {
+      isCancelled = true;
+    };
+  }, [creator?.id, isOpen]);
 
   if (!creator) return null;
 
@@ -376,19 +402,79 @@ export const RichInfluencerProfileModal: React.FC<RichInfluencerProfileModalProp
           </div>
         )}
 
-        {/* TAB 4: TRUST & VERIFICATION */}
+        {/* TAB 4: TRUST & VERIFICATION (PHASE 6) */}
         {activeTab === 'trust' && (
           <div className="space-y-4">
+            {/* Top Score & Confidence Banner */}
+            <div className="p-4 bg-gradient-to-r from-slate-50 to-sky-50 rounded-xl border border-sky-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Influencer Trustworthiness Assessment
+                    </span>
+                    {trustReport ? (
+                      <Badge
+                        variant={
+                          trustReport.overall_trust_level === 'high_confidence'
+                            ? 'success'
+                            : trustReport.overall_trust_level === 'moderate_confidence'
+                            ? 'brand'
+                            : trustReport.overall_trust_level === 'insufficient_evidence'
+                            ? 'neutral'
+                            : 'warning'
+                        }
+                        size="sm"
+                      >
+                        {trustReport.overall_trust_level === 'high_confidence'
+                          ? 'High Confidence Reliability'
+                          : trustReport.overall_trust_level === 'moderate_confidence'
+                          ? 'Moderate Confidence'
+                          : trustReport.overall_trust_level === 'insufficient_evidence'
+                          ? 'Insufficient Evidence (No Demerit)'
+                          : 'Limited Evidence'}
+                      </Badge>
+                    ) : null}
+                  </div>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Traceable evaluation of engagement stability, follower-tier alignment, delivery track record, and data freshness.
+                  </p>
+                </div>
+
+                <div className="text-left sm:text-right shrink-0">
+                  <span className="text-2xl font-black text-slate-900 font-mono block">
+                    {trustReport?.trust_score != null
+                      ? `${trustReport.trust_score.toFixed(1)}/100`
+                      : 'N/A'}
+                  </span>
+                  <span className="text-[10px] text-slate-500 block">
+                    {trustReport?.evidence_coverage_pct != null
+                      ? `${trustReport.evidence_coverage_pct}% Evidence Coverage`
+                      : 'Calculating coverage...'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Distinction Banner (Mandatory Task 3) */}
+              <div className="p-2.5 bg-white/90 border border-sky-100 rounded-lg text-xs text-slate-600 flex items-start gap-2">
+                <Icon name="Info" size="xs" className="text-sky-600 shrink-0 mt-0.5" />
+                <span className="text-[11px] leading-relaxed">
+                  <strong>Domain Separation Notice:</strong> Trustworthiness evaluates professional reliability, past delivery history, data currency, and engagement consistency. It is strictly separate from Campaign Suitability (which depends on creative audience brief fit) and Fraud Risk (which monitors bot interactions).
+                </span>
+              </div>
+            </div>
+
+            {/* Quick KPI Summary Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-3 bg-emerald-50/50 rounded-lg border border-emerald-200 text-center">
-                <span className="text-[10px] uppercase font-bold text-emerald-800 block mb-0.5">Authenticity Score</span>
+              <div className="p-3 bg-white rounded-lg border border-slate-200 text-center">
+                <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">Authenticity Heuristic</span>
                 <span className="text-lg font-black text-emerald-700 font-mono">
                   {creator.authenticity_score != null ? `${creator.authenticity_score.toFixed(1)}/100` : '—'}
                 </span>
                 <span className="text-[10px] text-emerald-600 block mt-0.5">Organic Interaction Check</span>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-center">
+              <div className="p-3 bg-white rounded-lg border border-slate-200 text-center">
                 <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">Verified Campaigns</span>
                 <span className="text-lg font-black text-slate-900 font-mono">
                   {creator.past_campaigns_count ?? 0}
@@ -396,24 +482,87 @@ export const RichInfluencerProfileModal: React.FC<RichInfluencerProfileModalProp
                 <span className="text-[10px] text-slate-500 block mt-0.5">Completed Collaborations</span>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-center">
+              <div className="p-3 bg-white rounded-lg border border-slate-200 text-center">
                 <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">On-Time Delivery</span>
                 <span className="text-lg font-black text-slate-900 font-mono">
                   {creator.on_time_delivery_rate != null ? `${creator.on_time_delivery_rate.toFixed(1)}%` : (
-                    <span className="text-xs font-normal text-slate-400 italic">No Milestone Data</span>
+                    <span className="text-xs font-normal text-slate-400 italic">No Prior Milestone Data</span>
                   )}
                 </span>
                 <span className="text-[10px] text-slate-500 block mt-0.5">Deliverable Punctuality</span>
               </div>
             </div>
 
-            {/* Delivery History Log */}
+            {/* 5 Evidence-Based Indicators List */}
+            {loadingTrust ? (
+              <div className="py-8 text-center text-slate-400 text-xs">
+                <Icon name="RotateCw" size="sm" className="animate-spin text-sky-600 mx-auto mb-1" />
+                Auditing trust indicators...
+              </div>
+            ) : trustReport && trustReport.indicators ? (
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center justify-between">
+                  <span>Traceable Trust Indicators ({trustReport.indicators.length})</span>
+                  <span className="text-[10px] font-normal text-slate-400 font-mono">
+                    Documented Evidence &amp; Guidance
+                  </span>
+                </h4>
+
+                <div className="space-y-2.5">
+                  {trustReport.indicators.map((ind) => (
+                    <div
+                      key={ind.indicator_key}
+                      className="p-3 bg-slate-50/70 rounded-lg border border-slate-200 text-xs space-y-1.5"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900 text-xs">
+                            {ind.display_name}
+                          </span>
+                          <span
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                              ind.status === 'consistent' || ind.status === 'healthy_alignment' || ind.status === 'verified_track_record'
+                                ? 'bg-emerald-100 text-emerald-800'
+                                : ind.status === 'no_prior_history' || ind.status === 'insufficient_evidence'
+                                ? 'bg-slate-200 text-slate-700'
+                                : 'bg-amber-100 text-amber-800'
+                            }`}
+                          >
+                            {ind.status_label}
+                          </span>
+                        </div>
+
+                        <span className="text-[10px] text-slate-400 font-mono">
+                          {ind.is_sufficient_evidence ? 'Evidence Verified' : 'Insufficient Evidence (No Demerit)'}
+                        </span>
+                      </div>
+
+                      <p className="text-[11px] text-slate-500 leading-snug">
+                        <strong>Definition:</strong> {ind.definition}
+                      </p>
+
+                      <p className="text-slate-700 text-xs leading-relaxed">
+                        {ind.explanation}
+                      </p>
+
+                      {ind.context_and_guidance && (
+                        <div className="text-[11px] text-sky-900 bg-sky-50/50 p-1.5 rounded border border-sky-100/60">
+                          <span className="font-semibold text-sky-800">Review Guidance:</span> {ind.context_and_guidance}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {/* Delivery History Log if present */}
             {deliveryHistory.length > 0 && (
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                  Verified Delivery History
+                  Verified Delivery History ({deliveryHistory.length} records)
                 </h4>
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 max-h-36 overflow-y-auto">
                   {deliveryHistory.map((item, idx) => (
                     <div
                       key={idx}

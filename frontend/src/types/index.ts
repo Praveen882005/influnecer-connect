@@ -906,5 +906,38 @@ export interface CampaignForecastingBundle {
   historical_benchmark: HistoricalBenchmark;
 }
 
+// ============================================================================
+// PHASE 6: INFLUENCER TRUSTWORTHINESS ANALYSIS TYPES
+// ============================================================================
+
+export interface TrustIndicator {
+  indicator_key: string;
+  display_name: string;
+  definition: string;
+  status: string;
+  status_label: string;
+  is_sufficient_evidence: boolean;
+  observed_evidence: Record<string, any>;
+  benchmark_or_reference?: Record<string, any> | null;
+  explanation: string;
+  context_and_guidance: string;
+}
+
+export interface TrustAnalysisReport {
+  creator_id: number;
+  handle: string;
+  display_name: string;
+  overall_trust_level: 'high_confidence' | 'moderate_confidence' | 'limited_evidence' | 'insufficient_evidence' | string;
+  trust_score?: number | null;
+  evidence_coverage_pct: number;
+  indicators: TrustIndicator[];
+  strengths: string[];
+  cautions: string[];
+  missing_data_notes: string[];
+  distinction_notice: string;
+  methodology_and_limitations: string;
+  calculated_at: string;
+}
+
 
 

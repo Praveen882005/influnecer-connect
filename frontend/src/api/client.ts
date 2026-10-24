@@ -38,6 +38,7 @@ import type {
   RecommendationResponse,
   SeedSyntheticResponse,
   ShortlistItem,
+  TrustAnalysisReport,
   User,
   UserRole,
   WorkflowInvitation,
@@ -403,6 +404,10 @@ export const api = {
       apiClient.get<AuthenticityReport>(`/analytics/creator/${creatorId}/authenticity`),
     creatorFullReport: (creatorId: number) =>
       apiClient.get<FullAnalyticsReport>(`/analytics/creator/${creatorId}/full-report`),
+    creatorTrust: (creatorId: number, campaignNiche?: string) =>
+      apiClient.get<TrustAnalysisReport>(`/analytics/creator/${creatorId}/trust`, {
+        params: campaignNiche ? { campaign_niche: campaignNiche } : undefined,
+      }),
     modelMetadata: () =>
       apiClient.get<ModelMetadata>('/analytics/model-metadata'),
   },

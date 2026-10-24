@@ -41,11 +41,14 @@ from app.schemas.analytics import (
     FullAnalyticsReportOut,
     ModelMetadataOut,
 )
+from app.schemas.trust import TrustAnalysisReportOut
 from app.services.analytics import (
     AuthenticitySignalEvaluator,
     DeterministicHeuristicAuthenticityModel,
     EngagementCalculator,
     SupervisedAuthenticityClassifierStub,
+    TrustAnalysisService,
+    trust_analysis_service,
     DETERMINISTIC_HEURISTICS_CATALOG,
     UNIMPLEMENTED_FEATURES_CATALOG,
 )
@@ -236,6 +239,50 @@ async def get_creator_full_analytics_report(
         engagement=engagement,
         authenticity=authenticity,
         generated_at=datetime.now(timezone.utc),
+    )
+
+
+@router.get(
+    "/creator/{creator_id}/trust",
+    response_model=TrustAnalysisReportOut,
+    summary="Creator Trustworthiness Analysis Report",
+)
+async def get_creator_trust_analysis(
+    creator_id: int,
+    campaign_niche: Optional[str] = Query(None, description="Optional target campaign niche for contextual relevance"),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> TrustAnalysisReportOut:
+    """
+    Evaluates influencer trustworthiness and professional reliability across 5 empirical indicators:
+      1. Engagement consistency (variability across post samples).
+      2. Peer-relative engagement (benchmark comparison by follower tier).
+      3. Content thematic focus and campaign relevance.
+      4. Verified campaign completion history (on-time delivery rate).
+      5. Data freshness and profile completeness.
+
+    Strictly separates trustworthiness from campaign suitability and fraud risk.
+    Features an explicit 'insufficient_evidence' state and never penalizes missing fields.
+    """
+    c_res = await db.execute(select(CreatorProfile).where(CreatorProfile.id == creator_id))
+    creator = c_res.scalar_one_or_none()
+    if not creator:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Creator profile with ID {creator_id} not found.",
+        )
+
+    p_res = await db.execute(
+        select(InfluencerPost)
+        .where(InfluencerPost.influencer_id == creator.id)
+        .order_by(desc(InfluencerPost.posted_at))
+    )
+    posts = list(p_res.scalars().all())
+
+    return trust_analysis_service.evaluate_creator_trust(
+        creator=creator,
+        posts=posts,
+        campaign_niche=campaign_niche,
     )
 
 
