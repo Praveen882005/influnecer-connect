@@ -235,6 +235,18 @@ class CreatorProfile(Base):
     sample_content_keywords = Column(JSON, default=list)  # topics, keywords, post summaries
     content_embedding = Column(ValidatedEmbeddingVector, nullable=True)  # Structured float array
 
+    # Rich Profile & Performance Extensions (Phase 2)
+    profile_url = Column(String(500), nullable=True)
+    audience_description = Column(Text, nullable=True)
+    avg_likes = Column(Integer, nullable=True)
+    avg_comments = Column(Integer, nullable=True)
+    avg_views = Column(Integer, nullable=True)
+    brand_suitability = Column(JSON, default=dict)  # {"safety_level": "brand_safe", "sponsored_ratio": 0.20, "notes": "..."}
+    content_categories = Column(JSON, default=list)  # list of strings e.g. ["Consumer Electronics", "AI Tools"]
+    past_campaigns_count = Column(Integer, default=0, nullable=False)
+    on_time_delivery_rate = Column(Float, nullable=True)  # percentage e.g. 98.0
+    delivery_history = Column(JSON, default=list)  # list of past campaign milestone summaries
+
     # Provenance, Verification & Data Freshness
     data_source = Column(String(100), default="user_manual", nullable=False)  # "user_manual", "instagram_graph_api", "youtube_v3"
     last_fetched_at = Column(DateTime, nullable=True)
@@ -260,13 +272,17 @@ class CreatorProfile(Base):
             "bio": bool(self.bio and len(self.bio.strip()) >= 15),
             "primary_niche": bool(self.primary_niche and self.primary_niche.strip()),
             "profile_image_url": bool(self.profile_image_url and self.profile_image_url.strip()),
-            "content_niches": bool(self.content_niches and len(self.content_niches) > 0),
+            "content_niches": bool(
+                (self.content_niches and len(self.content_niches) > 0)
+                or (self.content_categories and len(self.content_categories) > 0)
+            ),
             "supported_platforms": bool(
                 (self.supported_platforms and len(self.supported_platforms) > 0)
                 or (self.platforms and len(self.platforms) > 0)
             ),
             "collaboration_preferences": bool(self.collaboration_preferences and len(self.collaboration_preferences) > 0),
             "language": bool(self.language and self.language.strip()),
+            "audience_description": bool(self.audience_description and self.audience_description.strip()),
         }
         completed = sum(1 for v in checklist.values() if v)
         total = len(checklist)

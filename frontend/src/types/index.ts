@@ -89,6 +89,30 @@ export interface CreatorProfile {
   };
   authenticity_score: number;
   sample_content_keywords: string[];
+  profile_url?: string | null;
+  audience_description?: string | null;
+  avg_likes?: number | null;
+  avg_comments?: number | null;
+  avg_views?: number | null;
+  brand_suitability?: {
+    safety_level?: string;
+    sponsored_content_ratio?: number;
+    family_friendly?: boolean;
+    suitability_tags?: string[];
+    notes?: string;
+    [key: string]: unknown;
+  };
+  content_categories?: string[];
+  past_campaigns_count?: number;
+  on_time_delivery_rate?: number | null;
+  delivery_history?: Array<{
+    campaign_title: string;
+    brand_name?: string;
+    status: string;
+    completed_at?: string;
+    on_time?: boolean;
+    [key: string]: unknown;
+  }>;
   data_source?: string;
   last_fetched_at?: string | null;
   freshness_status?: string;

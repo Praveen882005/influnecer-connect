@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import type { CreatorProfile } from '../types';
+import { RichInfluencerProfileModal } from './RichInfluencerProfileModal';
 
 interface CreatorCatalogProps {
   onSelectCreatorForAI: (creator: CreatorProfile) => void;
@@ -16,6 +17,7 @@ export const CreatorCatalog: React.FC<CreatorCatalogProps> = ({
 }) => {
   const { user } = useAuth();
   const [creators, setCreators] = useState<CreatorProfile[]>([]);
+  const [selectedProfileCreator, setSelectedProfileCreator] = useState<CreatorProfile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -229,29 +231,48 @@ export const CreatorCatalog: React.FC<CreatorCatalogProps> = ({
 
                 {/* Card Actions */}
                 <div className="creator-card-footer">
-                  {user?.role === 'brand' || user?.role === 'admin' ? (
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end">
                     <button
                       type="button"
-                      className={`action-btn-sm ${isShortlisted ? 'danger' : 'outline'}`}
-                      onClick={() => onToggleShortlist(c.id)}
+                      className="action-btn-sm outline"
+                      onClick={() => setSelectedProfileCreator(c)}
                     >
-                      {isShortlisted ? '★ Shortlisted' : '☆ Shortlist'}
+                      Profile Details
                     </button>
-                  ) : null}
 
-                  <button
-                    type="button"
-                    className="action-btn-sm primary"
-                    onClick={() => onSelectCreatorForAI(c)}
-                  >
-                    AI Match Evaluation →
-                  </button>
+                    {user?.role === 'brand' || user?.role === 'admin' ? (
+                      <button
+                        type="button"
+                        className={`action-btn-sm ${isShortlisted ? 'danger' : 'outline'}`}
+                        onClick={() => onToggleShortlist(c.id)}
+                      >
+                        {isShortlisted ? '★ Shortlisted' : '☆ Shortlist'}
+                      </button>
+                    ) : null}
+
+                    <button
+                      type="button"
+                      className="action-btn-sm primary"
+                      onClick={() => onSelectCreatorForAI(c)}
+                    >
+                      AI Match Evaluation →
+                    </button>
+                  </div>
                 </div>
               </article>
             );
           })}
         </div>
       )}
+
+      {/* Rich Influencer Profile Intelligence Modal */}
+      <RichInfluencerProfileModal
+        creator={selectedProfileCreator}
+        isOpen={!!selectedProfileCreator}
+        onClose={() => setSelectedProfileCreator(null)}
+        onShortlistToggle={(c) => onToggleShortlist(c.id)}
+        isShortlisted={selectedProfileCreator ? shortlistedIds.has(selectedProfileCreator.id) : false}
+      />
     </section>
   );
 };

@@ -14,6 +14,7 @@ import {
   Skeleton,
 } from '../../design-system';
 import type { Campaign, CreatorProfile, ShortlistItem } from '../../types';
+import { RichInfluencerProfileModal } from '../../components/RichInfluencerProfileModal';
 
 export const BrandDiscoverPage: React.FC = () => {
   const [creators, setCreators] = useState<CreatorProfile[]>([]);
@@ -30,6 +31,7 @@ export const BrandDiscoverPage: React.FC = () => {
 
   // Shortlist Modal State
   const [shortlistCreator, setShortlistCreator] = useState<CreatorProfile | null>(null);
+  const [selectedProfileCreator, setSelectedProfileCreator] = useState<CreatorProfile | null>(null);
   const [selectedCampaignId, setSelectedCampaignId] = useState<number | ''>('');
   const [notes, setNotes] = useState('');
   const [isSavingShortlist, setIsSavingShortlist] = useState(false);
@@ -294,6 +296,14 @@ export const BrandDiscoverPage: React.FC = () => {
                   </span>
                   <div className="flex items-center gap-2">
                     <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => setSelectedProfileCreator(c)}
+                      leftIcon={<Icon name="Eye" size="sm" />}
+                    >
+                      View Profile
+                    </Button>
+                    <Button
                       variant={shortlisted ? 'secondary' : 'primary'}
                       size="sm"
                       onClick={() => handleToggleShortlist(c)}
@@ -364,6 +374,15 @@ export const BrandDiscoverPage: React.FC = () => {
           </div>
         </div>
       </Modal>
+
+      {/* Rich Influencer Profile Intelligence Modal */}
+      <RichInfluencerProfileModal
+        creator={selectedProfileCreator}
+        isOpen={!!selectedProfileCreator}
+        onClose={() => setSelectedProfileCreator(null)}
+        onShortlistToggle={handleToggleShortlist}
+        isShortlisted={selectedProfileCreator ? isCreatorShortlisted(selectedProfileCreator.id) : false}
+      />
     </div>
   );
 };

@@ -18,6 +18,7 @@ import {
   Select,
   Skeleton,
 } from '../../design-system';
+import { RichInfluencerProfileModal } from '../../components/RichInfluencerProfileModal';
 
 export const INITIAL_NICHES = [
   'technology',
@@ -43,6 +44,7 @@ export const InfluencerProfilePage: React.FC = () => {
 
   // Platform verification modal state
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
   const [verifyHandle, setVerifyHandle] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState<string | null>(null);
@@ -64,6 +66,9 @@ export const InfluencerProfilePage: React.FC = () => {
       bio: 'Deep dive consumer tech reviews, AI software walkthroughs, and developer workflow setups. Passionate about empowering engineers and makers.',
       location: 'San Francisco, CA',
       language: 'English',
+      profileUrl: 'https://youtube.com/@tech_marcus',
+      audienceDescription: 'Software engineers, AI developers, and tech early adopters',
+      contentCategories: 'Consumer Electronics, AI Tools, Developer Productivity',
       rateYoutubeDedicated: '$3,500',
       rateYoutubeIntegration: '$1,800',
       rateInstagramReel: '$1,200',
@@ -89,6 +94,9 @@ export const InfluencerProfilePage: React.FC = () => {
         bio: data.bio || '',
         location: (collab.location as string) || 'San Francisco, CA',
         language: data.language || 'English',
+        profileUrl: data.profile_url || '',
+        audienceDescription: data.audience_description || '',
+        contentCategories: (data.content_categories || []).join(', '),
         rateYoutubeDedicated: (collab.rate_youtube_dedicated as string) || '$3,500',
         rateYoutubeIntegration: (collab.rate_youtube_integration as string) || '$1,800',
         rateInstagramReel: (collab.rate_instagram_reel as string) || '$1,200',
@@ -141,9 +149,20 @@ export const InfluencerProfilePage: React.FC = () => {
     setApiError(null);
     setFieldErrors({});
 
+    const categories = values.contentCategories
+      ? values.contentCategories.split(',').map((s) => s.trim()).filter(Boolean)
+      : [];
+
+    const payload = {
+      ...values,
+      content_categories: categories,
+      profile_url: values.profileUrl,
+      audience_description: values.audienceDescription,
+    };
+
     try {
       const updated = profile
-        ? await apiClient.put<CreatorProfile>('/creators/profile', values)
+        ? await apiClient.put<CreatorProfile>('/creators/profile', payload)
         : await apiClient.post<CreatorProfile>('/creators/profile', {
             handle: values.handle,
             display_name: values.displayName,
@@ -151,6 +170,9 @@ export const InfluencerProfilePage: React.FC = () => {
             profile_image_url: values.profileImageUrl,
             primary_niche: values.primaryNiche,
             language: values.language || 'English',
+            profile_url: values.profileUrl,
+            audience_description: values.audienceDescription,
+            content_categories: categories,
             collaboration_preferences: {
               location: values.location,
               rate_youtube_dedicated: values.rateYoutubeDedicated,
@@ -299,13 +321,22 @@ export const InfluencerProfilePage: React.FC = () => {
               Cancel
             </Button>
           ) : (
-            <Button
-              variant="secondary"
-              leftIcon="Edit"
-              onClick={handleStartEditing}
-            >
-              Edit Media Kit
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                leftIcon="Eye"
+                onClick={() => setIsPreviewModalOpen(true)}
+              >
+                Preview Brand View
+              </Button>
+              <Button
+                variant="secondary"
+                leftIcon="Edit"
+                onClick={handleStartEditing}
+              >
+                Edit Media Kit
+              </Button>
+            </div>
           )}
         </div>
       </div>
@@ -579,6 +610,50 @@ export const InfluencerProfilePage: React.FC = () => {
               error={errors.bio?.message}
               {...register('bio')}
             />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField
+                label="Primary Portfolio / Profile URL"
+                htmlFor="edit-profile-url"
+                helperText="Public link (e.g. YouTube, Instagram, Twitch, Website)"
+                error={errors.profileUrl?.message}
+              >
+                <Input
+                  id="edit-profile-url"
+                  placeholder="https://youtube.com/@username"
+                  error={errors.profileUrl?.message}
+                  {...register('profileUrl')}
+                />
+              </FormField>
+
+              <FormField
+                label="Content Categories (Comma-separated)"
+                htmlFor="edit-content-categories"
+                helperText="e.g. Consumer Tech, AI Tools, Developer Productivity"
+                error={errors.contentCategories?.message}
+              >
+                <Input
+                  id="edit-content-categories"
+                  placeholder="Consumer Tech, AI Tools, Hardware"
+                  error={errors.contentCategories?.message}
+                  {...register('contentCategories')}
+                />
+              </FormField>
+            </div>
+
+            <FormField
+              label="Audience Persona & Demographics Description"
+              htmlFor="edit-audience-description"
+              helperText="Qualitative description of who follows your content (profession, interests, age group)"
+              error={errors.audienceDescription?.message}
+            >
+              <Input
+                id="edit-audience-description"
+                placeholder="e.g. Software engineers, AI developers, and tech early adopters looking for productivity setups"
+                error={errors.audienceDescription?.message}
+                {...register('audienceDescription')}
+              />
+            </FormField>
 
             <div className="pt-2 border-t border-slate-200">
               <label className="block text-xs font-semibold text-slate-800 uppercase tracking-wider mb-2">
@@ -870,6 +945,13 @@ export const InfluencerProfilePage: React.FC = () => {
           </div>
         </div>
       </Modal>
+
+      {/* Rich Profile Preview Modal */}
+      <RichInfluencerProfileModal
+        creator={profile}
+        isOpen={isPreviewModalOpen}
+        onClose={() => setIsPreviewModalOpen(false)}
+      />
     </div>
   );
 };

@@ -34,6 +34,18 @@ class CreatorProfileBase(BaseModel):
     authenticity_score: float = 90.0
     sample_content_keywords: List[str] = Field(default_factory=list)
 
+    # Rich Influencer Profile (Phase 2)
+    profile_url: Optional[str] = None
+    audience_description: Optional[str] = None
+    avg_likes: Optional[int] = None
+    avg_comments: Optional[int] = None
+    avg_views: Optional[int] = None
+    brand_suitability: Dict[str, Any] = Field(default_factory=dict)
+    content_categories: List[str] = Field(default_factory=list)
+    past_campaigns_count: int = 0
+    on_time_delivery_rate: Optional[float] = None
+    delivery_history: List[Dict[str, Any]] = Field(default_factory=list)
+
     # Provenance & Platform Verification Status
     data_source: str = "user_manual"
     last_fetched_at: Optional[datetime] = None
@@ -73,6 +85,25 @@ class CreatorProfileUpdate(BaseModel):
     authenticity_score: Optional[float] = None
     sample_content_keywords: Optional[List[str]] = None
 
+    # Rich Influencer Profile (Phase 2)
+    profile_url: Optional[str] = None
+    profileUrl: Optional[str] = None
+    audience_description: Optional[str] = None
+    audienceDescription: Optional[str] = None
+    avg_likes: Optional[int] = None
+    avgLikes: Optional[int] = None
+    avg_comments: Optional[int] = None
+    avgComments: Optional[int] = None
+    avg_views: Optional[int] = None
+    avgViews: Optional[int] = None
+    brand_suitability: Optional[Dict[str, Any]] = None
+    brandSuitability: Optional[Dict[str, Any]] = None
+    content_categories: Optional[List[str]] = None
+    contentCategories: Optional[List[str]] = None
+    past_campaigns_count: Optional[int] = None
+    on_time_delivery_rate: Optional[float] = None
+    delivery_history: Optional[List[Dict[str, Any]]] = None
+
     # Media Kit Form Rates (camelCase support from UI)
     rateYoutubeDedicated: Optional[str] = None
     rateYoutubeIntegration: Optional[str] = None
@@ -96,6 +127,20 @@ class CreatorProfileUpdate(BaseModel):
             self.collaboration_preferences["rate_youtube_integration"] = self.rateYoutubeIntegration
         if self.rateInstagramReel:
             self.collaboration_preferences["rate_instagram_reel"] = self.rateInstagramReel
+        if self.profileUrl and not self.profile_url:
+            self.profile_url = self.profileUrl
+        if self.audienceDescription and not self.audience_description:
+            self.audience_description = self.audienceDescription
+        if self.avgLikes is not None and self.avg_likes is None:
+            self.avg_likes = self.avgLikes
+        if self.avgComments is not None and self.avg_comments is None:
+            self.avg_comments = self.avgComments
+        if self.avgViews is not None and self.avg_views is None:
+            self.avg_views = self.avgViews
+        if self.brandSuitability and not self.brand_suitability:
+            self.brand_suitability = self.brandSuitability
+        if self.contentCategories and not self.content_categories:
+            self.content_categories = self.contentCategories
         return self
 
 

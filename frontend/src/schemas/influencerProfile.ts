@@ -28,6 +28,18 @@ export const influencerProfileSchema = z.object({
   language: z
     .string()
     .optional(),
+  profileUrl: z
+    .string()
+    .url('Must be a valid URL starting with http:// or https://')
+    .or(z.literal(''))
+    .optional(),
+  audienceDescription: z
+    .string()
+    .max(500, 'Audience description cannot exceed 500 characters')
+    .optional(),
+  contentCategories: z
+    .string()
+    .optional(),
   rateYoutubeDedicated: z
     .string()
     .min(1, 'Rate is required'),
