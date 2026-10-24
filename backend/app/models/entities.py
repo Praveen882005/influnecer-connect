@@ -180,6 +180,8 @@ class BrandProfile(Base):
     user = relationship("User", back_populates="brand_profile")
     campaigns = relationship("Campaign", back_populates="brand", cascade="all, delete-orphan")
     shortlists = relationship("Shortlist", back_populates="brand", cascade="all, delete-orphan")
+    campaign_forecasts = relationship("CampaignForecast", back_populates="brand", cascade="all, delete-orphan")
+    campaign_actual_outcomes = relationship("CampaignActualOutcome", back_populates="brand", cascade="all, delete-orphan")
 
     def calculate_completeness(self) -> Dict[str, Any]:
         """Calculates brand profile completeness score and missing field checklist."""
@@ -392,6 +394,8 @@ class Campaign(Base):
     brand = relationship("BrandProfile", back_populates="campaigns")
     proposals = relationship("Proposal", back_populates="campaign", cascade="all, delete-orphan")
     invitations = relationship("Invitation", back_populates="campaign", cascade="all, delete-orphan")
+    forecasts = relationship("CampaignForecast", back_populates="campaign", cascade="all, delete-orphan")
+    actual_outcome = relationship("CampaignActualOutcome", back_populates="campaign", uselist=False, cascade="all, delete-orphan")
 
 
 class Proposal(Base):
@@ -413,6 +417,81 @@ class Proposal(Base):
 
     campaign = relationship("Campaign", back_populates="proposals")
     creator = relationship("CreatorProfile", back_populates="proposals")
+
+
+class CampaignForecast(Base):
+    """
+    Projected sales potential and campaign performance scenarios.
+    Stores explicit user assumptions (reach, CTR, CVR, AOV, cost) and calculated
+    conservative, baseline, and optimistic scenarios with full formula transparency.
+    """
+
+    __tablename__ = "campaign_forecasts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    campaign_id = Column(Integer, ForeignKey("campaigns.id", ondelete="CASCADE"), nullable=True, index=True)
+    brand_id = Column(Integer, ForeignKey("brand_profiles.id", ondelete="CASCADE"), nullable=False, index=True)
+    forecast_name = Column(String(255), default="Campaign Sales Forecast", nullable=False)
+    source_data_origin = Column(String(100), default="user_assumptions", nullable=False)  # user_assumptions, historical_blend, benchmark
+
+    # Explicit input assumptions
+    impressions = Column(Integer, nullable=False)
+    click_through_rate = Column(Float, nullable=False)  # % e.g. 2.0
+    conversion_rate = Column(Float, nullable=False)     # % e.g. 2.5
+    average_order_value = Column(Float, nullable=False) # $ e.g. 65.0
+    campaign_cost = Column(Float, nullable=False)       # $ e.g. 2500.0
+
+    # Multi-scenario computed projections
+    conservative_projection = Column(JSON, nullable=False, default=dict)
+    baseline_projection = Column(JSON, nullable=False, default=dict)
+    optimistic_projection = Column(JSON, nullable=False, default=dict)
+
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=utcnow, nullable=False)
+    updated_at = Column(DateTime, default=utcnow, onupdate=utcnow, nullable=False)
+
+    campaign = relationship("Campaign", back_populates="forecasts")
+    brand = relationship("BrandProfile", back_populates="campaign_forecasts")
+
+
+class CampaignActualOutcome(Base):
+    """
+    Verified post-campaign performance results and sales attribution.
+    Stored strictly separately from projections to evaluate forecasting accuracy
+    and eliminate synthetic hallucination.
+    """
+
+    __tablename__ = "campaign_actual_outcomes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    campaign_id = Column(Integer, ForeignKey("campaigns.id", ondelete="CASCADE"), unique=True, nullable=False, index=True)
+    brand_id = Column(Integer, ForeignKey("brand_profiles.id", ondelete="CASCADE"), nullable=False, index=True)
+
+    # Actual observed metrics
+    actual_impressions = Column(Integer, nullable=True)
+    actual_clicks = Column(Integer, nullable=True)
+    actual_conversions = Column(Integer, nullable=True)
+    actual_gross_revenue = Column(Float, nullable=True)
+    actual_spend = Column(Float, nullable=True)
+
+    # Calculated derived metrics
+    actual_roi_pct = Column(Float, nullable=True)
+    actual_ctr_pct = Column(Float, nullable=True)
+    actual_cvr_pct = Column(Float, nullable=True)
+    actual_cpc = Column(Float, nullable=True)
+    actual_cpa = Column(Float, nullable=True)
+
+    # Attribution & audit details
+    attribution_provider = Column(String(100), default="Manual Tracking", nullable=False)
+    tracked_period_start = Column(DateTime, nullable=True)
+    tracked_period_end = Column(DateTime, nullable=True)
+    notes = Column(Text, nullable=True)
+
+    created_at = Column(DateTime, default=utcnow, nullable=False)
+    updated_at = Column(DateTime, default=utcnow, onupdate=utcnow, nullable=False)
+
+    campaign = relationship("Campaign", back_populates="actual_outcome")
+    brand = relationship("BrandProfile", back_populates="campaign_actual_outcomes")
 
 
 class Shortlist(Base):

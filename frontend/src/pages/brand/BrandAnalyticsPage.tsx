@@ -13,6 +13,7 @@ import {
   Cell,
 } from 'recharts';
 import { api } from '../../api/client';
+import { CampaignForecastingPanel } from '../../components/CampaignForecastingPanel';
 import {
   Alert,
   Badge,
@@ -35,6 +36,7 @@ export const BrandAnalyticsPage: React.FC = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [selectedCampaignId, setSelectedCampaignId] = useState<string>('all');
   const [timeRange, setTimeRange] = useState<string>('30d');
+  const [viewMode, setViewMode] = useState<'overview' | 'forecasting'>('overview');
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -281,15 +283,61 @@ export const BrandAnalyticsPage: React.FC = () => {
         </Alert>
       )}
 
-      {/* Transparency & Scope Disclaimer Banner */}
-      <div className="bg-sky-50 border border-sky-200 p-3.5 rounded-[6px] text-xs text-sky-900 flex items-start gap-2.5">
-        <Icon name="Info" size="sm" className="text-sky-600 shrink-0 mt-0.5" />
-        <div className="leading-relaxed">
-          <strong>Application Event Provenance:</strong>{' '}
-          {data?.platform_vs_social_disclaimer ||
-            'Platform activity is aggregated from live shortlist and invitation states. External social post impressions, reach, sales conversions, and ROI attribution require third-party tracking pixels not enabled in this phase.'}
-        </div>
+      {/* View Mode Switcher Tabs */}
+      <div className="flex border-b border-slate-200">
+        <button
+          type="button"
+          onClick={() => setViewMode('overview')}
+          className={`pb-3 px-4 text-sm font-semibold border-b-2 flex items-center gap-2 transition-all ${
+            viewMode === 'overview'
+              ? 'border-sky-600 text-sky-700'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+          }`}
+        >
+          <Icon name="Activity" size="xs" />
+          Campaign Pipeline &amp; Funnel Activity
+        </button>
+        <button
+          type="button"
+          onClick={() => setViewMode('forecasting')}
+          className={`pb-3 px-4 text-sm font-semibold border-b-2 flex items-center gap-2 transition-all ${
+            viewMode === 'forecasting'
+              ? 'border-sky-600 text-sky-700'
+              : 'border-transparent text-slate-500 hover:text-slate-800'
+          }`}
+        >
+          <Icon name="TrendingUp" size="xs" />
+          Sales Potential &amp; Outcome Forecaster
+        </button>
       </div>
+
+      {viewMode === 'forecasting' ? (
+        <div className="space-y-4">
+          <CampaignForecastingPanel
+            campaignId={selectedCampaignId !== 'all' ? Number(selectedCampaignId) : undefined}
+            campaignTitle={
+              selectedCampaignId !== 'all'
+                ? campaigns.find((c) => String(c.id) === selectedCampaignId)?.title
+                : undefined
+            }
+            initialCost={
+              selectedCampaignId !== 'all'
+                ? campaigns.find((c) => String(c.id) === selectedCampaignId)?.budget
+                : 2500
+            }
+          />
+        </div>
+      ) : (
+        <>
+          {/* Transparency & Scope Disclaimer Banner */}
+          <div className="bg-sky-50 border border-sky-200 p-3.5 rounded-[6px] text-xs text-sky-900 flex items-start gap-2.5">
+            <Icon name="Info" size="sm" className="text-sky-600 shrink-0 mt-0.5" />
+            <div className="leading-relaxed">
+              <strong>Application Event Provenance:</strong>{' '}
+              {data?.platform_vs_social_disclaimer ||
+                'Platform activity is aggregated from live shortlist and invitation states. External social post impressions, reach, sales conversions, and ROI attribution require third-party tracking pixels not enabled in this phase.'}
+            </div>
+          </div>
 
       {/* KPI Metric Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -503,6 +551,8 @@ export const BrandAnalyticsPage: React.FC = () => {
           />
         )}
       </Card>
+        </>
+      )}
     </div>
   );
 };

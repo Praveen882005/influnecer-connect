@@ -15,6 +15,7 @@ import {
 } from '../../design-system';
 import { FormField, FormTextarea } from '../../components/forms';
 import { useToast } from '../../components/feedback';
+import { CampaignForecastingPanel } from '../../components/CampaignForecastingPanel';
 import { apiClient } from '../../api';
 import { ApiClientError } from '../../api/types';
 import type { Campaign, CampaignStatus } from '../../types';
@@ -40,6 +41,10 @@ export const BrandCampaignsPage: React.FC = () => {
   // Detail Modal State
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+  // Forecasting Modal State
+  const [forecastingCampaign, setForecastingCampaign] = useState<Campaign | null>(null);
+  const [isForecastModalOpen, setIsForecastModalOpen] = useState(false);
 
   // Edit Modal State
   const [editingCampaign, setEditingCampaign] = useState<Campaign | null>(null);
@@ -279,6 +284,19 @@ export const BrandCampaignsPage: React.FC = () => {
             Details
           </Button>
 
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-sky-700 hover:bg-sky-50"
+            onClick={() => {
+              setForecastingCampaign(row);
+              setIsForecastModalOpen(true);
+            }}
+          >
+            <Icon name="TrendingUp" size="xs" className="mr-1" />
+            Forecast
+          </Button>
+
           {row.status !== 'archived' && (
             <Button
               variant="secondary"
@@ -481,6 +499,19 @@ export const BrandCampaignsPage: React.FC = () => {
                 )}
               </div>
               <div className="flex items-center gap-2">
+                <Button
+                  variant="secondary"
+                  className="text-sky-700 bg-sky-50 border-sky-200 hover:bg-sky-100"
+                  onClick={() => {
+                    setIsDetailModalOpen(false);
+                    setForecastingCampaign(selectedCampaign);
+                    setIsForecastModalOpen(true);
+                  }}
+                >
+                  <Icon name="TrendingUp" size="xs" className="mr-1.5" />
+                  Sales Forecast
+                </Button>
+
                 {selectedCampaign.status !== 'archived' && (
                   <Button
                     variant="secondary"
@@ -692,6 +723,30 @@ export const BrandCampaignsPage: React.FC = () => {
               required
             />
           </div>
+        </Modal>
+      )}
+
+      {/* Sales Potential & Campaign Outcome Forecasting Modal */}
+      {forecastingCampaign && (
+        <Modal
+          isOpen={isForecastModalOpen}
+          onClose={() => setIsForecastModalOpen(false)}
+          title={`Sales Potential & Outcome Forecast: ${forecastingCampaign.title}`}
+          description={`Budget: $${(forecastingCampaign.budget || 0).toLocaleString()} • Objective: ${forecastingCampaign.objective || 'Brand Awareness'}`}
+          size="xl"
+          footer={
+            <div className="flex justify-end w-full">
+              <Button variant="secondary" onClick={() => setIsForecastModalOpen(false)}>
+                Close
+              </Button>
+            </div>
+          }
+        >
+          <CampaignForecastingPanel
+            campaignId={forecastingCampaign.id}
+            initialCost={forecastingCampaign.budget}
+            campaignTitle={forecastingCampaign.title}
+          />
         </Modal>
       )}
     </div>

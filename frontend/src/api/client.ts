@@ -15,12 +15,18 @@ import type {
   BrandAnalyticsData,
   BrandProfile,
   Campaign,
+  CampaignActualOutcome,
+  CampaignForecast,
+  CampaignForecastingBundle,
   CampaignOpportunity,
   CreatorAnalyticsData,
   CreatorProfile,
   CreatorRecommendation,
   EngagementMetrics,
+  ForecastAssumptionsInput,
+  ForecastCalculationResponse,
   FullAnalyticsReport,
+  HistoricalBenchmark,
   ImportJob,
   ImportUploadResponse,
   ModelMetadata,
@@ -399,6 +405,25 @@ export const api = {
       apiClient.get<FullAnalyticsReport>(`/analytics/creator/${creatorId}/full-report`),
     modelMetadata: () =>
       apiClient.get<ModelMetadata>('/analytics/model-metadata'),
+  },
+
+  forecasting: {
+    calculate: (assumptions: ForecastAssumptionsInput, campaignId?: number) =>
+      apiClient.post<ForecastCalculationResponse>('/forecasting/calculate', assumptions, {
+        params: campaignId ? { campaign_id: campaignId } : undefined,
+      }),
+    benchmark: () =>
+      apiClient.get<HistoricalBenchmark>('/forecasting/benchmark'),
+    getCampaignContext: (campaignId: number) =>
+      apiClient.get<CampaignForecastingBundle>(`/forecasting/campaign/${campaignId}`),
+    saveForecast: (campaignId: number, assumptions: ForecastAssumptionsInput) =>
+      apiClient.post<CampaignForecast>(`/forecasting/campaign/${campaignId}`, assumptions),
+    listForecasts: (campaignId: number) =>
+      apiClient.get<CampaignForecast[]>(`/forecasting/campaign/${campaignId}/forecasts`),
+    recordActualOutcome: (campaignId: number, data: Partial<CampaignActualOutcome>) =>
+      apiClient.post<CampaignActualOutcome>(`/forecasting/campaign/${campaignId}/actual`, data),
+    getActualOutcome: (campaignId: number) =>
+      apiClient.get<CampaignActualOutcome | null>(`/forecasting/campaign/${campaignId}/actual`),
   },
 
   data: {

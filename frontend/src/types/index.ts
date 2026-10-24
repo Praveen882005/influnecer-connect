@@ -775,5 +775,136 @@ export interface AdminOverviewData {
   readiness_status: string;
 }
 
+// ============================================================================
+// PHASE 5: SALES POTENTIAL & CAMPAIGN FORECASTING TYPES
+// ============================================================================
+
+export interface ForecastAssumptionsInput {
+  impressions: number;
+  click_through_rate: number;
+  conversion_rate: number;
+  average_order_value: number;
+  campaign_cost: number;
+  forecast_name?: string;
+  notes?: string;
+}
+
+export interface ScenarioProjection {
+  scenario_name: 'Conservative' | 'Baseline' | 'Optimistic' | string;
+  multiplier_description: string;
+  impressions: number;
+  click_through_rate: number;
+  conversion_rate: number;
+  average_order_value: number;
+  campaign_cost: number;
+  estimated_clicks: number;
+  estimated_conversions: number;
+  estimated_gross_revenue: number;
+  estimated_net_profit: number;
+  estimated_roi_pct: number;
+  estimated_cpc?: number | null;
+  estimated_cpa?: number | null;
+}
+
+export interface ForecastCalculationResponse {
+  campaign_id?: number | null;
+  campaign_title?: string | null;
+  source_data_origin: string;
+  confidence_level: string;
+  disclaimer: string;
+  limitations: string[];
+  formulas_used: Record<string, string>;
+  predictive_model_status: string;
+  assumptions: ForecastAssumptionsInput;
+  scenarios: {
+    conservative: ScenarioProjection;
+    baseline: ScenarioProjection;
+    optimistic: ScenarioProjection;
+  };
+  actual_comparison?: VarianceAnalysis | null;
+  calculated_at: string;
+}
+
+export interface CampaignForecast {
+  id: number;
+  campaign_id?: number | null;
+  brand_id: number;
+  forecast_name: string;
+  source_data_origin: string;
+  impressions: number;
+  click_through_rate: number;
+  conversion_rate: number;
+  average_order_value: number;
+  campaign_cost: number;
+  conservative_projection: ScenarioProjection | Record<string, any>;
+  baseline_projection: ScenarioProjection | Record<string, any>;
+  optimistic_projection: ScenarioProjection | Record<string, any>;
+  notes?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CampaignActualOutcome {
+  id: number;
+  campaign_id: number;
+  brand_id: number;
+  actual_impressions?: number | null;
+  actual_clicks?: number | null;
+  actual_conversions?: number | null;
+  actual_gross_revenue?: number | null;
+  actual_spend?: number | null;
+  actual_roi_pct?: number | null;
+  actual_ctr_pct?: number | null;
+  actual_cvr_pct?: number | null;
+  actual_cpc?: number | null;
+  actual_cpa?: number | null;
+  attribution_provider: string;
+  tracked_period_start?: string | null;
+  tracked_period_end?: string | null;
+  notes?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface HistoricalBenchmark {
+  tracked_campaigns_count: number;
+  has_sufficient_data: boolean;
+  avg_ctr_pct?: number | null;
+  avg_cvr_pct?: number | null;
+  avg_aov?: number | null;
+  avg_roi_pct?: number | null;
+  default_impressions: number;
+  default_budget: number;
+  predictive_model_status: string;
+  data_source_note: string;
+}
+
+export interface VarianceAnalysis {
+  projected_revenue: number;
+  actual_revenue: number;
+  revenue_variance_dollars: number;
+  revenue_variance_pct: number;
+  projected_roi_pct: number;
+  actual_roi_pct: number;
+  roi_variance_pct: number;
+  projected_conversions: number;
+  actual_conversions: number;
+  conversion_variance: number;
+  scenario_achievement: string;
+  evaluation_note: string;
+}
+
+export interface CampaignForecastingBundle {
+  campaign_id: number;
+  campaign_title: string;
+  campaign_budget: number;
+  currency: string;
+  suggested_assumptions: ForecastAssumptionsInput;
+  forecasts: CampaignForecast[];
+  actual_outcome?: CampaignActualOutcome | null;
+  variance_analysis?: VarianceAnalysis | null;
+  historical_benchmark: HistoricalBenchmark;
+}
+
 
 
