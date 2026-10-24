@@ -1,0 +1,165 @@
+# ==============================================================================
+# Brand Bridge Root .gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Environment Variables & Secrets
+# ------------------------------------------------------------------------------
+.env
+.env*.local
+.env.development
+.env.test
+.env.production
+.env.staging
+*.env
+!.env.example
+
+# ------------------------------------------------------------------------------
+# Python & Virtual Environments
+# ------------------------------------------------------------------------------
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Python Bytecode & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python Tooling & Test Caches
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+
+# ------------------------------------------------------------------------------
+# Node.js & Frontend
+# ------------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# Frontend Build Outputs & Caches
+.next/
+out/
+.nuxt/
+.cache/
+.parcel-cache/
+.turbo/
+dist/
+dist-ssr/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ------------------------------------------------------------------------------
+# Test & Coverage Outputs
+# ------------------------------------------------------------------------------
+coverage/
+.nyc_output/
+cypress/videos/
+cypress/screenshots/
+playwright-report/
+test-results/
+
+# ------------------------------------------------------------------------------
+# Backups & Database Snapshots
+# ------------------------------------------------------------------------------
+backups/
+*.bak
+*.dump
+
+# ------------------------------------------------------------------------------
+# Logs & Process Output
+# ------------------------------------------------------------------------------
+logs/
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# ------------------------------------------------------------------------------
+# Machine Learning Models & Large Datasets
+# ------------------------------------------------------------------------------
+# Model weights and checkpoint artifacts
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+*.ckpt
+*.h5
+*.keras
+*.pkl
+*.pickle
+*.joblib
+models/weights/
+models/checkpoints/
+
+# Raw and generated datasets (samples in data/samples/ are preserved)
+data/raw/
+data/processed/
+data/interim/
+data/cache/
+*.parquet
+*.feather
+*.sqlite
+*.sqlite3
+*.db
+!data/samples/
+
+# ------------------------------------------------------------------------------
+# Operating System & IDE Specific Files
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# IDEs & Editors
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# VS Code (preserve workspace settings and extensions if added)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

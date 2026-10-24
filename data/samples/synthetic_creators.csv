@@ -1,0 +1,12 @@
+# SYNTHETIC BENCHMARK DATASET - STRICTLY FOR LOCAL DEVELOPMENT AND TESTING
+# NOT LIVE INSTAGRAM DATA - NOT SCRAPED DATA - NOT RESEARCH DATA
+# Brand Bridge Provider-Neutral Ingestion Benchmark v1.0
+handle,display_name,primary_niche,bio,total_followers,avg_engagement_rate,authenticity_score,platform,location,language
+@tech_marcus,Marcus Chen,technology,"Deep dive consumer tech reviews, AI software walkthroughs, and developer workflow setups.",490k,3.8,94.5,youtube,San Francisco CA,English
+@claire_wellness,Claire Vance,wellness,"Certified strength trainer & holistic nutritionist. Sustainable daily fitness and mental wellness.",515k,4.6,96.0,instagram,Austin TX,English
+@sora_ecoluxe,Sora Lindqvist,fashion,"Sustainable Nordic fashion curation, minimalist capsule wardrobes, and ethical textile design.",230k,5.1,93.0,instagram,Stockholm Sweden,English
+@maya_kitchen,Maya Patel,food,"Zero-waste culinary recipes, rapid weeknight meals, and fusion fermentation techniques.",340k,4.2,91.5,youtube,Chicago IL,English
+@alex_fitlife,Alex Rivera,fitness,"Functional calisthenics, hybrid endurance training, and evidence-based recovery strategies.",185k,4.9,95.2,youtube,Miami FL,English
+@elena_glow,Elena Rostova,beauty,"Clean skincare chemistry, barrier repair routines, and honest product formulation breakdowns.",420k,3.9,92.8,instagram,New York NY,English
+@david_haven,David Miller,home,"Modern Scandinavian interior styling, smart home woodworking, and cozy living space renovations.",160k,4.1,90.0,youtube,Seattle WA,English
+@sarah_parenting,Sarah Jenkins,parenting,"Mindful parenting habits, toddler emotional regulation, and non-toxic family home living.",275k,4.5,93.5,instagram,Denver CO,English

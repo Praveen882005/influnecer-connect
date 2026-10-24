@@ -1,0 +1,25 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Default rules for all files
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Python indentation standard (PEP 8)
+[*.py]
+indent_size = 4
+
+# Markdown formatting (trailing spaces indicate soft line breaks in some flavors)
+[*.md]
+trim_trailing_whitespace = false
+
+# Makefiles require hard tabs
+[Makefile]
+indent_style = tab

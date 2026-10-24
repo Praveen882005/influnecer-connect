@@ -1,0 +1,7 @@
+# MALFORMED TEST DATASET FOR ERROR HANDLING VERIFICATION
+# Contains deliberate formatting and validation errors to test robust ingestion tracking
+handle,display_name,primary_niche,bio,total_followers,avg_engagement_rate
+,No Handle User,technology,Missing handle should fail validation,10000,2.5
+@@@bad_handle_symbols!!!,Invalid Symbol User,fitness,Illegal characters in handle,25000,3.0
+@valid_handle_1,X,technology,Display name too short (min 2 chars),50000,4.0
+@valid_row_survivor,Dr. Survivor,wellness,This valid row should succeed despite other failing rows,80000,3.5

@@ -1,0 +1,116 @@
+[
+  {
+    "handle": "@tech_marcus",
+    "display_name": "Marcus Chen",
+    "primary_niche": "Tech & AI",
+    "secondary_niches": ["Smartphones", "Productivity Software", "Coding"],
+    "bio": "Deep dive consumer tech reviews, AI software walkthroughs, and developer workflow setups. 10+ years covering Silicon Valley.",
+    "platforms": {
+      "youtube": {"followers": 285000, "avg_views": 85000},
+      "instagram": {"followers": 65000, "avg_likes": 3200},
+      "tiktok": {"followers": 140000, "avg_views": 55000}
+    },
+    "total_followers": 490000,
+    "avg_engagement_rate": 3.8,
+    "authenticity_score": 94.5,
+    "audience_demographics": {
+      "age_split": {"18-24": 38.0, "25-34": 46.0, "35-44": 12.0, "45+": 4.0},
+      "gender_split": {"male": 72.0, "female": 26.0, "non_binary": 2.0},
+      "top_countries": ["US", "CA", "UK", "DE", "IN"]
+    },
+    "sample_content_keywords": ["tech", "ai", "hardware", "software", "gadgets", "laptops", "apple", "developer", "productivity"],
+    "is_verified": true,
+    "data_origin": "sample_benchmark_fixture"
+  },
+  {
+    "handle": "@claire_wellness",
+    "display_name": "Claire Vance",
+    "primary_niche": "Fitness & Wellness",
+    "secondary_niches": ["Plant-Based Nutrition", "Mindfulness", "Home Workouts"],
+    "bio": "Certified strength trainer & holistic nutritionist. Empowering sustainable daily fitness and mental wellness.",
+    "platforms": {
+      "instagram": {"followers": 195000, "avg_likes": 9800},
+      "youtube": {"followers": 110000, "avg_views": 32000},
+      "tiktok": {"followers": 210000, "avg_views": 78000}
+    },
+    "total_followers": 515000,
+    "avg_engagement_rate": 4.6,
+    "authenticity_score": 96.0,
+    "audience_demographics": {
+      "age_split": {"18-24": 42.0, "25-34": 44.0, "35-44": 11.0, "45+": 3.0},
+      "gender_split": {"male": 22.0, "female": 75.0, "non_binary": 3.0},
+      "top_countries": ["US", "UK", "AU", "CA"]
+    },
+    "sample_content_keywords": ["wellness", "fitness", "nutrition", "workout", "plant-based", "recovery", "health", "mindfulness"],
+    "is_verified": true,
+    "data_origin": "sample_benchmark_fixture"
+  },
+  {
+    "handle": "@sora_ecoluxe",
+    "display_name": "Sora Lindqvist",
+    "primary_niche": "Sustainable Fashion",
+    "secondary_niches": ["Thrifting", "Ethical Brands", "Capsule Wardrobes"],
+    "bio": "Nordic minimalist aesthetic meets zero-waste fashion. Highlighting brands that treat people and planet with care.",
+    "platforms": {
+      "instagram": {"followers": 125000, "avg_likes": 5600},
+      "tiktok": {"followers": 95000, "avg_views": 34000}
+    },
+    "total_followers": 220000,
+    "avg_engagement_rate": 3.9,
+    "authenticity_score": 93.0,
+    "audience_demographics": {
+      "age_split": {"18-24": 48.0, "25-34": 40.0, "35-44": 9.0, "45+": 3.0},
+      "gender_split": {"male": 18.0, "female": 79.0, "non_binary": 3.0},
+      "top_countries": ["SE", "UK", "US", "DE"]
+    },
+    "sample_content_keywords": ["fashion", "sustainable", "ethical", "minimalism", "wardrobe", "style", "vintage", "eco-friendly"],
+    "is_verified": true,
+    "data_origin": "sample_benchmark_fixture"
+  },
+  {
+    "handle": "@kai_nexus",
+    "display_name": "Kai Rivera",
+    "primary_niche": "Gaming & Streaming",
+    "secondary_niches": ["Esports", "Game Development", "PC Builds"],
+    "bio": "High-octane competitive FPS gamer & custom PC builder. Partnered Twitch streamer with an active Discord community.",
+    "platforms": {
+      "twitch": {"followers": 180000, "avg_concurrent_viewers": 4200},
+      "youtube": {"followers": 320000, "avg_views": 95000},
+      "tiktok": {"followers": 250000, "avg_views": 85000}
+    },
+    "total_followers": 750000,
+    "avg_engagement_rate": 5.2,
+    "authenticity_score": 91.0,
+    "audience_demographics": {
+      "age_split": {"18-24": 58.0, "25-34": 34.0, "35-44": 6.0, "45+": 2.0},
+      "gender_split": {"male": 82.0, "female": 15.0, "non_binary": 3.0},
+      "top_countries": ["US", "CA", "UK", "BR", "DE"]
+    },
+    "sample_content_keywords": ["gaming", "esports", "pc build", "hardware", "streaming", "gameplay", "fps", "nvidia"],
+    "is_verified": true,
+    "data_origin": "sample_benchmark_fixture"
+  },
+  {
+    "handle": "@maya_gastronomy",
+    "display_name": "Maya Patel",
+    "primary_niche": "Food & Culinary",
+    "secondary_niches": ["Quick Dinners", "Global Street Food", "Baking"],
+    "bio": "Former restaurant chef showing home cooks how to elevate simple dinners with international spices and techniques.",
+    "platforms": {
+      "instagram": {"followers": 310000, "avg_likes": 14500},
+      "tiktok": {"followers": 480000, "avg_views": 160000},
+      "youtube": {"followers": 145000, "avg_views": 48000}
+    },
+    "total_followers": 935000,
+    "avg_engagement_rate": 4.1,
+    "authenticity_score": 95.0,
+    "audience_demographics": {
+      "age_split": {"18-24": 30.0, "25-34": 50.0, "35-44": 15.0, "45+": 5.0},
+      "gender_split": {"male": 38.0, "female": 59.0, "non_binary": 3.0},
+      "top_countries": ["US", "IN", "UK", "CA"]
+    },
+    "sample_content_keywords": ["food", "cooking", "recipes", "chef", "culinary", "baking", "spices", "dinner", "delicious"],
+    "is_verified": true,
+    "data_origin": "sample_benchmark_fixture"
+  }
+]

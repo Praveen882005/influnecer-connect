@@ -1,0 +1,13 @@
+# SYNTHETIC BENCHMARK DATASET - STRICTLY FOR LOCAL DEVELOPMENT AND TESTING
+# NOT LIVE INSTAGRAM DATA - NOT SCRAPED DATA - NOT RESEARCH DATA
+# Brand Bridge Provider-Neutral Ingestion Benchmark v1.0
+# Missing engagement metrics are represented as empty / null (SQL NULL), never replaced with zero.
+influencer_handle,platform,external_post_id,url,caption,media_type,posted_at,likes_count,views_count,comments_count,shares_count
+@tech_marcus,youtube,yt_synth_101,https://youtube.com/watch?v=yt_synth_101,"Deep dive review of local neural accelerators and developer laptop thermal performance.",video,2026-08-15T14:30:00Z,4200,98000,310,
+@claire_wellness,instagram,ig_synth_201,https://instagram.com/p/ig_synth_201,"10-Minute Morning Spine Mobility and Joint Decompression Routine.",video,2026-09-01T08:00:00Z,12500,,890,450
+@maya_kitchen,youtube,yt_synth_301,https://youtube.com/watch?v=yt_synth_301,"Wild Sourdough Fermentation: Microbial Cultures and Flour Hydration Ratios.",video,2026-09-10T12:00:00Z,3100,64000,240,null
+@sora_ecoluxe,instagram,ig_synth_401,https://instagram.com/p/ig_synth_401,"Autumn Minimalist Capsule: 12 Garments, 30 Outfits with Organic Linen & Wool.",image,2026-09-11T15:00:00Z,6200,,380,210
+@alex_fitlife,youtube,yt_synth_501,https://youtube.com/watch?v=yt_synth_501,"The 20-Minute Kettlebell Armor Building Protocol for Work Capacity.",video,2026-09-18T10:00:00Z,1950,42000,165,
+@david_haven,youtube,yt_synth_601,https://youtube.com/watch?v=yt_synth_601,"Building a Floating Walnut Desk with Integrated Cable Management Channels.",video,2026-09-20T17:00:00Z,2800,58000,0,unavailable
+@elena_glow,instagram,ig_synth_701,https://instagram.com/p/ig_synth_701,"Barrier Repair Emulsion Breakdown: Ceramides vs Fatty Acid Ratios.",image,2026-09-22T19:00:00Z,8400,,520,310
+@sarah_parenting,instagram,ig_synth_801,https://instagram.com/p/ig_synth_801,"De-escalating Toddler Big Feelings: Co-Regulation Over Isolation.",carousel,2026-09-25T11:00:00Z,7100,,410,580
