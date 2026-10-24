@@ -1,0 +1,93 @@
+# ==============================================================================
+# Brand Bridge - Standard / Staging Docker Compose Orchestration
+# ==============================================================================
+# Quick Start:
+#   docker compose up --build
+# Services:
+#   - PostgreSQL 16 (Port 5432)
+#   - Backend API (Port 8000)
+#   - Frontend UI & Reverse Proxy (Port 3000)
+# ==============================================================================
+
+name: brand-bridge-local
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: brand_bridge_dev_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_dev_password
+      POSTGRES_DB: brand_bridge
+    volumes:
+      - dev_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d brand_bridge"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - dev_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: brand_bridge_dev_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ENVIRONMENT: development
+      DEBUG: "true"
+      AUTO_CREATE_TABLES: "false"
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres_dev_password@postgres:5432/brand_bridge
+      SECRET_KEY: brand_bridge_development_secret_key_32_chars_min
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://127.0.0.1:3000,http://localhost:8000
+      PORT: 8000
+      WEB_CONCURRENCY: 1
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - dev_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api
+    container_name: brand_bridge_dev_frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "3000:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - dev_net
+
+volumes:
+  dev_postgres_data:
+    name: brand_bridge_dev_postgres_data
+
+networks:
+  dev_net:
+    driver: bridge

@@ -13,7 +13,7 @@
 | **Database** | PostgreSQL 16+ / SQLite Async | Relational persistence with SQLAlchemy 2.0 (`asyncpg` for PostgreSQL production; `aiosqlite` for zero-dependency local dev). |
 | **Migrations** | Alembic (Async) | Version-controlled schema migrations with programmatic rollback and upgrade verification. |
 | **AI / ML Engine** | Sentence-Transformers (`all-MiniLM-L6-v2`) / Scikit-Learn / TF-IDF | Dense 384-dimensional semantic embeddings, zero-shot 8-niche prototype alignment, brand-creator cosine similarity, and multi-signal engagement heuristics. |
-| **Testing** | Pytest, Vitest, Testing Library | Automated test suites: 197 Pytest backend tests and 76 Vitest frontend tests (273 tests total, 100% passing). |
+| **Testing** | Pytest, Vitest, Testing Library | Automated test suites: 203 Pytest backend tests and 76 Vitest frontend tests (279 tests total, 100% passing). |
 
 ---
 
@@ -32,7 +32,9 @@ All 10 phases of the **BRAND BRIDGE — AI Enhancement Roadmap** are fully imple
 9. **Phase 9 — Verification, Quality Assurance & Edge Cases**: 8 new backend edge case tests and 5 frontend QA tests covering missing/empty fields, extreme values, zero division guards, and network timeout handling.
 10. **Phase 10 — Final Audit Report, Documentation & Checkpoint**: Full documentation in `docs/AI_ARCHITECTURE_AND_SERVICES.md`, Git release checkpoint `v1.0.0-ai-enhancements`, and complete verification logs.
 
-*For complete architectural details, formulas, and API reference, see [docs/AI_ARCHITECTURE_AND_SERVICES.md](docs/AI_ARCHITECTURE_AND_SERVICES.md).*
+11. **Phase 11 - Production Deployment & Docker Containerization**: Multi-stage hardened Dockerfiles with PyTorch CPU optimization, database connectivity wait probe (wait_for_db.py), dual Docker Compose configurations (docker-compose.yml and docker-compose.prod.yml), Nginx SPA reverse proxy with dedicated /health endpoint, and staging environment templates.
+
+*For complete architectural details, formulas, and API reference, see [docs/AI_ARCHITECTURE_AND_SERVICES.md](docs/AI_ARCHITECTURE_AND_SERVICES.md) and [docs/DEPLOYMENT_REPORT.md](docs/DEPLOYMENT_REPORT.md).*
 
 ---
 

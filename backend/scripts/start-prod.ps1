@@ -7,6 +7,14 @@ Write-Host "=== Brand Bridge Backend Production Startup ===" -ForegroundColor Cy
 Write-Host "Runtime Environment: $($env:ENVIRONMENT ? $env:ENVIRONMENT : 'production')"
 Write-Host "Listening Port:      $($env:PORT ? $env:PORT : 8000)"
 
+Write-Host "Waiting for database readiness..." -ForegroundColor Yellow
+python scripts/wait_for_db.py
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Database connectivity check failed! Aborting startup."
+    exit 1
+}
+Write-Host "Database is ready." -ForegroundColor Green
+
 Write-Host "Running database schema migrations (alembic upgrade head)..." -ForegroundColor Yellow
 alembic upgrade head
 if ($LASTEXITCODE -ne 0) {
