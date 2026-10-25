@@ -21,6 +21,12 @@ export default defineConfig({
     host: '127.0.0.1',
     open: false,
     strictPort: true,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+    },
   },
   preview: {
     port: 3000,

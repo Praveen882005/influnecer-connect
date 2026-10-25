@@ -46,7 +46,7 @@ import type {
 } from '../types';
 
 // Configurable base URL with sensible default for local FastAPI dev backend
-const DEFAULT_API_BASE_URL = 'http://localhost:8000/api';
+const DEFAULT_API_BASE_URL = typeof window !== 'undefined' && window.location?.origin ? `${window.location.origin}/api` : 'http://127.0.0.1:8000/api';
 
 export class ApiClient {
   private baseUrl: string;

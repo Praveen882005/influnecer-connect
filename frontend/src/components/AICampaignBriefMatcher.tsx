@@ -136,7 +136,7 @@ export const AICampaignBriefMatcher: React.FC<AICampaignBriefMatcherProps> = ({
       const res = await api.recommendations.matchBrief(payload);
       setMatchResult(res);
       setTimeout(() => {
-        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        resultsRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
       }, 50);
     } catch (err: any) {
       const msg = err.response?.data?.detail || err.message || 'AI matching execution failed.';

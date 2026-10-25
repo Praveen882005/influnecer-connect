@@ -91,6 +91,44 @@ class UserRole(str, enum.Enum):
     ADMIN = "admin"
 
 
+class SafeUserRoleType(TypeDecorator):
+    """
+    Robust SQLAlchemy TypeDecorator for UserRole ensuring seamless, case-insensitive
+    coercion between Python Enum instances and database string representations.
+    Prevents KeyError crashes when reading rows stored in either case.
+    """
+    impl = String(32)
+    cache_ok = True
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return None
+        if isinstance(value, UserRole):
+            return value.name
+        val_str = str(value).strip().upper()
+        if hasattr(UserRole, val_str):
+            return val_str
+        for r in UserRole:
+            if r.value == str(value).strip().lower():
+                return r.name
+        return val_str
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return None
+        if isinstance(value, UserRole):
+            return value
+        val_str = str(value).strip()
+        upper_val = val_str.upper()
+        if hasattr(UserRole, upper_val):
+            return UserRole[upper_val]
+        lower_val = val_str.lower()
+        for r in UserRole:
+            if r.value == lower_val:
+                return r
+        return UserRole.CREATOR
+
+
 class CampaignStatus(str, enum.Enum):
     DRAFT = "draft"
     PUBLISHED = "published"
@@ -136,7 +174,7 @@ class User(Base):
     email = Column(String(255), unique=True, index=True, nullable=False)
     hashed_password = Column(String(255), nullable=False)
     full_name = Column(String(255), nullable=False)
-    role = Column(Enum(UserRole), nullable=False, default=UserRole.CREATOR, index=True)
+    role = Column(SafeUserRoleType, nullable=False, default=UserRole.CREATOR, index=True)
     is_active = Column(Boolean, default=True, nullable=False)
     created_at = Column(DateTime, default=utcnow, nullable=False)
     updated_at = Column(DateTime, default=utcnow, onupdate=utcnow, nullable=False)
