@@ -254,9 +254,9 @@ export const api = {
 
   campaigns: {
     list: (params?: { niche?: string; status?: string; min_budget?: number }) =>
-      apiClient.get<Campaign[]>('/campaigns', { params }),
+      apiClient.get<Campaign[]>('/campaigns/', { params }),
     get: (id: number) => apiClient.get<Campaign>(`/campaigns/${id}`),
-    create: (data: Partial<Campaign>) => apiClient.post<Campaign>('/campaigns', data),
+    create: (data: Partial<Campaign>) => apiClient.post<Campaign>('/campaigns/', data),
     getMyCampaigns: () => apiClient.get<Campaign[]>('/campaigns/mine'),
     submitProposal: (
       campaignId: number,
@@ -268,7 +268,7 @@ export const api = {
 
   creators: {
     list: (params?: { q?: string; niche?: string; min_followers?: number; min_engagement?: number; min_authenticity?: number }) =>
-      apiClient.get<CreatorProfile[]>('/creators', { params }),
+      apiClient.get<CreatorProfile[]>('/creators/', { params }),
     get: (id: number) => apiClient.get<CreatorProfile>(`/creators/${id}`),
     getMyProfile: () => apiClient.get<CreatorProfile>('/creators/profile/me'),
     updateMyProfile: (data: Record<string, unknown>) => apiClient.put<CreatorProfile>('/creators/me', data),
@@ -310,7 +310,7 @@ export const api = {
     listItems: (params?: { campaign_id?: number; status?: string }) =>
       apiClient.get<ShortlistItem[]>('/shortlists/items', { params }),
     add: (data: { creator_id: number; campaign_id?: number; notes?: string; status?: string }) =>
-      apiClient.post<ShortlistItem>('/shortlists', data),
+      apiClient.post<ShortlistItem>('/shortlists/', data),
     update: (id: number, data: { notes?: string; status?: string }) =>
       apiClient.patch<ShortlistItem>(`/shortlists/${id}`, data),
     remove: (creatorIdOrShortlistId: number) =>
@@ -344,7 +344,7 @@ export const api = {
       only_eligible?: boolean;
       include_dismissed?: boolean;
     }) =>
-      apiClient.get<CampaignOpportunity[]>('/opportunities', { params }),
+      apiClient.get<CampaignOpportunity[]>('/opportunities/', { params }),
     interact: (
       campaignId: number,
       action: 'save' | 'unsave' | 'dismiss' | 'undismiss'
@@ -360,7 +360,7 @@ export const api = {
 
   notifications: {
     list: (params?: { unread_only?: boolean; limit?: number }) =>
-      apiClient.get<NotificationListResponse>('/notifications', { params }),
+      apiClient.get<NotificationListResponse>('/notifications/', { params }),
     markRead: (id: number) =>
       apiClient.patch<NotificationItem>(`/notifications/${id}/read`),
     markAllRead: () =>

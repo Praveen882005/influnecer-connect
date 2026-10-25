@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 import asyncio
 from contextlib import asynccontextmanager
 from typing import Any, Dict, List
@@ -73,6 +74,27 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
+
+
+# Prevent Authorization Header Loss on Redirects
+@app.middleware("http")
+async def relative_redirect_middleware(request: Request, call_next):
+    """
+    Ensures HTTP redirects (301, 302, 307, 308) retain relative Location headers so that
+    reverse proxies (Vite, Nginx) do not expose the internal backend port, preventing
+    browsers from stripping Authorization headers during cross-port redirects.
+    """
+    response = await call_next(request)
+    if response.status_code in (301, 302, 307, 308) and "location" in response.headers:
+        loc = response.headers["location"]
+        if loc.startswith("http://") or loc.startswith("https://"):
+            parsed = urlparse(loc)
+            rel_loc = parsed.path
+            if parsed.query:
+                rel_loc = f"{rel_loc}?{parsed.query}"
+            response.headers["location"] = rel_loc
+    return response
+
 
 
 # Consistent Error Handlers
