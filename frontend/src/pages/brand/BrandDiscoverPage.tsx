@@ -222,6 +222,8 @@ export const BrandDiscoverPage: React.FC = () => {
                 { value: 'food', label: 'Food & Culinary' },
                 { value: 'fitness', label: 'Fitness & Health' },
                 { value: 'fashion', label: 'Fashion & Style' },
+                { value: 'gaming', label: 'Gaming & Esports' },
+                { value: 'travel', label: 'Travel & Adventure' },
                 { value: 'home', label: 'Home & Decor' },
                 { value: 'parenting', label: 'Parenting & Family' },
                 { value: 'wellness', label: 'Wellness & Lifestyle' },

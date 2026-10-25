@@ -391,5 +391,1239 @@
     ],
     "is_verified": true,
     "data_origin": "sample_benchmark_fixture"
+  },
+  {
+    "handle": "@code_with_sarah",
+    "display_name": "Sarah Lin",
+    "email": "sarah.lin@creators.test",
+    "primary_niche": "technology",
+    "secondary_niches": [
+      "Cloud Architecture",
+      "TypeScript",
+      "Python"
+    ],
+    "content_niches": [
+      "technology",
+      "developer",
+      "cloud"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "twitter",
+      "github"
+    ],
+    "bio": "Senior Full-Stack Engineer & DevRel. Explaining complex distributed systems, modern TypeScript & Cloud Native infrastructure.",
+    "platforms": {
+      "youtube": {
+        "followers": 140000,
+        "avg_views": 42000
+      },
+      "twitter": {
+        "followers": 55000,
+        "avg_likes": 1800
+      },
+      "github": {
+        "followers": 20000,
+        "avg_views": 8000
+      }
+    },
+    "total_followers": 215000,
+    "avg_engagement_rate": 4.8,
+    "authenticity_score": 95.0,
+    "sample_content_keywords": [
+      "kubernetes",
+      "typescript",
+      "fullstack",
+      "docker",
+      "cloud",
+      "aws",
+      "architecture",
+      "microservices"
+    ],
+    "profile_url": "https://youtube.com/@code_with_sarah",
+    "audience_description": "Software engineers, tech leads, and computer science students learning cloud architecture, backend performance, and web development.",
+    "avg_likes": 8200,
+    "avg_comments": 490,
+    "avg_views": 52000,
+    "past_campaigns_count": 12,
+    "on_time_delivery_rate": 98.0
+  },
+  {
+    "handle": "@cyber_dev_sam",
+    "display_name": "Samira Al-Mansoor",
+    "email": "samira.infosec@creators.test",
+    "primary_niche": "technology",
+    "secondary_niches": [
+      "Cybersecurity",
+      "Linux",
+      "Ethical Hacking"
+    ],
+    "content_niches": [
+      "technology",
+      "security",
+      "linux"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "linkedin"
+    ],
+    "bio": "Ethical hacker & infosec researcher. Weekly breakdowns of zero-days, web app pentesting, and Linux hardening.",
+    "platforms": {
+      "youtube": {
+        "followers": 62500,
+        "avg_views": 25000
+      },
+      "linkedin": {
+        "followers": 26000,
+        "avg_likes": 980
+      }
+    },
+    "total_followers": 88500,
+    "avg_engagement_rate": 5.6,
+    "authenticity_score": 96.2,
+    "sample_content_keywords": [
+      "cybersecurity",
+      "infosec",
+      "pentesting",
+      "linux",
+      "hacking",
+      "network",
+      "firewall",
+      "privacy"
+    ],
+    "profile_url": "https://youtube.com/@cyber_dev_sam",
+    "audience_description": "Cybersecurity professionals, IT security analysts, and computer engineering students focusing on defensive infosec.",
+    "avg_likes": 4200,
+    "avg_comments": 310,
+    "avg_views": 31000,
+    "past_campaigns_count": 8,
+    "on_time_delivery_rate": 100.0
+  },
+  {
+    "handle": "@robotics_dan",
+    "display_name": "Daniel Kowalski",
+    "email": "daniel.robotics@creators.test",
+    "primary_niche": "technology",
+    "secondary_niches": [
+      "Robotics",
+      "3D Printing",
+      "Embedded Hardware"
+    ],
+    "content_niches": [
+      "technology",
+      "hardware",
+      "engineering"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "tiktok"
+    ],
+    "bio": "Hardware tinkerer & embedded systems engineer. Building autonomous rovers, custom PCBs, and 3D printed robotics.",
+    "platforms": {
+      "youtube": {
+        "followers": 95000,
+        "avg_views": 38000
+      },
+      "tiktok": {
+        "followers": 50000,
+        "avg_views": 22000
+      }
+    },
+    "total_followers": 145000,
+    "avg_engagement_rate": 6.1,
+    "authenticity_score": 93.8,
+    "sample_content_keywords": [
+      "robotics",
+      "arduino",
+      "raspberrypi",
+      "3dprinting",
+      "pcb",
+      "electronics",
+      "maker",
+      "hardware"
+    ],
+    "profile_url": "https://youtube.com/@robotics_dan",
+    "audience_description": "Makers, mechanical/electrical engineers, and tech hobbyists passionate about DIY hardware and autonomous systems.",
+    "avg_likes": 6500,
+    "avg_comments": 520,
+    "avg_views": 44000,
+    "past_campaigns_count": 10,
+    "on_time_delivery_rate": 95.0
+  },
+  {
+    "handle": "@ai_product_lucas",
+    "display_name": "Lucas Thorne",
+    "email": "lucas.thorne@creators.test",
+    "primary_niche": "technology",
+    "secondary_niches": [
+      "AI Design",
+      "Product UX",
+      "SaaS Tools"
+    ],
+    "content_niches": [
+      "technology",
+      "design",
+      "ai"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "substack"
+    ],
+    "bio": "Product Designer exploring generative AI workflows, LLM UX patterns, and future-forward design systems.",
+    "platforms": {
+      "youtube": {
+        "followers": 38000,
+        "avg_views": 15000
+      },
+      "substack": {
+        "followers": 34000,
+        "avg_views": 12000
+      }
+    },
+    "total_followers": 72000,
+    "avg_engagement_rate": 4.5,
+    "authenticity_score": 94.0,
+    "sample_content_keywords": [
+      "design",
+      "ux",
+      "ai",
+      "product",
+      "figma",
+      "saas",
+      "generative",
+      "interface"
+    ],
+    "profile_url": "https://youtube.com/@ai_product_lucas",
+    "audience_description": "UX/UI designers, startup founders, and digital product managers implementing AI features in user products.",
+    "avg_likes": 2800,
+    "avg_comments": 190,
+    "avg_views": 21000,
+    "past_campaigns_count": 6,
+    "on_time_delivery_rate": 97.0
+  },
+  {
+    "handle": "@glow_with_elena",
+    "display_name": "Elena Rostova",
+    "email": "elena.beauty@creators.test",
+    "primary_niche": "beauty",
+    "secondary_niches": [
+      "Clean Beauty",
+      "Dermatology",
+      "Skincare Science"
+    ],
+    "content_niches": [
+      "beauty",
+      "skincare",
+      "wellness"
+    ],
+    "supported_platforms": [
+      "instagram",
+      "tiktok"
+    ],
+    "bio": "Cosmetic chemist & clean beauty advocate. De-mythologizing skincare ingredients, barrier repair & clinical product reviews.",
+    "platforms": {
+      "instagram": {
+        "followers": 250000,
+        "avg_likes": 12000
+      },
+      "tiktok": {
+        "followers": 180000,
+        "avg_views": 75000
+      }
+    },
+    "total_followers": 430000,
+    "avg_engagement_rate": 4.3,
+    "authenticity_score": 96.5,
+    "sample_content_keywords": [
+      "skincare",
+      "retinol",
+      "barrier",
+      "serum",
+      "cleanbeauty",
+      "sunscreen",
+      "cosmetics",
+      "dermatology"
+    ],
+    "profile_url": "https://instagram.com/glow_with_elena",
+    "audience_description": "Beauty enthusiasts, skincare consumers, and wellness shoppers looking for ingredient transparency and non-irritating formulas.",
+    "avg_likes": 16500,
+    "avg_comments": 820,
+    "avg_views": 98000,
+    "past_campaigns_count": 22,
+    "on_time_delivery_rate": 97.5
+  },
+  {
+    "handle": "@glam_by_jordan",
+    "display_name": "Jordan Rivera",
+    "email": "jordan.makeup@creators.test",
+    "primary_niche": "beauty",
+    "secondary_niches": [
+      "Editorial Makeup",
+      "Glam Looks",
+      "Color Theory"
+    ],
+    "content_niches": [
+      "beauty",
+      "makeup",
+      "fashion"
+    ],
+    "supported_platforms": [
+      "tiktok",
+      "youtube",
+      "instagram"
+    ],
+    "bio": "Celebrity editorial makeup artist. High-fashion red carpet tutorials, transformative color theory, and bridal glam.",
+    "platforms": {
+      "tiktok": {
+        "followers": 450000,
+        "avg_views": 180000
+      },
+      "youtube": {
+        "followers": 150000,
+        "avg_views": 65000
+      },
+      "instagram": {
+        "followers": 85000,
+        "avg_likes": 4800
+      }
+    },
+    "total_followers": 685000,
+    "avg_engagement_rate": 3.9,
+    "authenticity_score": 92.0,
+    "sample_content_keywords": [
+      "makeup",
+      "glam",
+      "contour",
+      "foundation",
+      "redcarpet",
+      "eyeshadow",
+      "lipcombo",
+      "tutorial"
+    ],
+    "profile_url": "https://tiktok.com/@glam_by_jordan",
+    "audience_description": "Gen Z and Millennial makeup lovers seeking high-impact, transformative beauty techniques and pigment-rich cosmetics.",
+    "avg_likes": 24000,
+    "avg_comments": 1450,
+    "avg_views": 185000,
+    "past_campaigns_count": 35,
+    "on_time_delivery_rate": 94.0
+  },
+  {
+    "handle": "@skincare_minimalist",
+    "display_name": "Amina Diop",
+    "email": "amina.skincare@creators.test",
+    "primary_niche": "beauty",
+    "secondary_niches": [
+      "Sensitive Skin",
+      "Barrier Repair",
+      "Minimalist Beauty"
+    ],
+    "content_niches": [
+      "beauty",
+      "skincare",
+      "lifestyle"
+    ],
+    "supported_platforms": [
+      "instagram",
+      "youtube"
+    ],
+    "bio": "Dermatologist-recommended minimalist routines for sensitive and acne-prone skin. Less is more.",
+    "platforms": {
+      "instagram": {
+        "followers": 110000,
+        "avg_likes": 6200
+      },
+      "youtube": {
+        "followers": 65000,
+        "avg_views": 28000
+      }
+    },
+    "total_followers": 175000,
+    "avg_engagement_rate": 5.2,
+    "authenticity_score": 97.8,
+    "sample_content_keywords": [
+      "sensitiveskin",
+      "minimalism",
+      "ceramides",
+      "gentleskincare",
+      "acnecare",
+      "dermatologist",
+      "hydration"
+    ],
+    "profile_url": "https://instagram.com/skincare_minimalist",
+    "audience_description": "Adults dealing with sensitive, sensitized, or eczema-prone skin looking for non-irritating, gentle formulas.",
+    "avg_likes": 8400,
+    "avg_comments": 610,
+    "avg_views": 41000,
+    "past_campaigns_count": 14,
+    "on_time_delivery_rate": 100.0
+  },
+  {
+    "handle": "@kbeauty_hannah",
+    "display_name": "Hannah Park",
+    "email": "hannah.kbeauty@creators.test",
+    "primary_niche": "beauty",
+    "secondary_niches": [
+      "Korean Beauty",
+      "Glass Skin",
+      "Cruelty-Free"
+    ],
+    "content_niches": [
+      "beauty",
+      "kbeauty",
+      "skincare"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "tiktok"
+    ],
+    "bio": "Seoul & NYC based beauty scout. Glass skin routines, fermented skincare deep dives, and trending K-Beauty swatch comparisons.",
+    "platforms": {
+      "youtube": {
+        "followers": 190000,
+        "avg_views": 75000
+      },
+      "tiktok": {
+        "followers": 120000,
+        "avg_views": 52000
+      }
+    },
+    "total_followers": 310000,
+    "avg_engagement_rate": 4.6,
+    "authenticity_score": 95.2,
+    "sample_content_keywords": [
+      "kbeauty",
+      "glassskin",
+      "essence",
+      "sheetmask",
+      "cica",
+      "snailmucin",
+      "koreanbeauty",
+      "sunscreen"
+    ],
+    "profile_url": "https://youtube.com/@kbeauty_hannah",
+    "audience_description": "International beauty enthusiasts seeking Asian skincare innovations and glowing complexion routines.",
+    "avg_likes": 13200,
+    "avg_comments": 740,
+    "avg_views": 82000,
+    "past_campaigns_count": 18,
+    "on_time_delivery_rate": 96.0
+  },
+  {
+    "handle": "@chef_antonio_eats",
+    "display_name": "Antonio Moretti",
+    "email": "antonio.culinary@creators.test",
+    "primary_niche": "food",
+    "secondary_niches": [
+      "Italian Cuisine",
+      "Handmade Pasta",
+      "Wine Pairing"
+    ],
+    "content_niches": [
+      "food",
+      "cooking",
+      "culinary"
+    ],
+    "supported_platforms": [
+      "instagram",
+      "youtube"
+    ],
+    "bio": "Third-generation Roman chef making authentic regional Italian cooking approachable for home kitchens.",
+    "platforms": {
+      "instagram": {
+        "followers": 520000,
+        "avg_likes": 26000
+      },
+      "youtube": {
+        "followers": 340000,
+        "avg_views": 140000
+      }
+    },
+    "total_followers": 860000,
+    "avg_engagement_rate": 4.9,
+    "authenticity_score": 94.5,
+    "sample_content_keywords": [
+      "pasta",
+      "italian",
+      "carbonara",
+      "sourdough",
+      "oliveoil",
+      "parmesan",
+      "chef",
+      "wine",
+      "recipes"
+    ],
+    "profile_url": "https://instagram.com/chef_antonio_eats",
+    "audience_description": "Passionate home cooks, foodies, and lovers of traditional Mediterranean and rustic Italian cuisine.",
+    "avg_likes": 36000,
+    "avg_comments": 1820,
+    "avg_views": 210000,
+    "past_campaigns_count": 28,
+    "on_time_delivery_rate": 98.0
+  },
+  {
+    "handle": "@plant_based_kai",
+    "display_name": "Kai Tanaka",
+    "email": "kai.vegan@creators.test",
+    "primary_niche": "food",
+    "secondary_niches": [
+      "Vegan Cooking",
+      "Asian Fusion",
+      "Meal Prep"
+    ],
+    "content_niches": [
+      "food",
+      "vegan",
+      "wellness"
+    ],
+    "supported_platforms": [
+      "tiktok",
+      "instagram"
+    ],
+    "bio": "High-protein vegan meal prep and Asian-fusion plant-based comfort food. Making plants craveable.",
+    "platforms": {
+      "tiktok": {
+        "followers": 180000,
+        "avg_views": 85000
+      },
+      "instagram": {
+        "followers": 115000,
+        "avg_likes": 6800
+      }
+    },
+    "total_followers": 295000,
+    "avg_engagement_rate": 5.4,
+    "authenticity_score": 96.0,
+    "sample_content_keywords": [
+      "vegan",
+      "plantbased",
+      "tofu",
+      "mealprep",
+      "highprotein",
+      "asianfusion",
+      "healthy",
+      "ramen"
+    ],
+    "profile_url": "https://tiktok.com/@plant_based_kai",
+    "audience_description": "Fitness-focused vegans, flexitarians, and eco-conscious shoppers looking for delicious meatless options.",
+    "avg_likes": 14500,
+    "avg_comments": 780,
+    "avg_views": 92000,
+    "past_campaigns_count": 15,
+    "on_time_delivery_rate": 99.0
+  },
+  {
+    "handle": "@baking_with_chloe",
+    "display_name": "Chloe Dupont",
+    "email": "chloe.baking@creators.test",
+    "primary_niche": "food",
+    "secondary_niches": [
+      "Pastry Arts",
+      "Sourdough",
+      "Desserts"
+    ],
+    "content_niches": [
+      "food",
+      "baking",
+      "desserts"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "instagram"
+    ],
+    "bio": "Parisian pastry arts graduate. Master the sourdough crumb, lamination, and delicate French p\u00e2tisserie.",
+    "platforms": {
+      "youtube": {
+        "followers": 320000,
+        "avg_views": 125000
+      },
+      "instagram": {
+        "followers": 205000,
+        "avg_likes": 11000
+      }
+    },
+    "total_followers": 525000,
+    "avg_engagement_rate": 4.4,
+    "authenticity_score": 95.8,
+    "sample_content_keywords": [
+      "baking",
+      "sourdough",
+      "croissants",
+      "macarons",
+      "pastry",
+      "chocolate",
+      "dessert",
+      "frenchbaking"
+    ],
+    "profile_url": "https://youtube.com/@baking_with_chloe",
+    "audience_description": "Artisanal baking enthusiasts, sourdough hobbyists, and pastry lovers craving detailed visual recipes.",
+    "avg_likes": 21000,
+    "avg_comments": 1120,
+    "avg_views": 155000,
+    "past_campaigns_count": 20,
+    "on_time_delivery_rate": 96.5
+  },
+  {
+    "handle": "@bbq_smokehouse_ron",
+    "display_name": "Ronnie Miller",
+    "email": "ronnie.bbq@creators.test",
+    "primary_niche": "food",
+    "secondary_niches": [
+      "Texas BBQ",
+      "Meat Smoking",
+      "Grilling"
+    ],
+    "content_niches": [
+      "food",
+      "bbq",
+      "outdoor"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "instagram"
+    ],
+    "bio": "Texas pitmaster sharing wood-fired smoking secrets, brisket masterclasses, and handcrafted spice rubs.",
+    "platforms": {
+      "youtube": {
+        "followers": 120000,
+        "avg_views": 55000
+      },
+      "instagram": {
+        "followers": 65000,
+        "avg_likes": 3900
+      }
+    },
+    "total_followers": 185000,
+    "avg_engagement_rate": 5.7,
+    "authenticity_score": 93.5,
+    "sample_content_keywords": [
+      "bbq",
+      "brisket",
+      "ribs",
+      "smoking",
+      "pelletgrill",
+      "woodfired",
+      "rub",
+      "meat",
+      "tailgate"
+    ],
+    "profile_url": "https://youtube.com/@bbq_smokehouse_ron",
+    "audience_description": "Outdoor grilling fans, backyard pitmasters, and meat lovers looking for smoke profiles and butcher tips.",
+    "avg_likes": 9200,
+    "avg_comments": 680,
+    "avg_views": 62000,
+    "past_campaigns_count": 11,
+    "on_time_delivery_rate": 95.0
+  },
+  {
+    "handle": "@iron_marcus_fit",
+    "display_name": "Marcus Brody",
+    "email": "marcus.iron@creators.test",
+    "primary_niche": "fitness",
+    "secondary_niches": [
+      "Hypertrophy",
+      "Strength Training",
+      "Nutrition"
+    ],
+    "content_niches": [
+      "fitness",
+      "strength",
+      "health"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "instagram"
+    ],
+    "bio": "Evidence-based hypertrophy coach and natural athlete. Hyper-focused on biomechanics, progressive overload, and macros.",
+    "platforms": {
+      "youtube": {
+        "followers": 220000,
+        "avg_views": 95000
+      },
+      "instagram": {
+        "followers": 175000,
+        "avg_likes": 9800
+      }
+    },
+    "total_followers": 395000,
+    "avg_engagement_rate": 4.7,
+    "authenticity_score": 93.0,
+    "sample_content_keywords": [
+      "hypertrophy",
+      "muscle",
+      "deadlift",
+      "benchpress",
+      "progressiveoverload",
+      "nutrition",
+      "protein"
+    ],
+    "profile_url": "https://youtube.com/@iron_marcus_fit",
+    "audience_description": "Gym-goers, natural lifters, and fitness athletes focused on evidence-backed exercise science and muscle growth.",
+    "avg_likes": 17200,
+    "avg_comments": 890,
+    "avg_views": 110000,
+    "past_campaigns_count": 24,
+    "on_time_delivery_rate": 97.0
+  },
+  {
+    "handle": "@mobility_with_zara",
+    "display_name": "Zara O'Connor",
+    "email": "zara.dpt@creators.test",
+    "primary_niche": "fitness",
+    "secondary_niches": [
+      "Physical Therapy",
+      "Mobility",
+      "Posture"
+    ],
+    "content_niches": [
+      "fitness",
+      "mobility",
+      "wellness"
+    ],
+    "supported_platforms": [
+      "instagram",
+      "tiktok"
+    ],
+    "bio": "Doctor of Physical Therapy helping desk workers unlock hip mobility, eliminate lower back pain, and build longevity.",
+    "platforms": {
+      "instagram": {
+        "followers": 165000,
+        "avg_likes": 11500
+      },
+      "tiktok": {
+        "followers": 100000,
+        "avg_views": 62000
+      }
+    },
+    "total_followers": 265000,
+    "avg_engagement_rate": 6.2,
+    "authenticity_score": 98.5,
+    "sample_content_keywords": [
+      "mobility",
+      "physicaltherapy",
+      "posture",
+      "backpain",
+      "stretching",
+      "hipopener",
+      "longevity",
+      "recovery"
+    ],
+    "profile_url": "https://instagram.com/mobility_with_zara",
+    "audience_description": "Desk workers, remote employees, and older adults aiming to restore pain-free functional movement.",
+    "avg_likes": 15400,
+    "avg_comments": 940,
+    "avg_views": 98000,
+    "past_campaigns_count": 16,
+    "on_time_delivery_rate": 100.0
+  },
+  {
+    "handle": "@running_coach_leo",
+    "display_name": "Leo Sterling",
+    "email": "leo.running@creators.test",
+    "primary_niche": "fitness",
+    "secondary_niches": [
+      "Marathon Training",
+      "Endurance",
+      "Shoe Reviews"
+    ],
+    "content_niches": [
+      "fitness",
+      "running",
+      "sports"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "instagram"
+    ],
+    "bio": "Sub-2:30 marathoner & certified running coach. Training plans, heart rate zone science, and shoe rotation reviews.",
+    "platforms": {
+      "youtube": {
+        "followers": 72000,
+        "avg_views": 32000
+      },
+      "instagram": {
+        "followers": 46000,
+        "avg_likes": 2800
+      }
+    },
+    "total_followers": 118000,
+    "avg_engagement_rate": 5.9,
+    "authenticity_score": 97.0,
+    "sample_content_keywords": [
+      "marathon",
+      "running",
+      "strava",
+      "supershoes",
+      "vo2max",
+      "pacing",
+      "5k",
+      "halfmarathon"
+    ],
+    "profile_url": "https://youtube.com/@running_coach_leo",
+    "audience_description": "Distance runners, marathon trainees, and trail runners seeking gear analysis and physiological guidance.",
+    "avg_likes": 6800,
+    "avg_comments": 420,
+    "avg_views": 41000,
+    "past_campaigns_count": 12,
+    "on_time_delivery_rate": 98.0
+  },
+  {
+    "handle": "@calisthenics_viktor",
+    "display_name": "Viktor Brandt",
+    "email": "viktor.calisthenics@creators.test",
+    "primary_niche": "fitness",
+    "secondary_niches": [
+      "Calisthenics",
+      "Gymnastics Rings",
+      "Bodyweight"
+    ],
+    "content_niches": [
+      "fitness",
+      "calisthenics",
+      "bodyweight"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "tiktok"
+    ],
+    "bio": "Gymnastics rings and bodyweight strength. Zero gym required. Teaching planche, front lever, and handstand balance.",
+    "platforms": {
+      "youtube": {
+        "followers": 260000,
+        "avg_views": 115000
+      },
+      "tiktok": {
+        "followers": 190000,
+        "avg_views": 85000
+      }
+    },
+    "total_followers": 450000,
+    "avg_engagement_rate": 4.9,
+    "authenticity_score": 94.2,
+    "sample_content_keywords": [
+      "calisthenics",
+      "bodyweight",
+      "handstand",
+      "planche",
+      "pullups",
+      "muscleup",
+      "rings",
+      "strength"
+    ],
+    "profile_url": "https://youtube.com/@calisthenics_viktor",
+    "audience_description": "Bodyweight fitness enthusiasts, gymnasts, and minimalists training without expensive weight equipment.",
+    "avg_likes": 19800,
+    "avg_comments": 1050,
+    "avg_views": 142000,
+    "past_campaigns_count": 19,
+    "on_time_delivery_rate": 96.0
+  },
+  {
+    "handle": "@menswear_julian",
+    "display_name": "Julian Thorne",
+    "email": "julian.style@creators.test",
+    "primary_niche": "fashion",
+    "secondary_niches": [
+      "Classic Tailoring",
+      "Capsule Wardrobe",
+      "Timepieces"
+    ],
+    "content_niches": [
+      "fashion",
+      "menswear",
+      "lifestyle"
+    ],
+    "supported_platforms": [
+      "instagram",
+      "youtube"
+    ],
+    "bio": "Savile Row tailoring enthusiast, heritage menswear curation, and timeless capsule wardrobe essentials.",
+    "platforms": {
+      "instagram": {
+        "followers": 220000,
+        "avg_likes": 9800
+      },
+      "youtube": {
+        "followers": 125000,
+        "avg_views": 48000
+      }
+    },
+    "total_followers": 345000,
+    "avg_engagement_rate": 4.1,
+    "authenticity_score": 95.0,
+    "sample_content_keywords": [
+      "menswear",
+      "suits",
+      "tailoring",
+      "loafers",
+      "watches",
+      "capsulewardrobe",
+      "classicstyle",
+      "elegance"
+    ],
+    "profile_url": "https://instagram.com/menswear_julian",
+    "audience_description": "Men seeking refined, classic aesthetics, sartorial craftsmanship, luxury timepieces, and versatile styling.",
+    "avg_likes": 13500,
+    "avg_comments": 620,
+    "avg_views": 86000,
+    "past_campaigns_count": 17,
+    "on_time_delivery_rate": 98.5
+  },
+  {
+    "handle": "@thrifted_threads_mia",
+    "display_name": "Mia Washington",
+    "email": "mia.thrift@creators.test",
+    "primary_niche": "fashion",
+    "secondary_niches": [
+      "Vintage Upcycling",
+      "Thrift Flips",
+      "90s Fashion"
+    ],
+    "content_niches": [
+      "fashion",
+      "vintage",
+      "sustainable"
+    ],
+    "supported_platforms": [
+      "tiktok",
+      "instagram"
+    ],
+    "bio": "Vintage archivist & upcycler turning thrift store finds into runway-worthy street fashion. Sustainable style on a budget.",
+    "platforms": {
+      "tiktok": {
+        "followers": 280000,
+        "avg_views": 140000
+      },
+      "instagram": {
+        "followers": 135000,
+        "avg_likes": 8400
+      }
+    },
+    "total_followers": 415000,
+    "avg_engagement_rate": 5.5,
+    "authenticity_score": 96.8,
+    "sample_content_keywords": [
+      "thrifting",
+      "vintage",
+      "upcycling",
+      "diyfashion",
+      "90sstyle",
+      "sustainablefashion",
+      "haul",
+      "secondhand"
+    ],
+    "profile_url": "https://tiktok.com/@thrifted_threads_mia",
+    "audience_description": "Eco-minded Gen Z fashionistas, secondhand shoppers, and creative DIY garment designers.",
+    "avg_likes": 21500,
+    "avg_comments": 1280,
+    "avg_views": 165000,
+    "past_campaigns_count": 21,
+    "on_time_delivery_rate": 99.0
+  },
+  {
+    "handle": "@streetstyle_kenji",
+    "display_name": "Kenji Takahashi",
+    "email": "kenji.street@creators.test",
+    "primary_niche": "fashion",
+    "secondary_niches": [
+      "Tokyo Streetwear",
+      "Sneakers",
+      "Japanese Denim"
+    ],
+    "content_niches": [
+      "fashion",
+      "streetwear",
+      "sneakers"
+    ],
+    "supported_platforms": [
+      "instagram",
+      "youtube"
+    ],
+    "bio": "Tokyo streetwear culture, sneaker collecting, Japanese denim history, and underground Harajuku fashion.",
+    "platforms": {
+      "instagram": {
+        "followers": 410000,
+        "avg_likes": 18500
+      },
+      "youtube": {
+        "followers": 220000,
+        "avg_views": 95000
+      }
+    },
+    "total_followers": 630000,
+    "avg_engagement_rate": 4.2,
+    "authenticity_score": 93.6,
+    "sample_content_keywords": [
+      "streetwear",
+      "sneakers",
+      "jordan",
+      "tokyofashion",
+      "harajuku",
+      "rawdenim",
+      "hypebeast",
+      "fashion"
+    ],
+    "profile_url": "https://instagram.com/streetstyle_kenji",
+    "audience_description": "Sneakerheads, streetwear collectors, and global urban fashion followers inspired by Japanese street aesthetics.",
+    "avg_likes": 25000,
+    "avg_comments": 1340,
+    "avg_views": 178000,
+    "past_campaigns_count": 30,
+    "on_time_delivery_rate": 95.0
+  },
+  {
+    "handle": "@valkyrie_rpg",
+    "display_name": "Freja Lind",
+    "email": "freja.gaming@creators.test",
+    "primary_niche": "gaming",
+    "secondary_niches": [
+      "Open World RPGs",
+      "Soulsborne",
+      "Game Lore"
+    ],
+    "content_niches": [
+      "gaming",
+      "esports",
+      "rpg"
+    ],
+    "supported_platforms": [
+      "twitch",
+      "youtube"
+    ],
+    "bio": "Open-world RPG enthusiast, Soulsborne speedruns, and deep fantasy worldbuilding lore explorations.",
+    "platforms": {
+      "twitch": {
+        "followers": 180000,
+        "avg_views": 45000
+      },
+      "youtube": {
+        "followers": 150000,
+        "avg_views": 68000
+      }
+    },
+    "total_followers": 330000,
+    "avg_engagement_rate": 6.4,
+    "authenticity_score": 97.2,
+    "sample_content_keywords": [
+      "gaming",
+      "rpg",
+      "eldenring",
+      "witcher",
+      "speedrun",
+      "twitch",
+      "streamer",
+      "lore",
+      "playthrough"
+    ],
+    "profile_url": "https://twitch.tv/valkyrie_rpg",
+    "audience_description": "Dedicated gamers, fantasy worldbuilding fans, and live stream community members who appreciate challenging gameplay.",
+    "avg_likes": 18500,
+    "avg_comments": 1420,
+    "avg_views": 92000,
+    "past_campaigns_count": 15,
+    "on_time_delivery_rate": 97.5
+  },
+  {
+    "handle": "@speedrun_dave",
+    "display_name": "Dave Becker",
+    "email": "dave.speedrun@creators.test",
+    "primary_niche": "gaming",
+    "secondary_niches": [
+      "Retro Games",
+      "Speedrunning",
+      "Indie Games"
+    ],
+    "content_niches": [
+      "gaming",
+      "speedrun",
+      "indie"
+    ],
+    "supported_platforms": [
+      "twitch",
+      "youtube"
+    ],
+    "bio": "Competitive indie speedrunner & retro gaming historian. World record holder in Celeste & Hollow Knight.",
+    "platforms": {
+      "twitch": {
+        "followers": 110000,
+        "avg_views": 32000
+      },
+      "youtube": {
+        "followers": 88000,
+        "avg_views": 45000
+      }
+    },
+    "total_followers": 198000,
+    "avg_engagement_rate": 5.8,
+    "authenticity_score": 94.8,
+    "sample_content_keywords": [
+      "speedrun",
+      "retrogaming",
+      "celeste",
+      "hollowknight",
+      "nintendo",
+      "worldrecord",
+      "platformer",
+      "gaming"
+    ],
+    "profile_url": "https://twitch.tv/speedrun_dave",
+    "audience_description": "Competitive gaming fans, speedrun enthusiasts, and retro gaming collectors following pixel-perfect platformers.",
+    "avg_likes": 10400,
+    "avg_comments": 780,
+    "avg_views": 62000,
+    "past_campaigns_count": 13,
+    "on_time_delivery_rate": 96.0
+  },
+  {
+    "handle": "@wanderlust_maya",
+    "display_name": "Maya Johansson",
+    "email": "maya.travel@creators.test",
+    "primary_niche": "travel",
+    "secondary_niches": [
+      "Solo Travel",
+      "Backpacking",
+      "Cultural Immersion"
+    ],
+    "content_niches": [
+      "travel",
+      "adventure",
+      "lifestyle"
+    ],
+    "supported_platforms": [
+      "instagram",
+      "youtube"
+    ],
+    "bio": "Solo female expedition leader through 65 countries. Remote trek guides, budget flight hacking, and cultural immersion.",
+    "platforms": {
+      "instagram": {
+        "followers": 480000,
+        "avg_likes": 24000
+      },
+      "youtube": {
+        "followers": 260000,
+        "avg_views": 110000
+      }
+    },
+    "total_followers": 740000,
+    "avg_engagement_rate": 4.8,
+    "authenticity_score": 95.5,
+    "sample_content_keywords": [
+      "travel",
+      "solotravel",
+      "backpacking",
+      "hiking",
+      "patagonia",
+      "asia",
+      "flighthacks",
+      "adventure"
+    ],
+    "profile_url": "https://instagram.com/wanderlust_maya",
+    "audience_description": "Adventure travelers, solo wanderers, and gap-year explorers seeking authentic itineraries and travel gear reviews.",
+    "avg_likes": 32000,
+    "avg_comments": 1650,
+    "avg_views": 195000,
+    "past_campaigns_count": 32,
+    "on_time_delivery_rate": 98.0
+  },
+  {
+    "handle": "@vanlife_trio",
+    "display_name": "The Alvarez Family",
+    "email": "alvarez.vanlife@creators.test",
+    "primary_niche": "travel",
+    "secondary_niches": [
+      "Overland Travel",
+      "Van Life",
+      "Family Adventure"
+    ],
+    "content_niches": [
+      "travel",
+      "vanlife",
+      "camping"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "instagram"
+    ],
+    "bio": "Full-time off-grid overland family traveling across the Americas in a self-converted 4x4 Sprinter van.",
+    "platforms": {
+      "youtube": {
+        "followers": 310000,
+        "avg_views": 135000
+      },
+      "instagram": {
+        "followers": 175000,
+        "avg_likes": 11500
+      }
+    },
+    "total_followers": 485000,
+    "avg_engagement_rate": 5.2,
+    "authenticity_score": 96.4,
+    "sample_content_keywords": [
+      "vanlife",
+      "offgrid",
+      "camping",
+      "overlanding",
+      "solar",
+      "roadtrip",
+      "nationalparks",
+      "sprinter"
+    ],
+    "profile_url": "https://youtube.com/@vanlife_trio",
+    "audience_description": "Families, campers, and outdoor adventurers interested in overland conversions, nomad lifestyles, and national parks.",
+    "avg_likes": 23500,
+    "avg_comments": 1250,
+    "avg_views": 160000,
+    "past_campaigns_count": 23,
+    "on_time_delivery_rate": 99.0
+  },
+  {
+    "handle": "@modern_spaces_liam",
+    "display_name": "Liam Vance",
+    "email": "liam.interiors@creators.test",
+    "primary_niche": "home",
+    "secondary_niches": [
+      "Scandinavian Design",
+      "Interior Architecture",
+      "Smart Lighting"
+    ],
+    "content_niches": [
+      "home",
+      "interiordesign",
+      "architecture"
+    ],
+    "supported_platforms": [
+      "youtube",
+      "instagram"
+    ],
+    "bio": "Architect and interior minimalist exploring biophilic design, warm wood textures, and functional Scandinavian spaces.",
+    "platforms": {
+      "youtube": {
+        "followers": 230000,
+        "avg_views": 95000
+      },
+      "instagram": {
+        "followers": 140000,
+        "avg_likes": 8200
+      }
+    },
+    "total_followers": 370000,
+    "avg_engagement_rate": 4.5,
+    "authenticity_score": 95.8,
+    "sample_content_keywords": [
+      "interiordesign",
+      "minimalism",
+      "scandinavian",
+      "architecture",
+      "renovation",
+      "smartlighting",
+      "homedecor"
+    ],
+    "profile_url": "https://youtube.com/@modern_spaces_liam",
+    "audience_description": "Homeowners, renters, and architects looking for modern interior aesthetics, smart home accents, and space-saving furniture.",
+    "avg_likes": 16000,
+    "avg_comments": 780,
+    "avg_views": 115000,
+    "past_campaigns_count": 18,
+    "on_time_delivery_rate": 97.0
   }
 ]
