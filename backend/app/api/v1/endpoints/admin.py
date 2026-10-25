@@ -558,9 +558,12 @@ async def get_admin_system_health() -> AdminSystemHealthData:
 
     # Embedding model inspection
     try:
-        emb_status = EmbeddingService.get_instance().get_status()
-        emb_ready = emb_status.get("status") in ("ready", "available")
-        cache_entries = emb_status.get("cache_size", 0)
+        service = EmbeddingService.get_instance()
+        if service._status == "unloaded":
+            service.load_model()
+        emb_status = service.get_status()
+        emb_ready = emb_status.get("status") in ("ready", "available", "loaded") or emb_status.get("is_loaded", False) or (service._model is not None)
+        cache_entries = emb_status.get("cache_entries", emb_status.get("cache_size", 0))
     except Exception:
         emb_ready = False
         cache_entries = 0
@@ -725,7 +728,7 @@ async def get_admin_models() -> AdminModelRegistryData:
     """Lists registered machine learning models and operational status."""
     try:
         emb_status = EmbeddingService.get_instance().get_status()
-        cache_size = emb_status.get("cache_size", 0)
+        cache_size = emb_status.get("cache_entries", emb_status.get("cache_size", 0))
         cache_max = emb_status.get("max_cache_size", 10000)
         device = emb_status.get("device", "cpu")
     except Exception:

@@ -391,13 +391,17 @@ class EmbeddingService:
         with self._cache_lock:
             cache_size = len(self._cache)
 
+        is_model_ready = (self._status == "loaded" and self._model is not None)
         return {
             "model_name": self.model_name,
             "model_version": self.model_version,
             "dimension": self.dimension,
             "device": self._device,
-            "status": self._status,
+            "status": "ready" if is_model_ready else self._status,
+            "raw_status": self._status,
+            "is_loaded": is_model_ready,
             "cache_entries": cache_size,
+            "cache_size": cache_size,
             "canonical_niches": list(NICHE_PROTOTYPES.keys()),
             "hardware_limitations": {
                 "execution_target": self._device,
