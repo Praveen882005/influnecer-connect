@@ -1,11 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#0f172a" />
-  <path d="M12 44 C24 24, 40 24, 52 44" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" fill="none" />
-  <path d="M16 44 L16 34" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
-  <path d="M26 44 L26 27" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
-  <path d="M38 44 L38 27" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
-  <path d="M48 44 L48 34" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
-  <circle cx="20" cy="22" r="4" fill="#f43f5e" />
-  <circle cx="44" cy="22" r="4" fill="#6366f1" />
-  <path d="M24 22 L40 22" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="2 2" />
+  <!-- Deep Ink Rounded Container -->
+  <rect width="64" height="64" rx="16" fill="#17243A" />
+  
+  <!-- Foundation Deck in Pale Blue -->
+  <rect x="8" y="50" width="48" height="4" rx="2" fill="#DCE5FA" />
+  
+  <!-- Left Structural Pier -->
+  <path d="M16 50V24C16 22 17.5 20.5 19.5 20.5C21.5 20.5 23 22 23 24V50" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" />
+  
+  <!-- Right Structural Pier -->
+  <path d="M41 50V24C41 22 42.5 20.5 44.5 20.5C46.5 20.5 48 22 48 24V50" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" />
+  
+  <!-- Suspension Arch in Cobalt Blue -->
+  <path d="M12 42C22 26 42 26 52 42" stroke="#4169E1" stroke-width="4" stroke-linecap="round" />
+  
+  <!-- Suspenders -->
+  <line x1="26" y1="34" x2="26" y2="50" stroke="#DCE5FA" stroke-width="2" stroke-linecap="round" />
+  <line x1="32" y1="30" x2="32" y2="50" stroke="#4169E1" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="38" y1="34" x2="38" y2="50" stroke="#DCE5FA" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Synergy Central Node -->
+  <circle cx="32" cy="30" r="4" fill="#4169E1" />
+  <circle cx="32" cy="30" r="2" fill="#FFFFFF" />
 </svg>

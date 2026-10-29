@@ -16,7 +16,7 @@ interface PublicWebsiteProps {
 
 export const PublicWebsite: React.FC<PublicWebsiteProps> = ({ onOpenAuth, onExploreApp }) => {
   return (
-    <div className="w-full bg-slate-50 text-slate-900 font-sans selection:bg-sky-100 selection:text-sky-900">
+    <div className="w-full bg-[#F7F5F0] text-[#17243A] font-sans selection:bg-[#DCE5FA] selection:text-[#1E3A8A]">
       <LandingHeader onOpenAuth={onOpenAuth} onExploreApp={onExploreApp} />
       <LandingHero onOpenAuth={onOpenAuth} onExploreApp={onExploreApp} />
       <WorkflowSection />

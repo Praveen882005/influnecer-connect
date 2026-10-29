@@ -105,13 +105,13 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   };
 
   return (
-    <header className="h-15 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 select-none">
+    <header className="h-16 bg-white border-b border-[#E5E7EB] px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 select-none shadow-2xs">
       {/* Left: Mobile hamburger + Title & Breadcrumbs */}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={onOpenMobileSidebar}
-          className="md:hidden text-slate-600 hover:text-slate-900 p-1.5 rounded-[4px] border border-slate-200 focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none transition-colors cursor-pointer"
+          className="md:hidden text-[#697386] hover:text-[#17243A] p-2 rounded-[6px] border border-[#E5E7EB] focus-visible:ring-2 focus-visible:ring-[#4169E1] focus-visible:outline-none transition-colors cursor-pointer"
           aria-label="Open navigation sidebar"
         >
           <Icon name="Menu" size={18} />
@@ -120,16 +120,16 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         <div className="text-left">
           {/* Breadcrumb row */}
           {breadcrumbs.length > 0 && (
-            <nav className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-0.5">
+            <nav className="flex items-center gap-1.5 text-[11px] text-[#697386] font-medium mb-0.5">
               <span>Brand Bridge</span>
               {breadcrumbs.map((b, i) => (
                 <React.Fragment key={i}>
-                  <span className="text-slate-300">/</span>
+                  <span className="text-[#CBD5E1]">/</span>
                   <span
                     className={
                       b.active
-                        ? 'text-slate-900 font-semibold'
-                        : 'hover:text-slate-700 cursor-pointer'
+                        ? 'text-[#17243A] font-semibold'
+                        : 'hover:text-[#17243A] cursor-pointer'
                     }
                     onClick={b.onClick}
                   >
@@ -139,7 +139,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
               ))}
             </nav>
           )}
-          <h1 className="text-base font-bold text-slate-950 leading-tight">{title}</h1>
+          <h1 className="text-base font-bold font-['Manrope',sans-serif] text-[#17243A] leading-tight tracking-tight">
+            {title}
+          </h1>
         </div>
       </div>
 
@@ -154,12 +156,12 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
               if (!notificationsOpen) fetchNotifications();
             }}
             aria-expanded={notificationsOpen}
-            className="w-8 h-8 rounded-[5px] border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 flex items-center justify-center transition-colors relative cursor-pointer focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none"
+            className="w-9 h-9 rounded-[8px] border border-[#E5E7EB] text-[#697386] hover:text-[#17243A] hover:bg-[#F7F5F0] flex items-center justify-center transition-all duration-150 relative cursor-pointer focus-visible:ring-2 focus-visible:ring-[#4169E1] focus-visible:outline-none"
             aria-label="View notifications"
           >
             <Icon name="Bell" size={16} />
             {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full bg-rose-600 text-white text-[9px] font-bold flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 min-w-[17px] h-4.5 px-1 rounded-full bg-[#C24141] text-white text-[9px] font-bold flex items-center justify-center border-2 border-white">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
@@ -171,28 +173,28 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
               ref={notificationsRef}
               role="region"
               aria-label="In-App Notifications"
-              className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-80 max-w-sm rounded-[6px] bg-white border border-slate-200 shadow-xl py-2 z-50 text-left animate-in fade-in-50 zoom-in-95 duration-100"
+              className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-84 max-w-sm rounded-[14px] bg-white border border-[#E5E7EB] shadow-[0_12px_28px_rgba(23,36,58,0.12)] py-2 z-50 text-left animate-in fade-in-50 zoom-in-95 duration-100"
             >
-              <div className="px-3 py-1.5 border-b border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-800">
+              <div className="px-4 py-2 border-b border-[#E5E7EB] flex items-center justify-between text-xs font-bold font-['Manrope',sans-serif] text-[#17243A]">
                 <span>In-App Notifications</span>
                 <div className="flex items-center gap-2">
                   {unreadCount > 0 && (
                     <button
                       type="button"
                       onClick={handleMarkAllRead}
-                      className="text-[10px] text-sky-600 hover:text-sky-700 font-medium"
+                      className="text-[10px] text-[#4169E1] hover:text-[#2563EB] font-semibold cursor-pointer"
                     >
                       Mark all read
                     </button>
                   )}
-                  <span className="text-[10px] text-slate-400 font-mono">
+                  <span className="text-[10px] text-[#697386] font-mono">
                     {unreadCount} unread
                   </span>
                 </div>
               </div>
-              <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
+              <div className="divide-y divide-[#E5E7EB] max-h-72 overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <div className="p-4 text-center text-xs text-slate-400">
+                  <div className="p-4 text-center text-xs text-[#697386]">
                     No notifications yet.
                   </div>
                 ) : (
@@ -200,29 +202,29 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                     <div
                       key={n.id}
                       onClick={() => handleNotificationClick(n)}
-                      className={`p-2.5 transition-colors cursor-pointer ${
-                        n.is_read ? 'hover:bg-slate-50 opacity-80' : 'bg-sky-50/50 hover:bg-sky-50'
+                      className={`p-3 transition-colors cursor-pointer ${
+                        n.is_read ? 'hover:bg-[#F7F5F0] opacity-80' : 'bg-[#F0F4FE] hover:bg-[#DCE5FA]/50'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-1">
-                        <div className="text-xs font-semibold text-slate-900 leading-tight">
+                        <div className="text-xs font-bold text-[#17243A] leading-tight">
                           {n.title}
                         </div>
                         {!n.is_read && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-sky-600 shrink-0 mt-1" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#4169E1] shrink-0 mt-1" />
                         )}
                       </div>
-                      <div className="text-[11px] text-slate-600 mt-0.5 line-clamp-2">
+                      <div className="text-[11px] text-[#475569] mt-0.5 line-clamp-2 leading-relaxed">
                         {n.message}
                       </div>
-                      <div className="text-[9px] text-slate-400 mt-1">
+                      <div className="text-[9px] text-[#697386] mt-1 font-mono">
                         {new Date(n.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                     </div>
                   ))
                 )}
               </div>
-              <div className="px-3 py-1 bg-slate-50 border-t border-slate-100 text-[9px] text-slate-500">
+              <div className="px-4 py-1.5 bg-[#F7F5F0] border-t border-[#E5E7EB] text-[9px] text-[#697386]">
                 In-app delivery active · SMS/Email disabled without provider keys
               </div>
             </div>
@@ -232,17 +234,17 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         {/* User Account Dropdown */}
         <Dropdown
           trigger={
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+            <div className="flex items-center gap-2.5 pl-2.5 border-l border-[#E5E7EB] cursor-pointer group">
               <Avatar name={contextInfo.displayName} size="sm" status="online" />
               <div className="hidden sm:block text-left">
-                <div className="text-xs font-semibold text-slate-900 leading-tight">
+                <div className="text-xs font-bold font-['Manrope',sans-serif] text-[#17243A] group-hover:text-[#4169E1] transition-colors leading-tight">
                   {contextInfo.displayName}
                 </div>
-                <div className="text-[10px] text-slate-500 font-mono uppercase">
+                <div className="text-[10px] text-[#697386] font-mono uppercase">
                   {contextInfo.role}
                 </div>
               </div>
-              <Icon name="ChevronDown" size={14} className="text-slate-400" />
+              <Icon name="ChevronDown" size={14} className="text-[#697386] group-hover:text-[#17243A] transition-colors" />
             </div>
           }
           items={[

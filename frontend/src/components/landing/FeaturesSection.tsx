@@ -46,17 +46,17 @@ const FEATURES: FeatureCardData[] = [
 
 export const FeaturesSection: React.FC = () => {
   return (
-    <section id="features" className="py-16 md:py-24 bg-white border-b border-slate-200 text-left">
+    <section id="features" className="py-16 md:py-24 bg-white border-b border-[#E5E7EB] text-left">
       <Container size="lg">
         {/* Section Header */}
         <div className="max-w-2xl mb-14">
-          <Badge variant="brand" size="sm" className="mb-2">
+          <Badge variant="brand" size="sm" className="mb-2.5">
             Engine Capabilities
           </Badge>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-950 tracking-tight mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold font-['Manrope',sans-serif] text-[#17243A] tracking-tight mb-3">
             Built for Analytical Rigor, Not Guesswork
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-[#697386] leading-relaxed">
             Every feature on Brand Bridge is engineered to give brands and creators clear, auditable
             data for evaluating partnerships with confidence.
           </p>
@@ -67,24 +67,24 @@ export const FeaturesSection: React.FC = () => {
           {FEATURES.map((f) => (
             <Card key={f.title} padding="lg" hoverable className="flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-[6px] bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
-                    <Icon name={f.icon} size={20} />
+                <div className="flex items-center gap-3.5 mb-4">
+                  <div className="w-11 h-11 rounded-[10px] bg-[#DCE5FA] text-[#4169E1] flex items-center justify-center shrink-0">
+                    <Icon name={f.icon} size={22} />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-slate-900 leading-tight">{f.title}</h3>
-                    <span className="text-xs text-sky-700 font-semibold">{f.tagline}</span>
+                    <h3 className="text-base font-bold font-['Manrope',sans-serif] text-[#17243A] leading-tight">{f.title}</h3>
+                    <span className="text-xs text-[#4169E1] font-semibold">{f.tagline}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-600 leading-relaxed mb-6">{f.description}</p>
+                <p className="text-xs text-[#697386] leading-relaxed mb-6">{f.description}</p>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-2">
+              <div className="pt-4 border-t border-[#E5E7EB] flex flex-wrap gap-2">
                 {f.metrics.map((m) => (
                   <span
                     key={m}
-                    className="text-[11px] font-mono px-2 py-0.5 rounded-[3px] bg-slate-50 text-slate-600 border border-slate-200"
+                    className="text-[11px] font-mono px-2.5 py-1 rounded-[6px] bg-[#F7F5F0] text-[#17243A] border border-[#E5E7EB]"
                   >
                     {m}
                   </span>

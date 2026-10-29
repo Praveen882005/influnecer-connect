@@ -22,31 +22,31 @@ export const Alert: React.FC<AlertProps> = ({
   > = {
     info: {
       icon: 'Info',
-      border: 'border-sky-200',
-      bg: 'bg-sky-50/70',
-      text: 'text-sky-900',
-      iconColor: 'text-sky-600',
+      border: 'border-[#BFDBFE]',
+      bg: 'bg-[#F0F4FE]',
+      text: 'text-[#1E3A8A]',
+      iconColor: 'text-[#4169E1]',
     },
     success: {
       icon: 'CheckCircle2',
-      border: 'border-emerald-200',
-      bg: 'bg-emerald-50/70',
-      text: 'text-emerald-900',
-      iconColor: 'text-emerald-600',
+      border: 'border-[#B4E0CC]',
+      bg: 'bg-[#E8F5EE]',
+      text: 'text-[#186443]',
+      iconColor: 'text-[#21865B]',
     },
     warning: {
       icon: 'AlertTriangle',
-      border: 'border-amber-200',
-      bg: 'bg-amber-50/70',
-      text: 'text-amber-900',
-      iconColor: 'text-amber-600',
+      border: 'border-[#F5D6A4]',
+      bg: 'bg-[#FEF7EC]',
+      text: 'text-[#915F15]',
+      iconColor: 'text-[#B7791F]',
     },
     danger: {
       icon: 'AlertCircle',
-      border: 'border-red-200',
-      bg: 'bg-red-50/70',
-      text: 'text-red-900',
-      iconColor: 'text-red-600',
+      border: 'border-[#F5BCBC]',
+      bg: 'bg-[#FDF2F2]',
+      text: 'text-[#9E3232]',
+      iconColor: 'text-[#C24141]',
     },
   };
 
@@ -55,22 +55,20 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <div
       role="alert"
-      className={`flex items-start gap-3 p-3.5 rounded-[6px] border text-xs text-left ${config.border} ${config.bg} ${config.text} ${className}`}
+      className={`flex items-start gap-3 p-3.5 rounded-[8px] border text-xs text-left ${config.border} ${config.bg} ${config.text} ${className}`}
     >
       <div className={`mt-0.5 shrink-0 ${config.iconColor}`}>
         <Icon name={config.icon} size={16} />
       </div>
-
       <div className="flex-1">
-        {title && <h4 className="font-semibold text-slate-900 mb-0.5">{title}</h4>}
-        <div className="leading-relaxed">{children}</div>
+        {title && <h5 className="font-semibold text-xs mb-0.5">{title}</h5>}
+        <div className="leading-relaxed opacity-95">{children}</div>
       </div>
-
       {onClose && (
         <button
           type="button"
           onClick={onClose}
-          className="text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
+          className="shrink-0 text-slate-400 hover:text-slate-600 p-0.5 transition-colors cursor-pointer"
           aria-label="Dismiss alert"
         >
           <Icon name="X" size={14} />

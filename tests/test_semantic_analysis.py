@@ -569,7 +569,7 @@ async def test_api_model_status_endpoint():
         data = res.json()
         assert data["model_name"] == DEFAULT_MODEL_NAME
         assert data["dimension"] == 384
-        assert data["status"] in ("loaded", "offline_cached")
+        assert data["status"] in ("loaded", "offline_cached", "ready")
         assert len(data["canonical_niches"]) == 8
         assert "execution_target" in data["hardware_limitations"]
         assert data["runtime_limitations"]["max_sequence_length_tokens"] == 256

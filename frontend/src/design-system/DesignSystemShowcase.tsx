@@ -3,6 +3,7 @@ import {
   Alert,
   Avatar,
   Badge,
+  BrandBridgeLogo,
   Button,
   Card,
   Checkbox,
@@ -124,19 +125,22 @@ export const DesignSystemShowcase: React.FC = () => {
   return (
     <Container size="lg" className="py-8">
       {/* Design System Header */}
-      <div className="border-b border-slate-200 pb-5 mb-8 text-left">
-        <div className="flex items-center gap-2 mb-1">
-          <Badge variant="brand" size="sm">
-            Phase 03 Verified
-          </Badge>
-          <span className="text-xs text-slate-500 font-mono">Tailwind v4.3.3 + Vite</span>
+      <div className="border-b border-[#E5E7EB] pb-5 mb-8 text-left">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+          <BrandBridgeLogo size="md" subtitle="Design System & Component Library" />
+          <div className="flex items-center gap-2">
+            <Badge variant="brand" size="sm">
+              Phase 03 Verified
+            </Badge>
+            <span className="text-xs text-[#697386] font-mono">Tailwind v4.3.3 + Vite</span>
+          </div>
         </div>
-        <h1 className="text-2xl font-bold text-slate-950 tracking-tight">
+        <h1 className="text-2xl font-bold font-['Manrope',sans-serif] text-[#17243A] tracking-tight">
           BRAND BRIDGE Design System
         </h1>
-        <p className="text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-          Premium B2B SaaS token foundation featuring deep ink typography, clean neutral surfaces,
-          an authoritative ocean blue brand accent, and accessible UI component primitives.
+        <p className="text-sm text-[#697386] mt-1 max-w-2xl leading-relaxed">
+          Premium B2B token foundation featuring deep ink typography (#17243A), warm ivory canvas (#F7F5F0),
+          an authoritative cobalt blue accent (#4169E1), and accessible UI component primitives.
         </p>
 
         <div className="mt-6">
@@ -310,29 +314,29 @@ export const DesignSystemShowcase: React.FC = () => {
       {activeTab === 'typography' && (
         <div className="space-y-6 text-left">
           <Card padding="lg">
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
-              Color Token Hierarchy (Deep Ink &amp; Brand Accent)
+            <h3 className="text-sm font-bold text-[#17243A] uppercase tracking-wider mb-4">
+              Color Token Hierarchy (Deep Ink, Warm Ivory &amp; Cobalt Blue)
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-3 rounded-[6px] border border-slate-200 bg-white">
-                <div className="w-full h-10 rounded-[4px] bg-slate-900 mb-2" />
-                <div className="font-semibold text-xs text-slate-900">Deep Ink 900</div>
-                <div className="text-[11px] text-slate-500 font-mono">#0f172a (Headings)</div>
+              <div className="p-3.5 rounded-[10px] border border-[#E5E7EB] bg-white">
+                <div className="w-full h-10 rounded-[6px] bg-[#17243A] mb-2" />
+                <div className="font-semibold text-xs text-[#17243A]">Deep Ink 900</div>
+                <div className="text-[11px] text-[#697386] font-mono">#17243A (Headings)</div>
               </div>
-              <div className="p-3 rounded-[6px] border border-slate-200 bg-white">
-                <div className="w-full h-10 rounded-[4px] bg-sky-600 mb-2" />
-                <div className="font-semibold text-xs text-slate-900">Brand Primary 600</div>
-                <div className="text-[11px] text-slate-500 font-mono">#0284c7 (Key Accent)</div>
+              <div className="p-3.5 rounded-[10px] border border-[#E5E7EB] bg-white">
+                <div className="w-full h-10 rounded-[6px] bg-[#4169E1] mb-2" />
+                <div className="font-semibold text-xs text-[#17243A]">Cobalt Blue 600</div>
+                <div className="text-[11px] text-[#697386] font-mono">#4169E1 (Key Accent)</div>
               </div>
-              <div className="p-3 rounded-[6px] border border-slate-200 bg-white">
-                <div className="w-full h-10 rounded-[4px] bg-slate-600 mb-2" />
-                <div className="font-semibold text-xs text-slate-900">Secondary Text 600</div>
-                <div className="text-[11px] text-slate-500 font-mono">#475569 (Body Text)</div>
+              <div className="p-3.5 rounded-[10px] border border-[#E5E7EB] bg-white">
+                <div className="w-full h-10 rounded-[6px] bg-[#DCE5FA] border border-[#BFDBFE] mb-2" />
+                <div className="font-semibold text-xs text-[#17243A]">Pale Blue 100</div>
+                <div className="text-[11px] text-[#697386] font-mono">#DCE5FA (Tints/Focus)</div>
               </div>
-              <div className="p-3 rounded-[6px] border border-slate-200 bg-white">
-                <div className="w-full h-10 rounded-[4px] bg-slate-100 border border-slate-200 mb-2" />
-                <div className="font-semibold text-xs text-slate-900">Neutral Surface 100</div>
-                <div className="text-[11px] text-slate-500 font-mono">#f1f5f9 (Borders/Cards)</div>
+              <div className="p-3.5 rounded-[10px] border border-[#E5E7EB] bg-white">
+                <div className="w-full h-10 rounded-[6px] bg-[#F7F5F0] border border-[#E5E7EB] mb-2" />
+                <div className="font-semibold text-xs text-[#17243A]">Warm Ivory 50</div>
+                <div className="text-[11px] text-[#697386] font-mono">#F7F5F0 (Canvas)</div>
               </div>
             </div>
           </Card>

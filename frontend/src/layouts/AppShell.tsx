@@ -90,7 +90,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex font-sans antialiased text-left">
+    <div className="min-h-screen bg-[#F7F5F0] text-[#17243A] flex font-sans antialiased text-left">
       {/* Reusable Sidebar */}
       <Sidebar
         role={role}

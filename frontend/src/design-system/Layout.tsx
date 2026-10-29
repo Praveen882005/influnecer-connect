@@ -44,15 +44,15 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   const paddingStyles = {
     none: 'p-0',
-    sm: 'p-3',
-    md: 'p-5',
-    lg: 'p-6',
+    sm: 'p-3.5',
+    md: 'p-5 sm:p-6',
+    lg: 'p-6 sm:p-8',
   };
 
   return (
     <div
-      className={`bg-white rounded-[6px] border border-slate-200 shadow-2xs transition-shadow text-left ${
-        hoverable ? 'hover:shadow-xs hover:border-slate-300' : ''
+      className={`bg-white rounded-[14px] border border-[#E5E7EB] shadow-[0_1px_3px_0_rgba(23,36,58,0.04)] transition-all duration-200 text-left ${
+        hoverable ? 'hover:shadow-[0_4px_12px_rgba(23,36,58,0.06)] hover:border-slate-300' : ''
       } ${orientation === 'horizontal' ? 'flex flex-row' : ''} ${paddingStyles[padding]} ${className}`}
       {...props}
     >

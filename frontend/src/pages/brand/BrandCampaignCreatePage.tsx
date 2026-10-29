@@ -250,7 +250,7 @@ export const BrandCampaignCreatePage: React.FC = () => {
         </div>
 
         {/* Wizard Steps Indicator */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-lg border border-slate-200 text-xs">
+        <div className="flex items-center gap-1.5 p-1 bg-[#F0EFEA] rounded-[10px] border border-[#E5E7EB] text-xs">
           {[
             { num: 1, label: 'Brief' },
             { num: 2, label: 'Budget' },
@@ -259,12 +259,12 @@ export const BrandCampaignCreatePage: React.FC = () => {
           ].map((s) => (
             <div
               key={s.num}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] font-semibold transition-all ${
                 currentStep === s.num
-                  ? 'bg-sky-700 text-white shadow-xs'
+                  ? 'bg-[#4169E1] text-white shadow-xs'
                   : currentStep > s.num
-                  ? 'bg-slate-200 text-slate-800'
-                  : 'text-slate-500'
+                  ? 'bg-[#E5E7EB] text-[#17243A]'
+                  : 'text-[#697386]'
               }`}
             >
               <span className="font-bold">{s.num}.</span>

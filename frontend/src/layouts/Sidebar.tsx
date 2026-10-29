@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Badge, Icon } from '../design-system';
+import { Badge, BrandBridgeLogo, Icon } from '../design-system';
 import type { NavItem, WorkspaceContextInfo, WorkspaceRole } from './types';
 
 interface SidebarProps {
@@ -43,9 +43,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   }, [isMobileOpen, onCloseMobile]);
 
   const roleColors = {
-    brand: 'bg-sky-50 text-sky-700 border-sky-200',
-    influencer: 'bg-indigo-50 text-indigo-700 border-indigo-200',
-    admin: 'bg-amber-50 text-amber-800 border-amber-200',
+    brand: 'bg-[#DCE5FA] text-[#1E3A8A] border-[#BFDBFE]',
+    influencer: 'bg-[#EEF2FF] text-[#4338CA] border-[#C7D2FE]',
+    admin: 'bg-[#FEF7EC] text-[#915F15] border-[#F5D6A4]',
   };
 
   const roleLabels = {
@@ -55,65 +55,48 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const sidebarContent = (
-    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-full select-none text-left">
+    <aside className="w-64 bg-white border-r border-[#E5E7EB] flex flex-col h-full select-none text-left">
       {/* Brand Bridge Workspace Brand Header */}
-      <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <svg className="w-7 h-7 rounded-[5px]" viewBox="0 0 64 64" fill="none">
-            <rect width="64" height="64" rx="14" fill="#0f172a" />
-            <path
-              d="M12 44 C24 24, 40 24, 52 44"
-              stroke="#38bdf8"
-              strokeWidth="4"
-              strokeLinecap="round"
-              fill="none"
-            />
-          </svg>
-          <div>
-            <span className="font-bold text-sm tracking-tight text-slate-900 block leading-tight">
-              BRAND BRIDGE
-            </span>
-            <span className="text-[10px] text-slate-500 font-mono block">Workspace Shell</span>
-          </div>
-        </div>
+      <div className="p-4 border-b border-[#E5E7EB] flex items-center justify-between">
+        <BrandBridgeLogo size="sm" subtitle="Workspace Shell" />
 
         {/* Mobile close button */}
         {isMobileOpen && (
           <button
             type="button"
-            className="md:hidden text-slate-400 hover:text-slate-700 p-1 rounded focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none cursor-pointer"
+            className="md:hidden text-[#697386] hover:text-[#17243A] p-1.5 rounded-[6px] border border-[#E5E7EB] focus-visible:ring-2 focus-visible:ring-[#4169E1] focus-visible:outline-none cursor-pointer"
             onClick={onCloseMobile}
             aria-label="Close sidebar"
           >
-            <Icon name="X" size={18} />
+            <Icon name="X" size={16} />
           </button>
         )}
       </div>
 
       {/* Active Role & Workspace Selector Box */}
-      <div className="p-3 border-b border-slate-100 bg-slate-50/60">
-        <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+      <div className="p-3.5 border-b border-[#E5E7EB] bg-[#F7F5F0]/80">
+        <div className="text-[10px] font-bold text-[#697386] uppercase tracking-wider mb-2 flex items-center justify-between">
           <span>Active Context</span>
-          <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold border ${roleColors[role]}`}>
+          <span className={`px-2 py-0.5 rounded-[4px] text-[10px] font-bold border ${roleColors[role]}`}>
             {role.toUpperCase()}
           </span>
         </div>
 
-        <div className="flex items-center gap-2.5 bg-white border border-slate-200 rounded-[6px] p-2 shadow-xs">
-          <div className="w-7 h-7 rounded-[4px] bg-slate-900 text-white font-bold text-xs flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-2.5 bg-white border border-[#E5E7EB] rounded-[10px] p-2.5 shadow-2xs">
+          <div className="w-8 h-8 rounded-[8px] bg-[#17243A] text-white font-bold text-xs flex items-center justify-center shrink-0 font-['Manrope',sans-serif]">
             {contextInfo.avatarText}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-xs font-semibold text-slate-900 truncate">
+            <div className="text-xs font-bold text-[#17243A] truncate font-['Manrope',sans-serif]">
               {contextInfo.displayName}
             </div>
-            <div className="text-[11px] text-slate-500 truncate">{contextInfo.subTitle}</div>
+            <div className="text-[11px] text-[#697386] truncate">{contextInfo.subTitle}</div>
           </div>
         </div>
 
         {/* Switch Role Quick Dropdown */}
-        <div className="mt-2 flex items-center gap-1">
-          <span className="text-[10px] text-slate-500">Switch:</span>
+        <div className="mt-2.5 flex items-center gap-1.5 pt-2 border-t border-[#E5E7EB]/70">
+          <span className="text-[10px] font-semibold text-[#697386]">Switch:</span>
           {(['brand', 'influencer', 'admin'] as WorkspaceRole[]).map((r) => (
             <button
               key={r}
@@ -122,10 +105,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onSwitchRole(r);
                 if (isMobileOpen) onCloseMobile();
               }}
-              className={`text-[10px] px-1.5 py-0.5 rounded transition-colors font-medium cursor-pointer focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none ${
+              className={`text-[10px] px-2 py-0.5 rounded-[6px] transition-all font-semibold cursor-pointer focus-visible:ring-2 focus-visible:ring-[#4169E1] focus-visible:outline-none ${
                 role === r
-                  ? 'bg-slate-900 text-white font-bold'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                  ? 'bg-[#17243A] text-white shadow-xs'
+                  : 'text-[#697386] hover:text-[#17243A] hover:bg-[#E5E7EB]/60'
               }`}
             >
               {r === 'brand' ? 'Brand' : r === 'influencer' ? 'Creator' : 'Admin'}
@@ -136,7 +119,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Navigation Links */}
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto" aria-label="Sidebar navigation">
-        <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-2.5 py-1.5">
+        <div className="text-[11px] font-bold text-[#697386] uppercase tracking-wider px-2.5 py-1.5">
           {roleLabels[role]}
         </div>
 
@@ -150,17 +133,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onNavigate(item.id);
                 if (isMobileOpen) onCloseMobile();
               }}
-              className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium rounded-[5px] transition-colors cursor-pointer text-left focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none ${
+              className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium rounded-[8px] transition-all duration-150 cursor-pointer text-left focus-visible:ring-2 focus-visible:ring-[#4169E1] focus-visible:outline-none ${
                 isActive
-                  ? 'bg-sky-50 text-sky-800 font-semibold border-l-3 border-l-sky-600 shadow-xs'
-                  : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                  ? 'bg-[#F0F4FE] text-[#1D4ED8] font-bold border-l-[3px] border-l-[#4169E1] shadow-2xs'
+                  : 'text-[#475569] hover:bg-[#F7F5F0] hover:text-[#17243A]'
               }`}
             >
               <div className="flex items-center gap-2.5">
                 <Icon
                   name={item.icon}
                   size={16}
-                  className={isActive ? 'text-sky-600' : 'text-slate-400'}
+                  className={isActive ? 'text-[#4169E1]' : 'text-[#697386]'}
                 />
                 <span>{item.label}</span>
               </div>
@@ -176,11 +159,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </nav>
 
       {/* Footer Return Action */}
-      <div className="p-3 border-t border-slate-200 bg-slate-50/40">
+      <div className="p-3 border-t border-[#E5E7EB] bg-[#F7F5F0]/60">
         <button
           type="button"
           onClick={onReturnToWebsite}
-          className="w-full flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-[5px] transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none"
+          className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-[#697386] hover:text-[#17243A] hover:bg-[#E5E7EB]/60 rounded-[8px] transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-[#4169E1] focus-visible:outline-none"
         >
           <Icon name="ArrowLeft" size={15} />
           <span>Exit to Public Website</span>
@@ -197,14 +180,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Mobile Drawer Backdrop and Sidebar */}
       {isMobileOpen && (
         <div
-          className="md:hidden fixed inset-0 z-50 flex bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150"
+          className="md:hidden fixed inset-0 z-50 flex bg-[#17243A]/50 backdrop-blur-xs animate-in fade-in duration-150"
           role="dialog"
           aria-modal="true"
           aria-label="Workspace Navigation Drawer"
           onClick={onCloseMobile}
         >
           <div
-            className="w-64 bg-white h-full shadow-2xl animate-in slide-in-from-left duration-200"
+            className="w-64 bg-white h-full shadow-[0_20px_40px_rgba(23,36,58,0.2)] animate-in slide-in-from-left duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             {sidebarContent}

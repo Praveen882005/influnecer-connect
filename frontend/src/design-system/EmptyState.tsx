@@ -25,13 +25,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     <div
       className={`flex flex-col items-center justify-center p-8 text-center max-w-sm mx-auto ${className}`}
     >
-      <div className="w-12 h-12 rounded-[8px] bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center mb-3 shadow-xs">
+      <div className="w-12 h-12 rounded-[10px] bg-[#F7F5F0] border border-[#E5E7EB] text-[#4169E1] flex items-center justify-center mb-3.5 shadow-xs">
         {renderIconNode()}
       </div>
 
-      <h4 className="text-sm font-semibold text-slate-900 mb-1">{title}</h4>
+      <h4 className="text-sm font-bold font-['Manrope',sans-serif] text-[#17243A] mb-1.5">{title}</h4>
       {description && (
-        <p className="text-xs text-slate-500 leading-relaxed mb-4">{description}</p>
+        <p className="text-xs text-[#697386] leading-relaxed mb-4">{description}</p>
       )}
 
       {action && <div>{action}</div>}

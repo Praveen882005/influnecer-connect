@@ -50,7 +50,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#17243A]/50 backdrop-blur-xs transition-opacity duration-200"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-headline"
@@ -60,22 +60,22 @@ export const Modal: React.FC<ModalProps> = ({
     >
       <div
         ref={modalRef}
-        className={`w-full ${sizeStyles[size]} bg-white border border-slate-200 rounded-[8px] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden text-left animate-in zoom-in-95 duration-150`}
+        className={`w-full ${sizeStyles[size]} bg-white border border-[#E5E7EB] rounded-[16px] shadow-[0_20px_40px_rgba(23,36,58,0.14)] flex flex-col max-h-[90vh] overflow-hidden text-left transition-all duration-200`}
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-6 py-4.5 border-b border-slate-100 bg-slate-50/50">
+        <div className="flex items-start justify-between px-6 py-5 border-b border-[#E5E7EB] bg-[#F7F5F0]/60">
           <div>
-            <h3 id="modal-headline" className="text-base font-semibold text-slate-900">
+            <h3 id="modal-headline" className="text-lg font-bold font-['Manrope',sans-serif] text-[#17243A]">
               {title}
             </h3>
             {description && (
-              <p className="text-xs text-slate-500 mt-0.5">{description}</p>
+              <p className="text-xs text-[#697386] mt-1">{description}</p>
             )}
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-700 rounded-[4px] p-1 transition-colors focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:outline-none cursor-pointer"
+            className="text-[#697386] hover:text-[#17243A] rounded-[6px] p-1.5 transition-colors focus-visible:ring-2 focus-visible:ring-[#4169E1] focus-visible:outline-none cursor-pointer"
             aria-label="Close modal"
           >
             <Icon name="X" size={18} />
@@ -87,7 +87,7 @@ export const Modal: React.FC<ModalProps> = ({
 
         {/* Optional Footer */}
         {footer && (
-          <div className="flex items-center justify-end gap-2.5 px-6 py-3.5 bg-slate-50 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-3 px-6 py-4 bg-[#F7F5F0]/60 border-t border-[#E5E7EB]">
             {footer}
           </div>
         )}

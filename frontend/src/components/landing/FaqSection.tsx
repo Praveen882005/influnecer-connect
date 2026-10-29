@@ -48,42 +48,42 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-white border-b border-slate-200 text-left">
+    <section id="faq" className="py-16 md:py-24 bg-white border-b border-[#E5E7EB] text-left">
       <Container size="md">
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
-          <Badge variant="brand" size="sm" className="mb-2">
+          <Badge variant="brand" size="sm" className="mb-2.5">
             Got Questions?
           </Badge>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-950 tracking-tight mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold font-['Manrope',sans-serif] text-[#17243A] tracking-tight mb-3">
             Frequently Asked Questions
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-[#697386] leading-relaxed">
             Everything you need to know about our scoring methodology, workflow, and platform standards.
           </p>
         </div>
 
         {/* Accordion List */}
-        <div className="space-y-3">
+        <div className="space-y-3.5">
           {FAQS.map((faq) => {
             const isOpen = openFaq === faq.id;
             return (
               <Card
                 key={faq.id}
                 padding="none"
-                className="overflow-hidden border border-slate-200 transition-colors"
+                className="overflow-hidden border border-[#E5E7EB] rounded-[12px] transition-all duration-150"
               >
                 <button
                   type="button"
-                  className="w-full px-5 py-4 flex items-center justify-between text-left text-xs sm:text-sm font-semibold text-slate-900 hover:text-sky-700 transition-colors cursor-pointer select-none"
+                  className="w-full px-5 py-4 flex items-center justify-between text-left text-xs sm:text-sm font-bold font-['Manrope',sans-serif] text-[#17243A] hover:text-[#4169E1] transition-colors cursor-pointer select-none"
                   onClick={() => toggleFaq(faq.id)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${faq.id}`}
                 >
                   <span>{faq.question}</span>
                   <div
-                    className={`ml-3 shrink-0 text-slate-400 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 text-sky-600' : ''
+                    className={`ml-3 shrink-0 text-[#697386] transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-[#4169E1]' : ''
                     }`}
                   >
                     <Icon name="ChevronDown" size={16} />
@@ -93,7 +93,7 @@ export const FaqSection: React.FC = () => {
                 {isOpen && (
                   <div
                     id={`faq-answer-${faq.id}`}
-                    className="px-5 pb-4.5 pt-1 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/40"
+                    className="px-5 pb-5 pt-2 text-xs text-[#697386] leading-relaxed border-t border-[#E5E7EB] bg-[#F7F5F0]/50"
                   >
                     {faq.answer}
                   </div>

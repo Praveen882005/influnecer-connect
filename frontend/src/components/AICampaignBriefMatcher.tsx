@@ -150,18 +150,18 @@ export const AICampaignBriefMatcher: React.FC<AICampaignBriefMatcherProps> = ({
   return (
     <div className="space-y-6">
       {/* Intro Header */}
-      <div className="bg-gradient-to-r from-sky-900 via-slate-900 to-indigo-950 p-6 rounded-xl text-white shadow-sm border border-slate-800">
+      <div className="bg-[#17243A] p-6 rounded-[14px] text-white shadow-xs border border-[#21324E]">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#4169E1]/20 text-[#93C5FD] border border-[#4169E1]/30">
                 Phase 3 Engine
               </span>
-              <span className="text-xs text-slate-400 font-mono">
+              <span className="text-xs text-[#CBD5E1] font-mono">
                 Sentence-Transformers · all-MiniLM-L6-v2 (384d)
               </span>
             </div>
-            <h2 className="text-xl font-bold tracking-tight">AI Campaign Brief Influencer Matching</h2>
+            <h2 className="text-xl font-bold font-['Manrope',sans-serif] tracking-tight">AI Campaign Brief Influencer Matching</h2>
             <p className="text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
               Describe your campaign, product concept, and target audience in natural language. Our hybrid AI pipeline transforms your brief into dense latent vectors, enforces hard eligibility gates, and calculates multi-signal alignment without fabricated scores.
             </p>
@@ -169,7 +169,7 @@ export const AICampaignBriefMatcher: React.FC<AICampaignBriefMatcherProps> = ({
 
           <div className="flex flex-col items-start md:items-end gap-1.5 text-xs text-slate-400">
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#21865B] animate-pulse" />
               Live Embedding Inference
             </span>
             <span>No Fake or Random Fallbacks</span>
@@ -177,14 +177,14 @@ export const AICampaignBriefMatcher: React.FC<AICampaignBriefMatcherProps> = ({
         </div>
 
         {/* Quick Sample Briefs */}
-        <div className="mt-4 pt-4 border-t border-slate-800 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-medium text-slate-400">Quick Templates:</span>
+        <div className="mt-4 pt-4 border-t border-[#21324E] flex flex-wrap items-center gap-2">
+          <span className="text-xs font-semibold text-slate-300">Quick Templates:</span>
           {SAMPLE_BRIEFS.map((s, idx) => (
             <button
               key={idx}
               type="button"
               onClick={() => applySample(s)}
-              className="text-xs bg-slate-800/80 hover:bg-slate-750 text-slate-200 hover:text-white px-3 py-1 rounded-md border border-slate-700/60 transition-colors"
+              className="text-xs bg-[#21324E] hover:bg-[#2F4468] text-slate-200 hover:text-white px-3 py-1 rounded-[6px] border border-[#445D85]/40 transition-colors cursor-pointer"
             >
               {s.label}
             </button>

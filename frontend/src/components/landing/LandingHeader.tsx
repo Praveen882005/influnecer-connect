@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Icon } from '../../design-system';
+import { Button, BrandBridgeLogo, Icon } from '../../design-system';
 import { useAuth } from '../../context/AuthContext';
 
 interface LandingHeaderProps {
@@ -21,50 +21,20 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({ onOpenAuth, onExpl
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-md border-b border-slate-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E5E7EB] transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-2.5 text-slate-900 group">
-          <svg
-            className="w-8 h-8 rounded-[6px]"
-            viewBox="0 0 64 64"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="BRAND BRIDGE Logo"
-          >
-            <rect width="64" height="64" rx="14" fill="#0f172a" />
-            <path
-              d="M12 44 C24 24, 40 24, 52 44"
-              stroke="#38bdf8"
-              strokeWidth="4"
-              strokeLinecap="round"
-              fill="none"
-            />
-            <path d="M16 44 L16 34" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <path d="M26 44 L26 27" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <path d="M38 44 L38 27" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <path d="M48 44 L48 34" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <circle cx="20" cy="22" r="4" fill="#f43f5e" />
-            <circle cx="44" cy="22" r="4" fill="#6366f1" />
-            <path d="M24 22 L40 22" stroke="#e2e8f0" strokeWidth="2" strokeDasharray="2 2" />
-          </svg>
-          <div className="text-left">
-            <span className="font-bold text-sm tracking-tight text-slate-950 block leading-tight">
-              BRAND BRIDGE
-            </span>
-            <span className="text-[10px] text-slate-500 font-medium tracking-wide block uppercase">
-              Creator Intelligence
-            </span>
-          </div>
+        <a href="#" className="flex items-center group">
+          <BrandBridgeLogo size="md" subtitle="Creator Intelligence" />
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6" aria-label="Public website links">
+        <nav className="hidden md:flex items-center gap-7" aria-label="Public website links">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-xs font-semibold text-slate-600 hover:text-sky-600 transition-colors"
+              className="text-xs font-semibold text-[#697386] hover:text-[#4169E1] transition-colors"
             >
               {link.label}
             </a>
@@ -75,7 +45,7 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({ onOpenAuth, onExpl
         <div className="hidden md:flex items-center gap-2.5">
           {isAuthenticated ? (
             <div className="flex items-center gap-3">
-              <span className="text-xs font-medium text-slate-700">
+              <span className="text-xs font-medium text-[#17243A]">
                 {user?.full_name} ({user?.role})
               </span>
               <Button variant="primary" size="sm" onClick={onExploreApp}>
@@ -93,7 +63,7 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({ onOpenAuth, onExpl
               <Button variant="primary" size="sm" onClick={() => onOpenAuth('register')}>
                 Get Started
               </Button>
-              <div className="h-4 w-px bg-slate-200 mx-1" />
+              <div className="h-4 w-px bg-[#E5E7EB] mx-1" />
               <Button
                 variant="outline"
                 size="sm"
@@ -111,7 +81,7 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({ onOpenAuth, onExpl
         <div className="md:hidden flex items-center">
           <button
             type="button"
-            className="p-2 text-slate-600 hover:text-slate-900 focus:outline-none"
+            className="p-2 text-[#697386] hover:text-[#17243A] rounded-[6px] border border-[#E5E7EB] focus-visible:ring-2 focus-visible:ring-[#4169E1] focus:outline-none cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
           >
@@ -122,21 +92,21 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({ onOpenAuth, onExpl
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-5 space-y-3 text-left animate-in slide-in-from-top duration-150">
+        <div className="md:hidden border-b border-[#E5E7EB] bg-white px-4 pt-3 pb-5 space-y-3 text-left animate-in slide-in-from-top duration-150">
           <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-xs font-semibold text-slate-700 hover:text-sky-600 py-1.5"
+                className="text-xs font-semibold text-[#17243A] hover:text-[#4169E1] py-1.5"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+          <div className="pt-3 border-t border-[#E5E7EB] flex flex-col gap-2">
             {isAuthenticated ? (
               <>
                 <Button variant="primary" size="sm" fullWidth onClick={onExploreApp}>

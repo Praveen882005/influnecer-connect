@@ -26,7 +26,7 @@ export const Tabs: React.FC<TabsProps> = ({
 }) => {
   return (
     <nav
-      className={`flex items-center gap-1 border-b border-slate-200 overflow-x-auto scrollbar-none select-none ${className}`}
+      className={`flex items-center gap-1 border-b border-[#E5E7EB] overflow-x-auto scrollbar-none select-none ${className}`}
       role="tablist"
       aria-label="Tabs navigation"
     >
@@ -41,18 +41,18 @@ export const Tabs: React.FC<TabsProps> = ({
               aria-selected={isActive}
               disabled={tab.disabled}
               onClick={() => !tab.disabled && onChange(tab.id)}
-              className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium rounded-[5px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium rounded-[8px] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4169E1] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                 isActive
-                  ? 'bg-sky-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-[#4169E1] text-white shadow-xs'
+                  : 'text-[#697386] hover:text-[#17243A] hover:bg-[#F0EFEA]'
               }`}
             >
               {tab.icon && <Icon name={tab.icon} size={14} />}
               <span>{tab.label}</span>
               {tab.count !== undefined && (
                 <span
-                  className={`text-[11px] px-1.5 py-0.2 rounded-full ${
-                    isActive ? 'bg-sky-700 text-white' : 'bg-slate-200 text-slate-700'
+                  className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold ${
+                    isActive ? 'bg-[#1D4ED8] text-white' : 'bg-[#E5E7EB] text-[#17243A]'
                   }`}
                 >
                   {tab.count}
@@ -69,20 +69,20 @@ export const Tabs: React.FC<TabsProps> = ({
             aria-selected={isActive}
             disabled={tab.disabled}
             onClick={() => !tab.disabled && onChange(tab.id)}
-            className={`relative inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold tracking-wide transition-colors border-b-2 -mb-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
+            className={`relative inline-flex items-center gap-2 px-4 py-3 text-xs font-semibold tracking-wide transition-colors border-b-2 -mb-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4169E1] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
               isActive
-                ? 'border-sky-600 text-sky-600'
-                : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                ? 'border-[#4169E1] text-[#4169E1]'
+                : 'border-transparent text-[#697386] hover:text-[#17243A] hover:border-slate-300'
             }`}
           >
             {tab.icon && <Icon name={tab.icon} size={15} />}
             <span>{tab.label}</span>
             {tab.count !== undefined && (
               <span
-                className={`text-[10px] font-bold px-1.5 py-0.5 rounded-[3px] ${
+                className={`text-[10px] font-bold px-1.5 py-0.5 rounded-[4px] ${
                   isActive
-                    ? 'bg-sky-50 text-sky-700 border border-sky-200'
-                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                    ? 'bg-[#DCE5FA] text-[#1E3A8A] border border-[#BFDBFE]'
+                    : 'bg-[#F0EFEA] text-[#697386] border border-[#E5E7EB]'
                 }`}
               >
                 {tab.count}

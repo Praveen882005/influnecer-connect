@@ -184,31 +184,31 @@ export const BrandAnalyticsPage: React.FC = () => {
           stage: '1. Shortlisted',
           count: data.funnel.stage_1_shortlisted,
           conversion: '100%',
-          fill: '#0284c7',
+          fill: '#4169E1',
         },
         {
           stage: '2. Invited',
           count: data.funnel.stage_2_invited,
           conversion: `${data.funnel.shortlist_to_invite_pct}% of shortlist`,
-          fill: '#0ea5e9',
+          fill: '#5C82F2',
         },
         {
           stage: '3. Viewed',
           count: data.funnel.stage_3_viewed,
           conversion: `${data.funnel.invite_to_view_pct}% of invited`,
-          fill: '#38bdf8',
+          fill: '#17243A',
         },
         {
           stage: '4. Responded',
           count: data.funnel.stage_4_responded,
           conversion: `${data.funnel.view_to_response_pct}% of viewed`,
-          fill: '#10b981',
+          fill: '#21865B',
         },
         {
           stage: '5. Confirmed',
           count: data.funnel.stage_5_confirmed,
           conversion: `${data.funnel.response_to_confirm_pct}% of response`,
-          fill: '#059669',
+          fill: '#186443',
         },
       ]
     : [];

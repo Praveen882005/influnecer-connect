@@ -15,3 +15,4 @@ export * from './Skeleton';
 export * from './Alert';
 export * from './EmptyState';
 export * from './Layout';
+export * from '../components/brand/BrandBridgeLogo';

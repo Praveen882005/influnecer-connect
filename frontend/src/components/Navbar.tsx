@@ -22,31 +22,26 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="brand-identity" onClick={() => setActiveTab('discover')} style={{ cursor: 'pointer' }}>
           <svg
             className="brand-logo-svg"
-            viewBox="0 0 64 64"
+            viewBox="0 0 40 40"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             aria-label="BRAND BRIDGE Logo"
             role="img"
+            style={{ width: '32px', height: '32px', marginRight: '8px' }}
           >
-            <rect width="64" height="64" rx="14" fill="#0f172a" />
-            <path
-              d="M12 44 C24 24, 40 24, 52 44"
-              stroke="#38bdf8"
-              strokeWidth="4"
-              strokeLinecap="round"
-              fill="none"
-            />
-            <path d="M16 44 L16 34" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <path d="M26 44 L26 27" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <path d="M38 44 L38 27" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <path d="M48 44 L48 34" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-            <circle cx="20" cy="22" r="4" fill="#f43f5e" />
-            <circle cx="44" cy="22" r="4" fill="#6366f1" />
-            <path d="M24 22 L40 22" stroke="#e2e8f0" strokeWidth="2" strokeDasharray="2 2" />
+            <rect x="4" y="32" width="32" height="3" rx="1.5" fill="#DCE5FA" />
+            <path d="M9 32V14C9 12.8954 9.89543 12 11 12C12.1046 12 13 12.8954 13 14V32" stroke="#17243A" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M27 32V14C27 12.8954 27.8954 12 29 12C30.1046 12 31 12.8954 31 14V32" stroke="#17243A" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M7 26C13 16 27 16 33 26" stroke="#4169E1" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="16" y1="21" x2="16" y2="32" stroke="#DCE5FA" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="20" y1="18.5" x2="20" y2="32" stroke="#4169E1" strokeWidth="1.75" strokeLinecap="round" />
+            <line x1="24" y1="21" x2="24" y2="32" stroke="#DCE5FA" strokeWidth="1.5" strokeLinecap="round" />
+            <circle cx="20" cy="18.5" r="2.75" fill="#4169E1" />
+            <circle cx="20" cy="18.5" r="1.25" fill="#FFFFFF" />
           </svg>
           <div>
             <h1 className="brand-title">BRAND BRIDGE</h1>
-            <span style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginTop: '-2px' }}>
+            <span style={{ fontSize: '0.7rem', color: '#697386', display: 'block', marginTop: '-2px' }}>
               Intelligence &amp; Collaboration Platform
             </span>
           </div>

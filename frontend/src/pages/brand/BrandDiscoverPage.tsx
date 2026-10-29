@@ -120,24 +120,24 @@ export const BrandDiscoverPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-left">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-950">Discover Creators</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-bold font-['Manrope',sans-serif] tracking-tight text-[#17243A]">Discover Creators</h1>
+          <p className="text-sm text-[#697386] mt-1">
             Source verified creators evaluated across tier-normalized engagement benchmarks and authenticity signals.
           </p>
         </div>
 
         {/* Discovery Mode Switcher */}
-        <div className="flex items-center p-1 bg-slate-100 rounded-lg border border-slate-200">
+        <div className="flex items-center p-1.5 bg-[#F0EFEA] rounded-[10px] border border-[#E5E7EB]">
           <button
             type="button"
             onClick={() => setActiveTab('directory')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-[8px] transition-all cursor-pointer ${
               activeTab === 'directory'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-[#17243A] shadow-xs'
+                : 'text-[#697386] hover:text-[#17243A]'
             }`}
           >
             Directory Catalog
@@ -145,26 +145,26 @@ export const BrandDiscoverPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('ai_matching')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-[8px] transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'ai_matching'
-                ? 'bg-sky-600 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#4169E1] text-white shadow-xs'
+                : 'text-[#697386] hover:text-[#17243A]'
             }`}
           >
             <span>⚡ AI Brief Matching</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-sky-500 text-white font-mono">Phase 3</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#1D4ED8] text-white font-mono">Phase 3</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveTab('fraud_audit')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-[8px] transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'fraud_audit'
-                ? 'bg-rose-600 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#C24141] text-white shadow-xs'
+                : 'text-[#697386] hover:text-[#17243A]'
             }`}
           >
             <span>🛡️ Fraud Risk Audit</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-500 text-white font-mono">Phase 7</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#9E3232] text-white font-mono">Phase 7</span>
           </button>
         </div>
       </div>
@@ -198,201 +198,201 @@ export const BrandDiscoverPage: React.FC = () => {
       ) : (
         <>
           {/* Filter Bar */}
-          <Card padding="md">
-        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
-          <div className="sm:col-span-5">
-            <label className="block text-xs font-medium text-slate-700 mb-1">Search Keywords</label>
-            <Input
-              placeholder="Search by name, handle, or bio..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              leftIcon={<Icon name="Search" size="sm" className="text-slate-400" />}
-            />
-          </div>
-
-          <div className="sm:col-span-3">
-            <label className="block text-xs font-medium text-slate-700 mb-1">Content Vertical / Niche</label>
-            <Select
-              value={selectedNiche}
-              onChange={(e) => setSelectedNiche(e.target.value)}
-              options={[
-                { value: 'all', label: 'All Content Niches' },
-                { value: 'technology', label: 'Technology & Dev' },
-                { value: 'beauty', label: 'Beauty & Skincare' },
-                { value: 'food', label: 'Food & Culinary' },
-                { value: 'fitness', label: 'Fitness & Health' },
-                { value: 'fashion', label: 'Fashion & Style' },
-                { value: 'gaming', label: 'Gaming & Esports' },
-                { value: 'travel', label: 'Travel & Adventure' },
-                { value: 'home', label: 'Home & Decor' },
-                { value: 'parenting', label: 'Parenting & Family' },
-                { value: 'wellness', label: 'Wellness & Lifestyle' },
-              ]}
-            />
-          </div>
-
-          <div className="sm:col-span-2">
-            <label className="block text-xs font-medium text-slate-700 mb-1">Min Followers</label>
-            <Select
-              value={minFollowers === undefined ? 'any' : String(minFollowers)}
-              onChange={(e) => setMinFollowers(e.target.value === 'any' ? undefined : Number(e.target.value))}
-              options={[
-                { value: 'any', label: 'Any Reach' },
-                { value: '1000', label: '1,000+' },
-                { value: '5000', label: '5,000+' },
-                { value: '10000', label: '10,000+' },
-                { value: '50000', label: '50,000+' },
-              ]}
-            />
-          </div>
-
-          <div className="sm:col-span-2 flex flex-col justify-end">
-            <Button
-              variant="primary"
-              type="submit"
-              className="w-full h-9.5"
-              leftIcon={<Icon name="Search" size="sm" />}
-            >
-              Filter
-            </Button>
-          </div>
-        </form>
-      </Card>
-
-      {/* Creators Grid */}
-      {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[1, 2, 3, 4].map((n) => (
-            <Card key={n} padding="lg" orientation="vertical" className="space-y-4">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <Skeleton variant="circle" width={40} height={40} />
-                  <div className="space-y-1.5">
-                    <Skeleton variant="text" width={120} height={16} />
-                    <Skeleton variant="text" width={80} height={12} />
-                  </div>
-                </div>
-                <Skeleton variant="rect" width={70} height={20} />
+          <Card padding="md" className="rounded-[14px]">
+            <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-12 gap-3.5 items-end">
+              <div className="sm:col-span-5">
+                <label className="block text-xs font-semibold text-[#17243A] mb-1">Search Keywords</label>
+                <Input
+                  placeholder="Search by name, handle, or bio..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  leftIcon={<Icon name="Search" size="sm" className="text-[#697386]" />}
+                />
               </div>
-              <div className="space-y-1">
-                <Skeleton variant="text" />
-                <Skeleton variant="text" width="80%" />
+
+              <div className="sm:col-span-3">
+                <label className="block text-xs font-semibold text-[#17243A] mb-1">Content Vertical / Niche</label>
+                <Select
+                  value={selectedNiche}
+                  onChange={(e) => setSelectedNiche(e.target.value)}
+                  options={[
+                    { value: 'all', label: 'All Content Niches' },
+                    { value: 'technology', label: 'Technology & Dev' },
+                    { value: 'beauty', label: 'Beauty & Skincare' },
+                    { value: 'food', label: 'Food & Culinary' },
+                    { value: 'fitness', label: 'Fitness & Health' },
+                    { value: 'fashion', label: 'Fashion & Style' },
+                    { value: 'gaming', label: 'Gaming & Esports' },
+                    { value: 'travel', label: 'Travel & Adventure' },
+                    { value: 'home', label: 'Home & Decor' },
+                    { value: 'parenting', label: 'Parenting & Family' },
+                    { value: 'wellness', label: 'Wellness & Lifestyle' },
+                  ]}
+                />
               </div>
-              <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded border border-slate-100">
-                <Skeleton variant="text" height={24} />
-                <Skeleton variant="text" height={24} />
-                <Skeleton variant="text" height={24} />
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-semibold text-[#17243A] mb-1">Min Followers</label>
+                <Select
+                  value={minFollowers === undefined ? 'any' : String(minFollowers)}
+                  onChange={(e) => setMinFollowers(e.target.value === 'any' ? undefined : Number(e.target.value))}
+                  options={[
+                    { value: 'any', label: 'Any Reach' },
+                    { value: '1000', label: '1,000+' },
+                    { value: '5000', label: '5,000+' },
+                    { value: '10000', label: '10,000+' },
+                    { value: '50000', label: '50,000+' },
+                  ]}
+                />
               </div>
-              <div className="flex justify-end gap-2 pt-1 border-t border-slate-100">
-                <Skeleton variant="rect" width={90} height={32} />
-                <Skeleton variant="rect" width={90} height={32} />
+
+              <div className="sm:col-span-2 flex flex-col justify-end">
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="w-full h-10"
+                  leftIcon={<Icon name="Search" size="sm" />}
+                >
+                  Filter
+                </Button>
               </div>
-            </Card>
-          ))}
-        </div>
-      ) : creators.length === 0 ? (
-        <Card padding="lg">
-          <EmptyState
-            title="No Creators Found"
-            description="Try modifying search keywords or resetting content niche filters to discover creators."
-            icon="Users"
-          />
-        </Card>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {creators.map((c) => {
-            const shortlisted = isCreatorShortlisted(c.id);
-            return (
-              <Card key={c.id} padding="lg" orientation="vertical" className="space-y-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <Avatar name={c.display_name || c.handle} size="md" />
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-slate-900 text-sm">
-                          {c.display_name || c.handle}
-                        </h3>
-                        {c.is_verified && (
-                          <Badge variant="brand" size="sm">Verified</Badge>
-                        )}
+            </form>
+          </Card>
+
+          {/* Creators Grid */}
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[1, 2, 3, 4].map((n) => (
+                <Card key={n} padding="lg" orientation="vertical" className="space-y-4 rounded-[14px]">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <Skeleton variant="circle" width={40} height={40} />
+                      <div className="space-y-1.5">
+                        <Skeleton variant="text" width={120} height={16} />
+                        <Skeleton variant="text" width={80} height={12} />
                       </div>
-                      <div className="text-xs text-slate-500 font-mono">{c.handle}</div>
                     </div>
+                    <Skeleton variant="rect" width={70} height={20} />
                   </div>
-                  <Badge variant="neutral" size="sm" className="capitalize">
-                    {c.primary_niche}
-                  </Badge>
-                </div>
+                  <div className="space-y-1">
+                    <Skeleton variant="text" />
+                    <Skeleton variant="text" width="80%" />
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 bg-[#F7F5F0] p-2.5 rounded-[8px] border border-[#E5E7EB]">
+                    <Skeleton variant="text" height={24} />
+                    <Skeleton variant="text" height={24} />
+                    <Skeleton variant="text" height={24} />
+                  </div>
+                  <div className="flex justify-end gap-2 pt-1 border-t border-[#E5E7EB]">
+                    <Skeleton variant="rect" width={90} height={32} />
+                    <Skeleton variant="rect" width={90} height={32} />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : creators.length === 0 ? (
+            <Card padding="lg" className="rounded-[14px]">
+              <EmptyState
+                title="No Creators Found"
+                description="Try modifying search keywords or resetting content niche filters to discover creators."
+                icon="Users"
+              />
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {creators.map((c) => {
+                const shortlisted = isCreatorShortlisted(c.id);
+                return (
+                  <Card key={c.id} padding="lg" orientation="vertical" className="space-y-4 rounded-[14px] shadow-2xs hover:shadow-xs">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <Avatar name={c.display_name || c.handle} size="md" />
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-bold font-['Manrope',sans-serif] text-[#17243A] text-sm">
+                              {c.display_name || c.handle}
+                            </h3>
+                            {c.is_verified && (
+                              <Badge variant="brand" size="sm">Verified</Badge>
+                            )}
+                          </div>
+                          <div className="text-xs text-[#697386] font-mono">{c.handle}</div>
+                        </div>
+                      </div>
+                      <Badge variant="neutral" size="sm" className="capitalize">
+                        {c.primary_niche}
+                      </Badge>
+                    </div>
 
-                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                  {c.bio || 'Verified content creator on Brand Bridge.'}
-                </p>
+                    <p className="text-xs text-[#697386] line-clamp-2 leading-relaxed">
+                      {c.bio || 'Verified content creator on Brand Bridge.'}
+                    </p>
 
-                {/* Metrics Row */}
-                <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded border border-slate-100 text-center font-mono">
-                  <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-sans block">Audience</span>
-                    <span className="text-xs font-bold text-slate-900">
-                      {(c.total_followers ?? 0).toLocaleString()}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-sans block">Engagement</span>
-                    <span className="text-xs font-bold text-sky-700">
-                      {c.avg_engagement_rate ? `${c.avg_engagement_rate.toFixed(1)}%` : '—'}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-sans block">Authenticity</span>
-                    <span className="text-xs font-bold text-emerald-700">
-                      {c.authenticity_score ? `${c.authenticity_score.toFixed(0)}/100` : '—'}
-                    </span>
-                  </div>
-                </div>
+                    {/* Metrics Row */}
+                    <div className="grid grid-cols-3 gap-2 bg-[#F7F5F0] p-2.5 rounded-[10px] border border-[#E5E7EB] text-center font-mono">
+                      <div>
+                        <span className="text-[10px] text-[#697386] uppercase font-sans font-semibold block">Audience</span>
+                        <span className="text-xs font-bold text-[#17243A]">
+                          {(c.total_followers ?? 0).toLocaleString()}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-[#697386] uppercase font-sans font-semibold block">Engagement</span>
+                        <span className="text-xs font-bold text-[#4169E1]">
+                          {c.avg_engagement_rate ? `${c.avg_engagement_rate.toFixed(1)}%` : '—'}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-[#697386] uppercase font-sans font-semibold block">Authenticity</span>
+                        <span className="text-xs font-bold text-[#21865B]">
+                          {c.authenticity_score ? `${c.authenticity_score.toFixed(0)}/100` : '—'}
+                        </span>
+                      </div>
+                    </div>
 
-                {/* Actions */}
-                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-                  <span className="text-[11px] text-slate-400">
-                    Source: {c.data_source || 'Catalog'}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        setFraudAuditCreatorId(c.id);
-                        setActiveTab('fraud_audit');
-                      }}
-                      leftIcon={<Icon name="ShieldAlert" size="sm" />}
-                      className="text-slate-600 hover:text-rose-600"
-                    >
-                      Audit
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => setSelectedProfileCreator(c)}
-                      leftIcon={<Icon name="Eye" size="sm" />}
-                    >
-                      View Profile
-                    </Button>
-                    <Button
-                      variant={shortlisted ? 'secondary' : 'primary'}
-                      size="sm"
-                      onClick={() => handleToggleShortlist(c)}
-                      leftIcon={<Icon name={shortlisted ? 'Check' : 'Plus'} size="sm" />}
-                    >
-                      {shortlisted ? 'Shortlisted' : 'Add to Shortlist'}
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
+                    {/* Actions */}
+                    <div className="flex items-center justify-between pt-2 border-t border-[#E5E7EB]">
+                      <span className="text-[11px] text-[#697386]">
+                        Source: {c.data_source || 'Catalog'}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setFraudAuditCreatorId(c.id);
+                            setActiveTab('fraud_audit');
+                          }}
+                          leftIcon={<Icon name="ShieldAlert" size="sm" />}
+                          className="text-[#697386] hover:text-[#C24141]"
+                        >
+                          Audit
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => setSelectedProfileCreator(c)}
+                          leftIcon={<Icon name="Eye" size="sm" />}
+                        >
+                          View Profile
+                        </Button>
+                        <Button
+                          variant={shortlisted ? 'secondary' : 'primary'}
+                          size="sm"
+                          onClick={() => handleToggleShortlist(c)}
+                          leftIcon={<Icon name={shortlisted ? 'Check' : 'Plus'} size="sm" />}
+                        >
+                          {shortlisted ? 'Shortlisted' : 'Add to Shortlist'}
+                        </Button>
+                      </div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </>
       )}
-    </>
-  )}
 
       {/* Shortlist Confirmation Modal */}
       <Modal
@@ -402,12 +402,12 @@ export const BrandDiscoverPage: React.FC = () => {
         size="md"
       >
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
-            Save <strong>{shortlistCreator?.display_name || shortlistCreator?.handle}</strong> to your campaign shortlist to begin direct evaluation and outreach.
+          <p className="text-sm text-[#697386]">
+            Save <strong className="text-[#17243A]">{shortlistCreator?.display_name || shortlistCreator?.handle}</strong> to your campaign shortlist to begin direct evaluation and outreach.
           </p>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-[#17243A] mb-1">
               Select Campaign Brief (Optional)
             </label>
             <Select
@@ -424,7 +424,7 @@ export const BrandDiscoverPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-[#17243A] mb-1">
               Confidential Evaluation Notes
             </label>
             <Input
@@ -434,7 +434,7 @@ export const BrandDiscoverPage: React.FC = () => {
             />
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-2.5 pt-3.5 border-t border-[#E5E7EB]">
             <Button variant="ghost" size="sm" onClick={() => setShortlistCreator(null)}>
               Cancel
             </Button>

@@ -55,10 +55,10 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         const handleText = row.creator?.handle ? `@${row.creator.handle}` : `ID #${row.creator_id}`;
         return (
           <div>
-            <div className="font-semibold text-slate-900 text-sm">
+            <div className="font-bold font-['Manrope',sans-serif] text-[#17243A] text-sm">
               {displayName}
             </div>
-            <div className="text-[11px] text-slate-500 font-mono">{handleText}</div>
+            <div className="text-[11px] text-[#697386] font-mono">{handleText}</div>
           </div>
         );
       },
@@ -67,7 +67,7 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
       key: 'campaign_title',
       header: 'Campaign Scoped',
       render: (row) => (
-        <span className="font-medium text-slate-800 text-xs">
+        <span className="font-semibold text-[#17243A] text-xs">
           {row.campaign_title || 'General Pipeline'}
         </span>
       ),
@@ -97,7 +97,7 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
       key: 'notes',
       header: 'Evaluation Notes',
       render: (row) => (
-        <span className="text-xs text-slate-600 line-clamp-1">
+        <span className="text-xs text-[#697386] line-clamp-1">
           {row.notes || '—'}
         </span>
       ),
@@ -115,18 +115,18 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-left">
       {/* Top Banner Notice */}
-      <div className="p-3 bg-sky-50 border border-sky-200 rounded-[6px] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-sky-900">
-        <div className="flex items-center gap-2">
-          <Icon name="Shield" size="sm" className="text-sky-600" />
+      <div className="p-3.5 bg-[#F0F4FE] border border-[#BFDBFE] rounded-[10px] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs text-[#1E3A8A]">
+        <div className="flex items-center gap-2.5">
+          <Icon name="Shield" size="sm" className="text-[#4169E1]" />
           <span>
             <strong>Brand Bridge Governance:</strong> Direct milestone escrow and creator verification active.
           </span>
         </div>
         <button
           onClick={() => onNavigate('campaigns')}
-          className="text-sky-700 hover:text-sky-900 font-semibold underline text-left sm:text-right"
+          className="text-[#4169E1] hover:text-[#2563EB] font-bold underline text-left sm:text-right cursor-pointer"
         >
           + Launch Campaign Brief
         </button>
@@ -135,12 +135,12 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-950">Brand Campaign Dashboard</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-bold font-['Manrope',sans-serif] tracking-tight text-[#17243A]">Brand Campaign Dashboard</h1>
+          <p className="text-sm text-[#697386] mt-1">
             Real-time pipeline metrics, creator candidate shortlists, and direct collaboration invitations.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button
             variant="secondary"
             leftIcon={<Icon name="Users" size="sm" />}
@@ -170,55 +170,55 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
 
       {/* Primary KPI Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card orientation="vertical" padding="md" className="border-l-4 border-l-sky-500">
-          <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Active Campaigns</span>
-            <Icon name="Briefcase" size="sm" className="text-sky-600" />
+        <Card orientation="vertical" padding="md" className="border-l-4 border-l-[#4169E1] rounded-[14px]">
+          <div className="flex items-center justify-between text-[#697386] mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider">Active Campaigns</span>
+            <Icon name="Briefcase" size="sm" className="text-[#4169E1]" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">
+          <div className="text-2xl font-extrabold font-['Manrope',sans-serif] text-[#17243A]">
             {isLoading ? '...' : analytics?.active_campaigns ?? campaigns.filter((c) => c.status === 'active' || c.status === 'published').length}
           </div>
-          <div className="text-xs text-slate-500 mt-1">
+          <div className="text-xs text-[#697386] mt-1">
             {campaigns.length} total briefs initialized
           </div>
         </Card>
 
-        <Card orientation="vertical" padding="md" className="border-l-4 border-l-indigo-500">
-          <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Shortlisted Candidates</span>
-            <Icon name="Bookmark" size="sm" className="text-indigo-600" />
+        <Card orientation="vertical" padding="md" className="border-l-4 border-l-[#4F46E5] rounded-[14px]">
+          <div className="flex items-center justify-between text-[#697386] mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider">Shortlisted Candidates</span>
+            <Icon name="Bookmark" size="sm" className="text-[#4F46E5]" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">
+          <div className="text-2xl font-extrabold font-['Manrope',sans-serif] text-[#17243A]">
             {isLoading ? '...' : analytics?.total_shortlisted ?? shortlistItems.length}
           </div>
-          <div className="text-xs text-slate-500 mt-1">
+          <div className="text-xs text-[#697386] mt-1">
             {analytics?.funnel?.stage_5_confirmed ?? 0} confirmed collaborations
           </div>
         </Card>
 
-        <Card orientation="vertical" padding="md" className="border-l-4 border-l-emerald-500">
-          <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Invitations Sent</span>
-            <Icon name="Send" size="sm" className="text-emerald-600" />
+        <Card orientation="vertical" padding="md" className="border-l-4 border-l-[#21865B] rounded-[14px]">
+          <div className="flex items-center justify-between text-[#697386] mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider">Invitations Sent</span>
+            <Icon name="Send" size="sm" className="text-[#21865B]" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">
+          <div className="text-2xl font-extrabold font-['Manrope',sans-serif] text-[#17243A]">
             {isLoading ? '...' : analytics?.total_invitations_sent ?? 0}
           </div>
-          <div className="text-xs text-emerald-600 mt-1 flex items-center gap-1 font-medium">
+          <div className="text-xs text-[#21865B] mt-1 flex items-center gap-1 font-semibold">
             <Icon name="TrendingUp" size="xs" />
             {analytics?.response_rate_pct ?? 0}% creator response rate
           </div>
         </Card>
 
-        <Card orientation="vertical" padding="md" className="border-l-4 border-l-teal-500">
-          <div className="flex items-center justify-between text-slate-500 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider">Committed Budget</span>
-            <Icon name="DollarSign" size="sm" className="text-teal-600" />
+        <Card orientation="vertical" padding="md" className="border-l-4 border-l-[#0D9488] rounded-[14px]">
+          <div className="flex items-center justify-between text-[#697386] mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider">Committed Budget</span>
+            <Icon name="DollarSign" size="sm" className="text-[#0D9488]" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">
+          <div className="text-2xl font-extrabold font-['Manrope',sans-serif] text-[#17243A]">
             ${isLoading ? '...' : (analytics?.total_committed_compensation ?? 0).toLocaleString()}
           </div>
-          <div className="text-xs text-slate-500 mt-1">
+          <div className="text-xs text-[#697386] mt-1">
             Agreed creator milestones
           </div>
         </Card>
@@ -229,16 +229,16 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         <Card
           orientation="vertical"
           padding="md"
-          className="hover:border-sky-400 transition-colors cursor-pointer"
+          className="hover:border-[#4169E1] rounded-[14px] transition-all cursor-pointer shadow-2xs hover:shadow-xs"
           onClick={() => onNavigate('discover')}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-sky-50 text-sky-600 rounded-lg">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 bg-[#DCE5FA] text-[#4169E1] rounded-[10px]">
               <Icon name="Zap" size="md" />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-sm">AI Brief Matching</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Semantic search with 4-signal ranking and suitability filters.</p>
+              <h3 className="font-bold font-['Manrope',sans-serif] text-[#17243A] text-sm">AI Brief Matching</h3>
+              <p className="text-xs text-[#697386] mt-0.5">Semantic search with 4-signal ranking and suitability filters.</p>
             </div>
           </div>
         </Card>
@@ -246,16 +246,16 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         <Card
           orientation="vertical"
           padding="md"
-          className="hover:border-rose-400 transition-colors cursor-pointer"
+          className="hover:border-[#C24141] rounded-[14px] transition-all cursor-pointer shadow-2xs hover:shadow-xs"
           onClick={() => onNavigate('discover')}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-rose-50 text-rose-600 rounded-lg">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 bg-[#FDF2F2] text-[#C24141] rounded-[10px]">
               <Icon name="ShieldAlert" size="md" />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-sm">Fraud Risk Auditor</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Audit bot signals, engagement asymmetry, and growth velocity.</p>
+              <h3 className="font-bold font-['Manrope',sans-serif] text-[#17243A] text-sm">Fraud Risk Auditor</h3>
+              <p className="text-xs text-[#697386] mt-0.5">Audit bot signals, engagement asymmetry, and growth velocity.</p>
             </div>
           </div>
         </Card>
@@ -263,16 +263,16 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         <Card
           orientation="vertical"
           padding="md"
-          className="hover:border-indigo-400 transition-colors cursor-pointer"
+          className="hover:border-[#4F46E5] rounded-[14px] transition-all cursor-pointer shadow-2xs hover:shadow-xs"
           onClick={() => onNavigate('shortlists')}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-lg">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 bg-[#EEF2FF] text-[#4F46E5] rounded-[10px]">
               <Icon name="Star" size="md" />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-sm">Candidate Shortlists</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Review 5 trust indicators, delivery history &amp; send invites.</p>
+              <h3 className="font-bold font-['Manrope',sans-serif] text-[#17243A] text-sm">Candidate Shortlists</h3>
+              <p className="text-xs text-[#697386] mt-0.5">Review 5 trust indicators, delivery history &amp; send invites.</p>
             </div>
           </div>
         </Card>
@@ -280,27 +280,27 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         <Card
           orientation="vertical"
           padding="md"
-          className="hover:border-emerald-400 transition-colors cursor-pointer"
+          className="hover:border-[#21865B] rounded-[14px] transition-all cursor-pointer shadow-2xs hover:shadow-xs"
           onClick={() => onNavigate('analytics')}
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2.5 bg-[#E8F5EE] text-[#21865B] rounded-[10px]">
               <Icon name="TrendingUp" size="md" />
             </div>
             <div>
-              <h3 className="font-semibold text-slate-900 text-sm">Forecast &amp; Outcomes</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Conservative/Baseline/Optimistic ROI simulator &amp; actuals variance.</p>
+              <h3 className="font-bold font-['Manrope',sans-serif] text-[#17243A] text-sm">Forecast &amp; Outcomes</h3>
+              <p className="text-xs text-[#697386] mt-0.5">Conservative/Baseline/Optimistic ROI simulator &amp; actuals variance.</p>
             </div>
           </div>
         </Card>
       </div>
 
       {/* Recent Candidate Activity Table */}
-      <Card orientation="vertical" padding="md">
-        <div className="flex items-center justify-between mb-3">
+      <Card orientation="vertical" padding="md" className="rounded-[14px]">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-base font-semibold text-slate-900">Recent Candidate Pipeline Activity</h3>
-            <p className="text-xs text-slate-500">Live candidates shortlisted across your active campaign briefs.</p>
+            <h3 className="text-base font-bold font-['Manrope',sans-serif] text-[#17243A]">Recent Candidate Pipeline Activity</h3>
+            <p className="text-xs text-[#697386]">Live candidates shortlisted across your active campaign briefs.</p>
           </div>
           <Button variant="ghost" size="xs" onClick={() => onNavigate('shortlists')}>
             View Full Shortlist
@@ -308,7 +308,7 @@ export const BrandOverviewPage: React.FC<BrandOverviewProps> = ({ onNavigate }) 
         </div>
 
         {isLoading ? (
-          <div className="py-12 text-center text-xs text-slate-400">Loading candidate pipeline...</div>
+          <div className="py-12 text-center text-xs text-[#697386]">Loading candidate pipeline...</div>
         ) : shortlistItems.length === 0 ? (
           <EmptyState
             title="No Candidates Shortlisted Yet"

@@ -48,43 +48,43 @@ export const ProductPreviewSection: React.FC = () => {
   const active = previewData[selectedCreatorTab];
 
   return (
-    <section className="py-16 md:py-24 bg-white border-b border-slate-200 text-left">
+    <section className="py-16 md:py-24 bg-white border-b border-[#E5E7EB] text-left">
       <Container size="lg">
         {/* Section Header */}
         <div className="max-w-2xl mb-12">
-          <Badge variant="brand" size="sm" className="mb-2">
+          <Badge variant="brand" size="sm" className="mb-2.5">
             Inside the Workspace
           </Badge>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-950 tracking-tight mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold font-['Manrope',sans-serif] text-[#17243A] tracking-tight mb-3">
             Real Component Preview: Multi-Signal Match Scoring
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-[#697386] leading-relaxed">
             See exactly how Brand Bridge evaluates creators against active campaign briefs using our
             production UI primitives and explainable scoring breakdown.
           </p>
         </div>
 
         {/* Interactive Workspace Simulator Container */}
-        <div className="rounded-[10px] border border-slate-200 bg-slate-50/50 shadow-md p-4 sm:p-6 lg:p-8">
+        <div className="rounded-[16px] border border-[#E5E7EB] bg-[#F7F5F0]/70 shadow-sm p-4 sm:p-6 lg:p-8">
           {/* Top Mock Window Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-200">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b border-[#E5E7EB]">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-              <span className="text-xs font-mono font-medium text-slate-500 ml-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]" />
+              <span className="text-xs font-mono font-medium text-[#697386] ml-2">
                 Brand Bridge // AI Evaluation Studio
               </span>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500 font-medium">Select Preview Creator:</span>
+              <span className="text-xs text-[#697386] font-medium">Select Preview Creator:</span>
               <button
                 type="button"
-                className={`text-xs px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer ${
+                className={`text-xs px-3 py-1.5 rounded-[6px] font-semibold transition-all cursor-pointer ${
                   selectedCreatorTab === 'marcus'
-                    ? 'bg-sky-600 text-white shadow-xs'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                    ? 'bg-[#4169E1] text-white shadow-xs'
+                    : 'bg-white border border-[#E5E7EB] text-[#17243A] hover:bg-[#F0EFEA]'
                 }`}
                 onClick={() => setSelectedCreatorTab('marcus')}
               >
@@ -92,10 +92,10 @@ export const ProductPreviewSection: React.FC = () => {
               </button>
               <button
                 type="button"
-                className={`text-xs px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer ${
+                className={`text-xs px-3 py-1.5 rounded-[6px] font-semibold transition-all cursor-pointer ${
                   selectedCreatorTab === 'claire'
-                    ? 'bg-sky-600 text-white shadow-xs'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                    ? 'bg-[#4169E1] text-white shadow-xs'
+                    : 'bg-white border border-[#E5E7EB] text-[#17243A] hover:bg-[#F0EFEA]'
                 }`}
                 onClick={() => setSelectedCreatorTab('claire')}
               >
@@ -105,123 +105,123 @@ export const ProductPreviewSection: React.FC = () => {
           </div>
 
           {/* Simulated Match Evaluation Card */}
-          <Card padding="lg" className="bg-white">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+          <Card padding="lg" className="bg-white rounded-[14px]">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#E5E7EB]">
               <div className="flex items-start sm:items-center gap-4">
                 <Avatar name={active.name} size="lg" status="online" />
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-lg font-bold text-slate-900 leading-none">{active.name}</h3>
-                    <span className="text-xs text-slate-500 font-mono">{active.handle}</span>
-                    <span className="w-4 h-4 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center text-[10px] font-bold">
+                    <h3 className="text-lg font-bold font-['Manrope',sans-serif] text-[#17243A] leading-none">{active.name}</h3>
+                    <span className="text-xs text-[#697386] font-mono">{active.handle}</span>
+                    <span className="w-4.5 h-4.5 rounded-full bg-[#E8F5EE] text-[#21865B] flex items-center justify-center text-[10px] font-bold">
                       ✓
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600">
+                  <div className="flex flex-wrap items-center gap-2.5 text-xs text-[#697386]">
                     <Badge variant="neutral" size="sm">
                       {active.niche}
                     </Badge>
                     <span>{active.followers}</span>
                     <span>·</span>
-                    <span className="text-sky-700 font-semibold">{active.engagement} Avg Engagement</span>
+                    <span className="text-[#4169E1] font-semibold">{active.engagement} Avg Engagement</span>
                   </div>
                 </div>
               </div>
 
               {/* Score Display Box */}
-              <div className="flex items-center gap-4 bg-slate-50 border border-slate-200 rounded-[8px] px-5 py-3 shrink-0">
+              <div className="flex items-center gap-4 bg-[#F7F5F0] border border-[#E5E7EB] rounded-[10px] px-5 py-3.5 shrink-0">
                 <div>
-                  <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  <div className="text-[11px] font-bold text-[#697386] uppercase tracking-wider">
                     Calculated Match Score
                   </div>
-                  <div className="text-2xl font-extrabold text-slate-900 leading-none mt-1">
-                    {active.overallScore} <span className="text-xs font-normal text-slate-500">/ 100</span>
+                  <div className="text-2xl font-extrabold font-['Manrope',sans-serif] text-[#17243A] leading-none mt-1">
+                    {active.overallScore} <span className="text-xs font-normal text-[#697386]">/ 100</span>
                   </div>
                 </div>
-                <div className="h-9 w-9 rounded-[6px] bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-sm">
+                <div className="h-10 w-10 rounded-[8px] bg-[#DCE5FA] text-[#4169E1] flex items-center justify-center font-bold text-sm">
                   ★
                 </div>
               </div>
             </div>
 
             {/* Signal Bars */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-6 border-b border-slate-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 py-6 border-b border-[#E5E7EB]">
               <div>
-                <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-semibold text-[#17243A] mb-1.5">
                   <span>Content Relevance</span>
-                  <span>{active.contentScore}%</span>
+                  <span className="font-mono text-[#4169E1]">{active.contentScore}%</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                  <div className="h-full bg-sky-600 rounded-full" style={{ width: `${active.contentScore}%` }} />
+                <div className="w-full h-2 rounded-full bg-[#E5E7EB] overflow-hidden">
+                  <div className="h-full bg-[#4169E1] rounded-full transition-all duration-300" style={{ width: `${active.contentScore}%` }} />
                 </div>
-                <span className="text-[11px] text-slate-500 mt-1 block">TF-IDF Vector Cosine</span>
+                <span className="text-[11px] text-[#697386] mt-1.5 block">TF-IDF Vector Cosine</span>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-semibold text-[#17243A] mb-1.5">
                   <span>Audience Affinity</span>
-                  <span>{active.audienceScore}%</span>
+                  <span className="font-mono text-[#17243A]">{active.audienceScore}%</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                  <div className="h-full bg-indigo-600 rounded-full" style={{ width: `${active.audienceScore}%` }} />
+                <div className="w-full h-2 rounded-full bg-[#E5E7EB] overflow-hidden">
+                  <div className="h-full bg-[#17243A] rounded-full transition-all duration-300" style={{ width: `${active.audienceScore}%` }} />
                 </div>
-                <span className="text-[11px] text-slate-500 mt-1 block">Age &amp; Geography Cohort</span>
+                <span className="text-[11px] text-[#697386] mt-1.5 block">Age &amp; Geography Cohort</span>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-semibold text-[#17243A] mb-1.5">
                   <span>Engagement Quality</span>
-                  <span>{active.engagementScore}%</span>
+                  <span className="font-mono text-[#21865B]">{active.engagementScore}%</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                  <div className="h-full bg-emerald-600 rounded-full" style={{ width: `${active.engagementScore}%` }} />
+                <div className="w-full h-2 rounded-full bg-[#E5E7EB] overflow-hidden">
+                  <div className="h-full bg-[#21865B] rounded-full transition-all duration-300" style={{ width: `${active.engagementScore}%` }} />
                 </div>
-                <span className="text-[11px] text-slate-500 mt-1 block">Tier-Normalized Ratio</span>
+                <span className="text-[11px] text-[#697386] mt-1.5 block">Tier-Normalized Ratio</span>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-semibold text-[#17243A] mb-1.5">
                   <span>Authenticity Index*</span>
-                  <span>{active.authScore}%</span>
+                  <span className="font-mono text-[#B7791F]">{active.authScore}%</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                  <div className="h-full bg-amber-600 rounded-full" style={{ width: `${active.authScore}%` }} />
+                <div className="w-full h-2 rounded-full bg-[#E5E7EB] overflow-hidden">
+                  <div className="h-full bg-[#B7791F] rounded-full transition-all duration-300" style={{ width: `${active.authScore}%` }} />
                 </div>
-                <span className="text-[11px] text-slate-500 mt-1 block">Statistical Heuristic</span>
+                <span className="text-[11px] text-[#697386] mt-1.5 block">Statistical Heuristic</span>
               </div>
             </div>
 
             {/* Strengths & Signals */}
             <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2.5">
+                <h4 className="text-xs font-bold text-[#17243A] uppercase tracking-wider mb-3">
                   Signal-Backed Strengths
                 </h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2.5">
                   {active.strengths.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-slate-700">
-                      <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                      <span>{s}</span>
+                    <li key={i} className="flex items-start gap-2.5 text-xs text-[#17243A]">
+                      <span className="text-[#21865B] font-bold shrink-0">✓</span>
+                      <span className="leading-relaxed">{s}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div>
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2.5">
+                <h4 className="text-xs font-bold text-[#17243A] uppercase tracking-wider mb-3">
                   Attribution Signals Used
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {active.signals.map((sig, i) => (
                     <span
                       key={i}
-                      className="text-[11px] font-mono px-2 py-1 rounded-[3px] bg-slate-50 border border-slate-200 text-slate-700"
+                      className="text-[11px] font-mono px-2.5 py-1 rounded-[6px] bg-[#F7F5F0] border border-[#E5E7EB] text-[#17243A]"
                     >
                       {sig}
                     </span>
                   ))}
                 </div>
-                <p className="text-[11px] text-slate-500 mt-4 leading-normal italic">
+                <p className="text-[11px] text-[#697386] mt-4 leading-normal italic">
                   *Authenticity scores evaluate interaction dispersion heuristics and do not constitute
                   definitive proof of fraud.
                 </p>

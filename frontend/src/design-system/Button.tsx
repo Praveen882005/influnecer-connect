@@ -26,30 +26,30 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    // Base styles: premium typography, transition, accessible focus outline
+    // Base styles: premium typography, smooth transition, accessible focus outline
     const baseStyles =
-      'inline-flex items-center justify-center font-medium transition-colors select-none rounded-[5px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none cursor-pointer';
+      'inline-flex items-center justify-center font-medium font-["Inter",sans-serif] transition-all duration-150 select-none rounded-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none cursor-pointer';
 
-    // Variant styles conforming to the deep ink / ocean blue SaaS aesthetic
+    // Variant styles conforming to Deep Ink, Warm Ivory, and Cobalt Blue palette
     const variantStyles = {
       primary:
-        'bg-sky-600 text-white hover:bg-sky-700 active:bg-sky-800 shadow-xs focus-visible:ring-sky-600',
+        'bg-[#4169E1] text-white hover:bg-[#2563EB] active:bg-[#1D4ED8] shadow-xs focus-visible:ring-[#4169E1]',
       secondary:
-        'bg-slate-100 text-slate-900 hover:bg-slate-200 active:bg-slate-300 focus-visible:ring-slate-400',
+        'bg-[#F7F5F0] text-[#17243A] border border-[#E5E7EB] hover:bg-[#F0EFEA] hover:text-[#17243A] active:bg-[#E5E7EB] focus-visible:ring-[#4169E1]',
       outline:
-        'border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 active:bg-slate-100 shadow-xs focus-visible:ring-sky-600',
+        'border border-[#E5E7EB] bg-white text-[#17243A] hover:bg-[#F7F5F0] hover:border-slate-300 active:bg-[#F0EFEA] shadow-xs focus-visible:ring-[#4169E1]',
       ghost:
-        'bg-transparent text-slate-700 hover:bg-slate-100 active:bg-slate-200 focus-visible:ring-slate-400',
+        'bg-transparent text-[#697386] hover:text-[#17243A] hover:bg-[#F0EFEA] active:bg-[#E5E7EB] focus-visible:ring-[#4169E1]',
       danger:
-        'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-xs focus-visible:ring-red-600',
+        'bg-[#C24141] text-white hover:bg-[#9E3232] active:bg-[#7F2828] shadow-xs focus-visible:ring-[#C24141]',
     };
 
     // Size styles
     const sizeStyles = {
-      xs: 'text-[11px] px-2 py-1 gap-1 h-7',
-      sm: 'text-xs px-2.5 py-1.5 gap-1.5 h-8',
-      md: 'text-sm px-3.5 py-2 gap-2 h-9.5',
-      lg: 'text-base px-5 py-2.5 gap-2.5 h-11',
+      xs: 'text-[11px] px-2.5 py-1 gap-1 h-7 font-medium',
+      sm: 'text-xs px-3 py-1.5 gap-1.5 h-8 font-medium',
+      md: 'text-sm px-4 py-2 gap-2 h-9.5 font-medium',
+      lg: 'text-base px-6 py-2.5 gap-2.5 h-11 font-semibold',
     };
 
     const renderIconNode = (icon?: IconName | React.ReactNode) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Modal, Button } from '../../design-system';
+import { Container, Modal, Button, BrandBridgeLogo } from '../../design-system';
 
 export const LandingFooter: React.FC = () => {
   const [legalModalContent, setLegalModalContent] = useState<{
@@ -12,41 +12,29 @@ export const LandingFooter: React.FC = () => {
   };
 
   return (
-    <footer className="bg-slate-900 text-slate-400 py-12 md:py-16 text-left border-t border-slate-800">
+    <footer className="bg-[#17243A] text-slate-300 py-12 md:py-16 text-left border-t border-[#21324E]">
       <Container size="lg">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand Info */}
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-3">
-              <svg className="w-6 h-6 rounded-[4px]" viewBox="0 0 64 64" fill="none">
-                <rect width="64" height="64" rx="14" fill="#0284c7" />
-                <path
-                  d="M12 44 C24 24, 40 24, 52 44"
-                  stroke="#ffffff"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              </svg>
-              <span className="font-bold text-sm tracking-tight text-white">
-                BRAND BRIDGE
-              </span>
+            <div className="mb-3">
+              <BrandBridgeLogo size="sm" theme="light" subtitle="Creator Intelligence" />
             </div>
             <p className="text-xs text-slate-400 leading-relaxed mb-4">
               Intelligence-driven creator and brand partnership architecture with auditable matching
               and milestone tracking.
             </p>
-            <span className="text-[11px] font-mono text-slate-500">
+            <span className="text-[11px] font-mono text-slate-400">
               Release v0.1.0 · Phase 04 Verified
             </span>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3 font-['Manrope',sans-serif]">
               Platform
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs text-slate-300">
               <li>
                 <a href="#features" className="hover:text-white transition-colors">
                   Semantic Engine
@@ -72,10 +60,10 @@ export const LandingFooter: React.FC = () => {
 
           {/* Standards & Governance */}
           <div>
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3 font-['Manrope',sans-serif]">
               Methodology
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs text-slate-300">
               <li>
                 <a href="#trust" className="hover:text-white transition-colors">
                   Data Transparency
@@ -96,10 +84,10 @@ export const LandingFooter: React.FC = () => {
 
           {/* Legal / Unfinished Placeholders */}
           <div>
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3 font-['Manrope',sans-serif]">
               Legal &amp; Policy
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs text-slate-300">
               <li>
                 <button
                   type="button"
@@ -111,7 +99,7 @@ export const LandingFooter: React.FC = () => {
                   }
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Privacy Policy <span className="text-[10px] text-amber-400">[Draft]</span>
+                  Privacy Policy <span className="text-[10px] text-amber-400 font-semibold">[Draft]</span>
                 </button>
               </li>
               <li>
@@ -125,7 +113,7 @@ export const LandingFooter: React.FC = () => {
                   }
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Terms of Service <span className="text-[10px] text-amber-400">[Draft]</span>
+                  Terms of Service <span className="text-[10px] text-amber-400 font-semibold">[Draft]</span>
                 </button>
               </li>
               <li>
@@ -139,7 +127,7 @@ export const LandingFooter: React.FC = () => {
                   }
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Security Guidelines <span className="text-[10px] text-amber-400">[Draft]</span>
+                  Security Guidelines <span className="text-[10px] text-amber-400 font-semibold">[Draft]</span>
                 </button>
               </li>
             </ul>
@@ -147,9 +135,9 @@ export const LandingFooter: React.FC = () => {
         </div>
 
         {/* Bottom Strip */}
-        <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <div className="pt-6 border-t border-[#21324E] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
           <span>&copy; {new Date().getFullYear()} BRAND BRIDGE. All rights reserved.</span>
-          <span className="font-mono text-[11px]">
+          <span className="font-mono text-[11px] text-slate-400">
             No fabricated metrics · No unlicensed brand marks · Transparent data provenance
           </span>
         </div>
@@ -168,11 +156,11 @@ export const LandingFooter: React.FC = () => {
             </Button>
           }
         >
-          <div className="space-y-3 text-xs text-slate-700 leading-relaxed">
-            <p className="p-3 bg-amber-50 text-amber-900 border border-amber-200 rounded-[5px]">
+          <div className="space-y-3 text-xs text-[#17243A] leading-relaxed">
+            <p className="p-3 bg-[#FEF7EC] text-[#915F15] border border-[#F5D6A4] rounded-[8px]">
               <strong>Notice:</strong> {legalModalContent.description}
             </p>
-            <p>
+            <p className="text-[#697386]">
               In accordance with project transparency guidelines, this destination is explicitly
               marked as an unfinished draft. Full legal instruments and binding agreements will be
               finalized during Production Deployment &amp; Observability.
